@@ -1,19 +1,21 @@
-import request from '../utils/request'
+import { useInitialData } from 'hooks/use-initial-data'
 import './Home.css'
 
-const Home: SSRPage<{ data: any[] }> = (props) => {
+const Home: SSRPage<{ a: number; data: { a: number } }> = (props) => {
+  const data = useInitialData()
+
   return (
     <>
       <h1>Home</h1>
+      <p>{JSON.stringify(data)}</p>
     </>
   )
 }
 
 Home.loadData = async function (ctx) {
-  const result = await request.get('https://cnodejs.org/api/v1/topics')
-
   return {
-    data: result.data, // props.data
+    data: { a: 1 },
+    a: 1,
   }
 }
 

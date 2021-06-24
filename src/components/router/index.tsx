@@ -13,6 +13,8 @@ function ssrWrapper(
   },
 ) {
   function SSRPage(props: RouteConfig & { ssr: any }) {
+    // console.log(props)
+
     const exit = useRef(false)
     const ssr = props.ssr[props.match.path]
     const ssrData = ssr ? ssr.data : null
@@ -86,10 +88,14 @@ function ssrWrapper(
   return SSRPage
 }
 
+type TRouteConfig = Omit<RouteConfig, 'component' | 'routes'> & {
+  component?: React.ReactElement | SSRPage<any>
+  routes?: TRouteConfig[]
+}
 export default class Router {
-  private routes: RouteConfig[]
-  constructor({ routes }: RouteConfig) {
-    function loop(arr: NonNullable<RouteConfig['routes']>) {
+  private routes: TRouteConfig[]
+  constructor({ routes }: TRouteConfig) {
+    function loop(arr: TRouteConfig[]) {
       return arr.map((e) => {
         const route = {
           ...e,
@@ -112,8 +118,8 @@ export default class Router {
               />
             )
           }
-          // @ts-expect-error
-          route.component.loadData = e.component.loadData
+
+          route.component.loadData = (e.component as SSRPage).loadData
           route.exact = false
           route.routes = loop(e.routes)
         } else {
@@ -128,10 +134,10 @@ export default class Router {
   }
 
   view(props: any) {
-    return renderRoutes(this.routes, props)
+    return renderRoutes(this.routes as RouteConfig[], props)
   }
 
   match(url: string) {
-    return matchRoutes(this.routes, url)
+    return matchRoutes(this.routes as RouteConfig[], url)
   }
 }

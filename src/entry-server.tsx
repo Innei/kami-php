@@ -3,6 +3,10 @@ import { StaticRouter } from 'react-router-dom'
 import { App } from './App'
 import router from './router'
 import { SSRProvider } from './context'
+import dotenv from 'dotenv'
+import camelcaseKeys from 'camelcase-keys'
+import axios from 'axios'
+const env = dotenv.config().parsed || ({} as any)
 
 async function loadData(url, context) {
   const routes = router.match(url.replace(/\?.*$/, ''))
@@ -27,7 +31,11 @@ async function loadData(url, context) {
     }
   }
 
-  return dict
+  const apiUrl = env.APIURL
+  const $http = axios.create({ baseURL: apiUrl })
+  const { data } = await $http.get('aggregate')
+
+  return { ...dict, initialData: camelcaseKeys(data, { deep: true }) }
 }
 
 export async function render(url: string, context: any) {

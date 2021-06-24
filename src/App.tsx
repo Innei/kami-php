@@ -8,7 +8,9 @@ export function App() {
   return (
     <>
       <SSRConsumer>
-        {(ctx: any) => {
+        {(ctx) => {
+          // console.log(ctx)
+
           if (ctx.$ssrErrorMsg) {
             return <ErrorPage message={ctx.$ssrErrorMsg} />
           }
@@ -22,6 +24,9 @@ export function App() {
                 <ul>
                   <li>
                     <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/test">Test</Link>
                   </li>
                 </ul>
               </nav>

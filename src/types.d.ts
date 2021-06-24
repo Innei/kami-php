@@ -19,12 +19,13 @@ declare global {
       req: IncomingMessage
     }) => Promise<{ redirect?: string } & P>
   } & FC<
-    { data: P } & RouteComponentProps & {
-        ssr: KV
-        ssrCurrent: boolean
-        loaded: boolean
-      }
+    RouteComponentProps & {
+      ssr: KV
+      ssrCurrent: boolean
+    } & (({ loaded: true } & P) | { loaded: false })
   >
+
+  export type Unpacked<T> = T extends (infer U)[] ? U : T
 }
 
 export {}
