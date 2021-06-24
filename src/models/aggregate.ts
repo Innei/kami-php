@@ -1,4 +1,4 @@
-import { BaseRespModel } from './base'
+import { BaseModel } from './base'
 import { UserDto } from './user'
 import { CategoryModel } from './category'
 
@@ -75,7 +75,7 @@ export namespace RandomImage {
   }
 }
 
-export interface AggregateResp extends BaseRespModel {
+export interface AggregateModel extends BaseModel {
   user: UserDto
   seo: Seo
   categories: CategoryModel[]

@@ -1,4 +1,4 @@
-import { BaseRespModel, BaseModel } from './base'
+import { BaseModel, BaseModel } from './base'
 
 export interface ProjectModel extends BaseModel {
   name: string
@@ -10,6 +10,6 @@ export interface ProjectModel extends BaseModel {
   avatar?: string
   text: string
 }
-export interface ProjectRespModel extends BaseRespModel {
+export interface ProjectRespModel extends BaseModel {
   data: ProjectModel[]
 }

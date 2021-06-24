@@ -6,7 +6,7 @@
  * @FilePath: /web/models/note.ts
  * Mark: Coding with Love
  */
-import { BaseRespModel, BaseModel, ImageSizeRecord } from './base'
+import { BaseModel, ImageSizeRecord } from './base'
 export interface CountRecord {
   read: number
   like: number
@@ -32,12 +32,12 @@ export interface NoteMusicRecord {
   type: string
   id: string
 }
-export interface NoteLastestResp extends BaseRespModel {
+export interface NoteLastestResp extends BaseModel {
   data: NoteModel
   next: { id: string; nid: number }
 }
 
-export interface NoteResp extends BaseRespModel {
+export interface NoteResp extends BaseModel {
   data: NoteModel
   prev: Partial<NoteModel>
   next: Partial<NoteModel>

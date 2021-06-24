@@ -73,7 +73,7 @@ if (__DEV__ && isClientSide() && !window.api) {
 }
 
 interface IRequestHandler<T = AxiosRequestConfig> {
-  (id?: string): IRequestHandler
+  (id?: string | number): IRequestHandler
   // @ts-ignore
   get<P = unknown>(options?: T): Promise<P>
   // @ts-ignore

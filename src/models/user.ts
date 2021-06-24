@@ -1,6 +1,6 @@
-import { BaseRespModel } from './base'
+import { BaseModel } from './base'
 
-export interface UserDto extends BaseRespModel {
+export interface UserDto extends BaseModel {
   username: string
   mail: string
   name: string

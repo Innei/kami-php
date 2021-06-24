@@ -1,22 +1,26 @@
+import { LikeButton } from 'components/LikeButton'
+import { OverLay } from 'components/Overlay'
+import { Seo } from 'components/SEO'
 import { useInitialData } from 'hooks/use-initial-data'
+import { observer } from 'mobx-react-lite'
+import { uiStore } from 'store/ui.store'
 import './Home.css'
 
-const Home: SSRPage<{ a: number; data: { a: number } }> = (props) => {
-  const data = useInitialData()
+const Home: SSRPage<{}> = (props) => {
+  const { seo } = useInitialData()
 
   return (
     <>
       <h1>Home</h1>
-      <p>{JSON.stringify(data)}</p>
+
+      <Seo template={false} title={seo.title + ' · ' + seo.description}></Seo>
+      {uiStore.viewport.w}
     </>
   )
 }
 
 Home.loadData = async function (ctx) {
-  return {
-    data: { a: 1 },
-    a: 1,
-  }
+  return {}
 }
 
-export default Home
+export default observer(Home)

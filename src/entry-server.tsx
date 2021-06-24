@@ -6,6 +6,9 @@ import { SSRProvider } from './context'
 import dotenv from 'dotenv'
 import camelcaseKeys from 'camelcase-keys'
 import axios from 'axios'
+import { IncomingMessage } from 'http'
+import Package from '../package.json'
+
 const env = dotenv.config().parsed || ({} as any)
 
 async function loadData(url, context) {
@@ -42,6 +45,23 @@ export async function render(url: string, context: any) {
   let data: any = null
 
   try {
+    const req = context.req as IncomingMessage
+    if (req) {
+      let ip =
+        ((req.headers['x-forwarded-for'] ||
+          req.connection.remoteAddress ||
+          req.socket.remoteAddress) as string) || undefined
+      if (ip && ip.split(',').length > 0) {
+        ip = ip.split(',')[0]
+      }
+      axios.defaults.headers.common['x-forwarded-for'] = ip
+
+      axios.defaults.headers.common['User-Agent'] =
+        req.headers['user-agent'] +
+        ' kami-v2 SSR server' +
+        `/${Package.version}`
+    }
+
     data = await loadData(url, context)
   } catch (err: any) {
     data = { $ssrErrorMsg: __DEV__ ? err.stack : err.message }

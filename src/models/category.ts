@@ -1,4 +1,4 @@
-import { BaseRespModel } from './base'
+import { BaseModel } from './base'
 
 export interface CategoryModel {
   type: string
@@ -10,6 +10,6 @@ export interface CategoryModel {
   modified: string
 }
 
-export interface CategoriesResp extends BaseRespModel {
+export interface CategoriesResp extends BaseModel {
   data: CategoryModel[]
 }

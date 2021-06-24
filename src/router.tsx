@@ -1,4 +1,4 @@
-import Router from './components/router'
+import Router from './components/Router'
 import Home from './pages/Home'
 import Test from './pages/Test'
 import NotFound from './pages/NotFound'

@@ -7,10 +7,7 @@
  * @Coding with Love
  */
 
-export interface BaseRespModel {
-  ok: 0 | 1
-  timestamp: string
-}
+export interface BaseModel {}
 
 export interface PagerModel {
   page: {

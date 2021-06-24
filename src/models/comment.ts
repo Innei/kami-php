@@ -1,4 +1,4 @@
-import { BaseRespModel, PagerModel, BaseModel } from './base'
+import { BaseModel, PagerModel, BaseModel } from './base'
 
 export interface CommentModel extends BaseModel {
   id: string
@@ -16,6 +16,6 @@ export interface CommentModel extends BaseModel {
 
   parent?: string
 }
-export interface CommentPager extends BaseRespModel, PagerModel {
+export interface CommentPager extends BaseModel, PagerModel {
   data: CommentModel[]
 }

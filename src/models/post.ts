@@ -7,7 +7,7 @@
  * @Coding with Love
  */
 
-import { BaseRespModel, PagerModel, ImageSizeRecord } from './base'
+import { BaseModel, PagerModel, ImageSizeRecord } from './base'
 import { CategoryModel } from './category'
 
 export interface PostModel {
@@ -32,10 +32,10 @@ export interface PostModel {
   images: ImageSizeRecord[]
 }
 
-export interface PostPagerDto extends BaseRespModel, PagerModel {
+export interface PostPagerDto extends BaseModel, PagerModel {
   data: PostModel[]
 }
 
-export interface PostRespModel extends BaseRespModel {
+export interface PostRespModel extends BaseModel {
   data: PostModel
 }
