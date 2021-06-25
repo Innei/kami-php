@@ -245,7 +245,7 @@
   left: -50%;
   top: 4rem;
   z-index: 19;
-  position: absolute;
+  position: absolute !important;
   transform: perspective(600px) rotateX(-20deg);
   opacity: 0;
   transition: transform 0.3s, opacity 0.3s, visibility 0.3s;

@@ -7,13 +7,12 @@
  * @MIT
  */
 
-import { message } from 'utils/message'
 import axios, { AxiosError } from 'axios'
+import { message } from 'utils/message'
 import { getToken } from './cookie'
 import { isClientSide, isServerSide } from './utils'
-import camelcaseKeys from 'camelcase-keys'
 const service = axios.create({
-  baseURL: (import.meta.env.APIURL as string) || '/api',
+  baseURL: (import.meta.env.VITE_API_URL as string) || '/api',
   // withCredentials: true,
   timeout: 10000,
 })

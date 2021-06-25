@@ -4,7 +4,10 @@ import { throttle } from 'lodash'
 import { AggregateModel } from 'models/aggregate'
 import { FC, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet'
+import { appStore, categoryStore } from 'store'
+import { PageModel } from 'store/store.types'
 import { uiStore } from 'store/ui.store'
+import { userStore } from 'store/user.store'
 import './App.css'
 import { Loader } from './components/Loader'
 import { SSRConsumer } from './context'
@@ -16,7 +19,7 @@ export function App() {
       <SSRConsumer>
         {(ctx) => {
           if (ctx.$ssrErrorMsg) {
-            return <ErrorPage message={ctx.$ssrErrorMsg} />
+            return <ErrorPage message={ctx.$ssrErrorMsg} status={ctx.status!} />
           }
           const initialData = ctx.initialData as AggregateModel
           const seo = initialData.seo
@@ -40,9 +43,19 @@ export function App() {
 }
 
 const MyCustomApp: FC = ({ children }) => {
-  const {} = useInitialData()
+  const data = useInitialData()
   const _currentY = useRef(0)
+  // store
+
   useEffect(() => {
+    appStore.setPage(data.pageMeta as PageModel[])
+    categoryStore.setCategory(data.categories)
+    userStore.setUser(data.user)
+  }, [])
+
+  useEffect(() => {
+    window.data = data
+
     const resizeHandler = throttle(() => {
       uiStore.updateViewport()
     }, 300)
@@ -112,7 +125,7 @@ const MyCustomApp: FC = ({ children }) => {
       <Header />
       {children}
 
-      {/* <Loader /> */}
+      <Loader />
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { useRouter } from 'hooks/use-router'
 import { useEffect, useRef, useState } from 'react'
 import {
   matchRoutes,
@@ -13,8 +14,6 @@ function ssrWrapper(
   },
 ) {
   function SSRPage(props: RouteConfig & { ssr: any }) {
-    // console.log(props)
-
     const exit = useRef(false)
     const ssr = props.ssr[props.match.path]
     const ssrData = ssr ? ssr.data : null
@@ -24,7 +23,7 @@ function ssrWrapper(
       ssrCurrent: props.ssr.hasOwnProperty(props.match.path) && ssr.url === url,
     }
     data.loaded = data.ssrCurrent
-
+    const firstRender = useRef(data.ssrCurrent)
     const [injectData, setInjectData] = useState(data)
 
     const frontendLoadData = () => {
@@ -44,7 +43,7 @@ function ssrWrapper(
               props.history.push(result.redirect)
             }
           } else {
-            const newData = { ...injectData, ...result }
+            const newData = { ...result }
             newData.loaded = true
 
             // 避免 unmounted 还设置
@@ -58,12 +57,20 @@ function ssrWrapper(
         })
     }
 
+    const { pathname } = useRouter()
     useEffect(() => {
+      console.log(data.ssrCurrent)
+
       // 切换路由，如果服务端渲染的不是当前路由时渲染
       if (!data.ssrCurrent && Component.loadData) {
         frontendLoadData()
+        firstRender.current = false
+      } else if (!firstRender.current && Component.loadData) {
+        frontendLoadData()
       }
+    }, [pathname])
 
+    useEffect(() => {
       return () => {
         exit.current = true
       }
@@ -88,14 +95,22 @@ function ssrWrapper(
   return SSRPage
 }
 
-type TRouteConfig = Omit<RouteConfig, 'component' | 'routes'> & {
+export interface IRouteConfig {
+  key?: React.Key
+  location?: Location
   component?: React.ReactElement | SSRPage<any>
-  routes?: TRouteConfig[]
+  routes?: IRouteConfig[]
+  path?: string | string[]
+  exact?: boolean
+  strict?: boolean
+  render?: (props: RouteConfigComponentProps<any>) => React.ReactNode
+  label?: string
 }
+
 export default class Router {
-  private routes: TRouteConfig[]
-  constructor({ routes }: TRouteConfig) {
-    function loop(arr: TRouteConfig[]) {
+  private routes: IRouteConfig[]
+  constructor({ routes }: IRouteConfig) {
+    function loop(arr: IRouteConfig[]) {
       return arr.map((e) => {
         const route = {
           ...e,

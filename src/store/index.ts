@@ -6,6 +6,7 @@ import { configure } from 'mobx'
 import { uiStore } from './ui.store'
 import { appStore } from './app.store'
 import { userStore } from './user.store'
+import { categoryStore } from './category.store'
 
 configure({
   useProxies: 'always',
@@ -18,6 +19,7 @@ export const stores = {
   ui: uiStore,
   app: appStore,
   user: userStore,
+  category: categoryStore,
 }
 if (__DEV__ && isClientSide()) {
   window.store = stores
@@ -27,4 +29,4 @@ export const StoreContext = createContext(stores)
 
 export const useStore = () => useContext(StoreContext)
 
-export { uiStore, appStore }
+export { uiStore, appStore, categoryStore }

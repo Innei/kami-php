@@ -116,7 +116,7 @@ async function handleRender(req, res, { template, dev, vite, dist }) {
     dev && vite.ssrFixStacktrace(err)
     res.statusCode = 500
     if (dev) {
-      console.error(err.message)
+      console.error(err)
       res.end(
         `
         <style>
@@ -148,7 +148,7 @@ async function handleRender(req, res, { template, dev, vite, dist }) {
         </p>
         <pre>
         ${err.frame
-          .split('\n')
+          ?.split('\n')
           .map((line) => `<code>${line}</code>`)
           .join('')}
         </pre>
@@ -158,7 +158,7 @@ async function handleRender(req, res, { template, dev, vite, dist }) {
         <p>Output: </p>
         <pre>
         ${err.pluginCode
-          .split('\n')
+          ?.split('\n')
           .map((line) => `<code>${line}</code>`)
           .join('')}
         </pre>

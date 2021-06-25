@@ -8,6 +8,7 @@ import camelcaseKeys from 'camelcase-keys'
 import axios from 'axios'
 import { IncomingMessage } from 'http'
 import Package from '../package.json'
+import { RESTManager } from 'utils'
 
 const env = dotenv.config().parsed || ({} as any)
 
@@ -24,21 +25,42 @@ async function loadData(url, context) {
       : null
   })
 
-  const arr = await Promise.all(promises)
-  const dict = {} as Record<string, { url: string; data: any }>
+  try {
+    const arr = await Promise.all(promises)
+    const dict = {} as Record<string, { url: string; data: any }>
 
-  for (const i in arr) {
-    dict[paths[i]] = {
-      url: url,
-      data: arr[i],
+    for (const i in arr) {
+      dict[paths[i]] = {
+        url: url,
+        data: arr[i],
+      }
+    }
+
+    const data = (await RESTManager.api.aggregate.get()) as any
+
+    // const VITE_API_URL = env.VITE_API_URL
+    // const $http = axios.create({ baseURL: VITE_API_URL })
+    // const { data } = await $http.get('aggregate')
+
+    return { ...dict, initialData: camelcaseKeys(data, { deep: true }) }
+  } catch (e) {
+    if (e.response) {
+      const message = e.response?.data.message
+      return {
+        message: Array.isArray(message) ? message[0] : message,
+        status: e.response.statusCode || e.statusCode,
+        code: e.code,
+        error: true,
+      }
+    }
+    return {
+      message: Array.isArray(e.data?.message)
+        ? e.data?.message[0]
+        : e.data?.message,
+      error: true,
+      status: e.statusCode || 500,
     }
   }
-
-  const apiUrl = env.APIURL
-  const $http = axios.create({ baseURL: apiUrl })
-  const { data } = await $http.get('aggregate')
-
-  return { ...dict, initialData: camelcaseKeys(data, { deep: true }) }
 }
 
 export async function render(url: string, context: any) {
@@ -67,9 +89,13 @@ export async function render(url: string, context: any) {
     data = { $ssrErrorMsg: __DEV__ ? err.stack : err.message }
   }
 
-  for (const i in data) {
-    if (data[i].data && data[i].data.redirect) {
-      return { redirect: data[i].data.redirect }
+  if (data.error) {
+    data = { ...data, $ssrErrorMsg: data.message }
+  } else {
+    for (const i in data) {
+      if (data[i].data && data[i].data.redirect) {
+        return { redirect: data[i].data.redirect }
+      }
     }
   }
 
