@@ -27,7 +27,7 @@ service.interceptors.request.use(
     return config
   },
   (error) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log(error.message)
     }
 

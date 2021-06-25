@@ -19,7 +19,7 @@ export const isServerSide = () => {
   return !isClientSide()
 }
 
-export const isDev = process.env.NODE_ENV === 'development'
+export const isDev = import.meta.env.DEV
 
 export function getSummaryFromMd(text: string): string
 export function getSummaryFromMd(

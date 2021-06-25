@@ -7,7 +7,7 @@
  * @Coding with Love
  */
 
-export const GA_TRACKING_ID = process.env.TRACKING_ID
+export const GA_TRACKING_ID = import.meta.env.VITE_TRACKING_ID
 
 declare const window: any
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages

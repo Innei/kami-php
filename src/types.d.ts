@@ -1,4 +1,4 @@
-import $React, { FC } from 'react'
+import $ { FC } from 'react'
 import { IncomingMessage } from 'http'
 import { RouteComponentProps } from 'react-router'
 declare global {

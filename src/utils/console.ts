@@ -15,7 +15,7 @@ import {
 } from '@innei/devtools-detector'
 import Package from '../../package.json'
 import { isDev } from './utils'
-const version = process.env.VERSION || `v${Package.version}` || ''
+const version = import.meta.env.VERSION || `v${Package.version}` || ''
 
 // for debug
 const devTest = false

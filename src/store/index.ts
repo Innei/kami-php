@@ -28,5 +28,3 @@ if (__DEV__ && isClientSide()) {
 export const StoreContext = createContext(stores)
 
 export const useStore = () => useContext(StoreContext)
-
-export { uiStore, appStore, categoryStore }

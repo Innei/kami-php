@@ -8,7 +8,7 @@
  */
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { UrlObject } from 'url'
-import { PageDescriptionDto } from 'models/page'
+import { PageModel } from 'models/page'
 
 export declare enum LayoutType {
   Post,
@@ -38,7 +38,7 @@ export interface SocialLinkModel {
   color?: string
 }
 
-export interface PageModel extends PageDescriptionDto {}
+export { PageModel }
 export interface ViewportRecord {
   w: number
   h: number

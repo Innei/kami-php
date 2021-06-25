@@ -1,14 +1,25 @@
+import { ArticleLayout } from 'layouts/ArticleLayout'
 import { PageModel } from 'store/store.types'
 import { RESTManager } from 'utils'
-
-export const PageView: SSRPage<{ data: PageModel }> = (props) => {
+import { observer } from 'utils/mobx'
+import { Markdown } from 'components/Markdown'
+export const PageView: SSRPage<{ data: PageModel }> = observer((props) => {
   if (!props.loaded) {
     return null
   }
-  console.log(props.data)
 
-  return <>{JSON.stringify(props.data)}</>
-}
+  const { text, id, title, subtitle } = props.data
+  return (
+    <ArticleLayout
+      title={title}
+      subtitle={subtitle}
+      id={props.data.id}
+      type="page"
+    >
+      <Markdown value={text} escapeHtml={false} toc />
+    </ArticleLayout>
+  )
+})
 
 PageView.loadData = async (ctx) => {
   const page = ctx.params?.page as string

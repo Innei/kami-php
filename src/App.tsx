@@ -4,7 +4,8 @@ import { throttle } from 'lodash'
 import { AggregateModel } from 'models/aggregate'
 import { FC, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet'
-import { appStore, categoryStore } from 'store'
+import { appStore } from 'store/app.store'
+import { categoryStore } from 'store/category.store'
 import { PageModel } from 'store/store.types'
 import { uiStore } from 'store/ui.store'
 import { userStore } from 'store/user.store'
@@ -13,6 +14,7 @@ import { Loader } from './components/Loader'
 import { SSRConsumer } from './context'
 import ErrorPage from './pages/Error'
 import router from './router'
+
 export function App() {
   return (
     <>
@@ -54,7 +56,11 @@ const MyCustomApp: FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    window.data = data
+    if (__DEV__) {
+      window.data = data
+    }
+
+    window.process = { cwd() {} }
 
     const resizeHandler = throttle(() => {
       uiStore.updateViewport()
