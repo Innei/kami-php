@@ -2,7 +2,6 @@ import { useInitialData } from 'hooks/use-initial-data'
 import { merge } from 'lodash'
 import { FC } from 'react'
 import { Helmet } from 'react-helmet'
-import { getRandomImage } from 'utils'
 
 export interface SeoProps {
   title: string
@@ -45,7 +44,7 @@ export const Seo: FC<SeoProps> = (props) => {
           },
           {
             property: 'og:image',
-            content: props.image ?? getRandomImage()[0],
+            content: props.image,
           },
           {
             name: `twitter:card`,

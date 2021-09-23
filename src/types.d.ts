@@ -1,5 +1,5 @@
-import $ { FC } from 'react'
 import { IncomingMessage } from 'http'
+import { FC } from 'react'
 import { RouteComponentProps } from 'react-router'
 declare global {
   export interface Window {

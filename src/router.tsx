@@ -1,5 +1,4 @@
 import { PageView } from 'pages/[page]'
-import { RouteConfig } from 'react-router-config'
 import Router from './components/Router'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'

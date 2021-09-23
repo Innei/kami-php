@@ -1,8 +1,9 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { isPlainObject } from 'lodash'
-import { request } from './request'
 import camelcaseKeys from 'camelcase-keys'
-import { isClientSide } from './utils'
+import { isPlainObject } from 'lodash'
+import { isClientSide } from './env'
+import { request } from './request'
+
 class RESTManagerStatic {
   private $instance!: AxiosInstance
   constructor() {
@@ -63,8 +64,7 @@ function buildRoute(manager: RESTManagerStatic): IRequestHandler {
 
 export const RESTManager = new RESTManagerStatic()
 
-// @ts-ignore
-if (__DEV__ && isClientSide() && !window.api) {
+if (__DEV__ && isClientSide && !window.api) {
   Object.defineProperty(window, 'api', {
     get() {
       return RESTManager.api

@@ -1,9 +1,4 @@
-export * from './utils'
-export * from './request'
-export * from './api'
-export * from './cookie'
-export * from './color'
-export * from './danmaku'
-export * from './observable'
-export * from './time'
-export * from './images'
+export function queryStringToObject(query: any) {
+  // @ts-expect-error
+  return Object.fromEntries(new URLSearchParams(query)!)
+}
