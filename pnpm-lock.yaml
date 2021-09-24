@@ -29,6 +29,7 @@ specifiers:
   react-router-dom: ^5.2.0
   rollup-plugin-visualizer: 5.5.0
   serve-static: ^1.14.1
+  simple-markdown: ^0.7.3
   tailwindcss: 2.2.4
   vite: ^2.3.8
   vite-tsconfig-paths: 3.3.13
@@ -48,6 +49,7 @@ dependencies:
   react-router-config: 5.1.1_react-router@5.2.0+react@17.0.2
   react-router-dom: 5.2.0_react@17.0.2
   serve-static: 1.14.1
+  simple-markdown: 0.7.3
 
 devDependencies:
   '@innei-util/eslint-config-react-ts': 0.1.2_eslint@7.32.0
@@ -473,7 +475,6 @@ packages:
 
   /@types/prop-types/15.7.3:
     resolution: {integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==}
-    dev: true
 
   /@types/react-dom/17.0.8:
     resolution: {integrity: sha512-0ohAiJAx1DAUEcY9UopnfwCE9sSMDGnY/oXjWMax6g3RpzmTt2GMyMVAXcbn0mo8XAff0SbQJl2/SBU+hjSZ1A==}
@@ -510,11 +511,9 @@ packages:
       '@types/prop-types': 15.7.3
       '@types/scheduler': 0.16.1
       csstype: 3.0.8
-    dev: true
 
   /@types/scheduler/0.16.1:
     resolution: {integrity: sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==}
-    dev: true
 
   /@typescript-eslint/eslint-plugin/4.31.2_a853efdfb98c8fb48addb65e4b5e491b:
     resolution: {integrity: sha512-w63SCQ4bIwWN/+3FxzpnWrDjQRXVEGiTt9tJTRptRXeFvdZc/wLiz3FQUwNQ2CVoRGI6KUWMNUj/pk63noUfcA==}
@@ -1024,7 +1023,6 @@ packages:
 
   /csstype/3.0.8:
     resolution: {integrity: sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==}
-    dev: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -2715,6 +2713,12 @@ packages:
       get-intrinsic: 1.1.1
       object-inspect: 1.11.0
     dev: true
+
+  /simple-markdown/0.7.3:
+    resolution: {integrity: sha512-uGXIc13NGpqfPeFJIt/7SHHxd6HekEJYtsdoCM06mEBPL9fQH/pSD7LRM6PZ7CKchpSvxKL4tvwMamqAaNDAyg==}
+    dependencies:
+      '@types/react': 17.0.11
+    dev: false
 
   /simple-swizzle/0.2.2:
     resolution: {integrity: sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=}

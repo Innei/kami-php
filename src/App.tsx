@@ -34,9 +34,12 @@ export function App() {
                   <li>
                     <Link to="/posts">Posts</Link>
                   </li>
+                  <li>
+                    <Link to="/notes">Notes</Link>
+                  </li>
                 </ul>
               </nav>
-              <div className="text-center">{router.view({ ssr: ctx })}</div>
+              <div className="">{router.view({ ssr: ctx })}</div>
             </>
           )
         }}

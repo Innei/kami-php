@@ -41,9 +41,10 @@ async function loadData(url, context) {
   } catch (e: any) {
     if (e.response) {
       const message = e.response?.data.message
+
       return {
         message: Array.isArray(message) ? message[0] : message,
-        status: e.response.statusCode || e.statusCode,
+        status: e.response.status || 500,
         code: e.code,
         error: true,
       }
@@ -82,7 +83,10 @@ export async function render(url: string, context: any) {
 
     data = await loadData(url, context)
   } catch (err: any) {
-    data = { $ssrErrorMsg: __DEV__ ? err.stack : err.message }
+    data = {
+      $ssrErrorMsg: __DEV__ ? err.stack : err.message,
+      status: err.status || err.code || err.statusCode || 500,
+    }
   }
 
   if (data.error) {

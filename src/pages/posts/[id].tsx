@@ -1,3 +1,4 @@
+import { Markdown } from 'components/markdown'
 import { PostModel } from 'models/post'
 import { proxy } from 'utils/rest'
 
@@ -6,7 +7,12 @@ export const PostPage: SSRPage<{ data: PostModel }> = (props) => {
     return <>Loading...</>
   }
 
-  return <>{JSON.stringify(props.data, null, 2)}</>
+  return (
+    <article>
+      <h1>{props.data.title}</h1>
+      <Markdown text={props.data.text} />
+    </article>
+  )
 }
 
 PostPage.loadData = async (ctx) => {

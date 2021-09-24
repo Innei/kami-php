@@ -1,7 +1,7 @@
 {
-  "name": "test-ssr-react",
+  "name": "pure",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "node server",
     "build": "yarn build:client && yarn build:server",
@@ -25,7 +25,8 @@
     "react-router": "^5.2.0",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
-    "serve-static": "^1.14.1"
+    "serve-static": "^1.14.1",
+    "simple-markdown": "^0.7.3"
   },
   "devDependencies": {
     "@innei-util/eslint-config-react-ts": "^0.1.2",
