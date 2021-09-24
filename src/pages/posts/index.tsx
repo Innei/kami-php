@@ -2,6 +2,7 @@ import { useRouter } from 'hooks/use-router'
 import { PaginationModel } from 'models/base'
 import { PostModel } from 'models/post'
 import { FC, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { proxy } from 'utils/rest'
 
 const PostListPage: FC = () => {
@@ -26,7 +27,9 @@ const PostListPage: FC = () => {
   return (
     <div>
       {posts.map((post) => (
-        <div key={post.id}>{post.title}</div>
+        <div key={post.id}>
+          <Link to={`/posts/${post.id}`}>{post.title}</Link>
+        </div>
       ))}
     </div>
   )
