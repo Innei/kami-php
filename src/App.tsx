@@ -1,7 +1,5 @@
-import { Header } from 'components/Header'
-import { useInitialData } from 'hooks/use-initial-data'
-import { AggregateModel } from 'models/aggregate'
-import { FC, useEffect, useRef } from 'react'
+import { Seo } from 'components/SEO'
+import { Link } from 'react-router-dom'
 import './App.css'
 import { SSRConsumer } from './context'
 import ErrorPage from './pages/Error'
@@ -15,42 +13,34 @@ export function App() {
           if (ctx.$ssrErrorMsg) {
             return <ErrorPage message={ctx.$ssrErrorMsg} status={ctx.status!} />
           }
-          const initialData = ctx.initialData as AggregateModel
 
           return (
             <>
-              {/* <Helmet
-                title={seo.title + ' · ' + seo.description}
-                meta={[
-                  { name: 'description', content: seo.description },
-                  { name: 'keywords', content: seo.keywords.join(',') },
-                  { name: 'og:site_name', content: seo.title },
-                ]}
-              ></Helmet> */}
-              <MyCustomApp>{router.view({ ssr: ctx })}</MyCustomApp>
+              <Seo
+                title="Vite React SSR"
+                description={'React SSR base on Vite'}
+              ></Seo>
+              <h1 className="text-center text-4xl my-[40px]">
+                React SSR base on Vite
+              </h1>
+              <nav className="main-nav text-center">
+                <ul>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/about">About</Link>
+                  </li>
+                  <li>
+                    <Link to="/posts">Posts</Link>
+                  </li>
+                </ul>
+              </nav>
+              <div className="text-center">{router.view({ ssr: ctx })}</div>
             </>
           )
         }}
       </SSRConsumer>
-    </>
-  )
-}
-
-const MyCustomApp: FC = ({ children }) => {
-  const data = useInitialData()
-  const _currentY = useRef(0)
-  // store
-
-  useEffect(() => {
-    if (__DEV__) {
-      window.data = data
-    }
-  }, [])
-
-  return (
-    <>
-      <Header />
-      {children}
     </>
   )
 }

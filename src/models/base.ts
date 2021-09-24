@@ -1,23 +1,10 @@
-/*
- * @Author: Innei
- * @Date: 2020-04-14 16:28:20
- * @LastEditTime: 2020-06-14 20:24:23
- * @LastEditors: Innei
- * @FilePath: /mx-web/models/base.ts
- * @Coding with Love
- */
-
-export interface BaseModel {}
-
-export interface PagerModel {
-  page: {
-    total: number
-    size: number
-    currentPage: number
-    totalPage: number
-    hasPrevPage: boolean
-    hasNextPage: boolean
-  }
+export interface PaginationModel {
+  total: number
+  size: number
+  currentPage: number
+  totalPage: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
 }
 
 export interface BaseModel {
@@ -45,3 +32,5 @@ export type ImageMap = Map<
     accent?: string
   }
 >
+
+export type ResponseWrapper<T> = { data: T }

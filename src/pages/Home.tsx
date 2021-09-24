@@ -1,20 +1,28 @@
-import { observer } from 'mobx-react-lite'
+import { useInitialData } from 'hooks/use-initial-data'
+import { $http } from 'utils/request'
 import './Home.css'
 
-const Home: SSRPage<{}> = (props) => {
-  // const { seo } = useInitialData()
-
+const Home: SSRPage<any> = (props) => {
+  if (!props.loaded) {
+    return <span>Loading Data...</span>
+  }
+  const { data } = useInitialData()
   return (
     <>
       <h1>Home</h1>
-
-      {/* <Seo template={false} title={seo.title + ' · ' + seo.description}></Seo> */}
+      <p>initialData: {JSON.stringify(data, null, 2)}</p>
+      <pre>{JSON.stringify(props.data, null, 2)}</pre>
     </>
   )
 }
 
 Home.loadData = async function (ctx) {
-  return {}
+  const data = await $http.get('/aggregate/top')
+  console.log(data)
+
+  return {
+    data,
+  }
 }
 
-export default observer(Home)
+export default Home

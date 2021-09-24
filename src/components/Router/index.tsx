@@ -1,5 +1,5 @@
-import { useRouter } from 'hooks/use-router'
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router'
 import {
   matchRoutes,
   renderRoutes,
@@ -57,7 +57,7 @@ function ssrWrapper(
         })
     }
 
-    const { pathname } = useRouter()
+    const { pathname } = useLocation()
     useEffect(() => {
       // 切换路由，如果服务端渲染的不是当前路由时渲染
       if (!data.ssrCurrent && Component.loadData) {

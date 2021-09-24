@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 
 export const SSRContext = createContext<{
+  // TODO
   initialData: any
   url: Record<string, Record<'data', any>>
   $ssrErrorMsg?: string

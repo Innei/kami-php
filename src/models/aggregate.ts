@@ -1,6 +1,5 @@
-import { BaseModel } from './base'
-import { UserDto } from './user'
 import { CategoryModel } from './category'
+import { UserModel } from './user'
 
 export namespace Top {
   export interface Note {
@@ -75,8 +74,8 @@ export namespace RandomImage {
   }
 }
 
-export interface AggregateModel extends BaseModel {
-  user: UserDto
+export interface AggregateModel {
+  user: UserModel
   seo: Seo
   categories: CategoryModel[]
   pageMeta: PageMeta[]

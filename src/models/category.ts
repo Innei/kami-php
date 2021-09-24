@@ -1,5 +1,3 @@
-import { BaseModel } from './base'
-
 export interface CategoryModel {
   type: string
   count: number
@@ -8,8 +6,4 @@ export interface CategoryModel {
   slug: string
   name: string
   modified: string
-}
-
-export interface CategoriesResp extends BaseModel {
-  data: CategoryModel[]
 }

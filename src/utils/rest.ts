@@ -1,17 +1,14 @@
-import { AxiosInstance, AxiosRequestConfig } from 'axios'
-import camelcaseKeys from 'camelcase-keys'
-import { isPlainObject } from 'lodash'
-import { isClientSide } from './env'
-import { request } from './request'
+import { AxiosRequestConfig } from 'axios'
+import { isClientSide } from 'utils'
+import { $http } from './request'
 
-class RESTManagerStatic {
-  private $instance!: AxiosInstance
-  constructor() {
-    this.$instance = request
-  }
-
-  request(method: Method, route: string, options: AxiosRequestConfig) {
-    return this.$instance[method](route, options)
+class HttpProxyStatic {
+  request(
+    method: RequestMethod,
+    route: string,
+    options?: AxiosRequestConfig | undefined,
+  ) {
+    return $http[method](route, options)
   }
 
   get api() {
@@ -31,10 +28,10 @@ const reflectors = [
   Symbol.for('util.inspect.custom'),
 ]
 
-function buildRoute(manager: RESTManagerStatic): IRequestHandler {
+function buildRoute(manager: HttpProxyStatic): IRequestHandler {
   const route = ['']
   const handler: any = {
-    get(target: any, name: Method) {
+    get(target: any, name: RequestMethod) {
       if (reflectors.includes(name)) return () => route.join('/')
       if (methods.includes(name)) {
         return async (options: AxiosRequestConfig) => {
@@ -42,11 +39,7 @@ function buildRoute(manager: RESTManagerStatic): IRequestHandler {
             ...options,
           })
 
-          const data = res.data as any
-
-          return Array.isArray(data) || isPlainObject(data)
-            ? camelcaseKeys(data, { deep: true })
-            : data
+          return res
         }
       }
       route.push(name)
@@ -54,7 +47,7 @@ function buildRoute(manager: RESTManagerStatic): IRequestHandler {
     },
     // @ts-ignore
     apply(target: any, _, args) {
-      route.push(...args.filter((x: string) => x != null)) // eslint-disable-line eqeqeq
+      route.push(...args.filter((x: string) => x != null))
       return new Proxy(noop, handler)
     },
   }
@@ -62,18 +55,21 @@ function buildRoute(manager: RESTManagerStatic): IRequestHandler {
   return new Proxy(noop, handler)
 }
 
-export const RESTManager = new RESTManagerStatic()
+export const proxy = new HttpProxyStatic()
 
+// @ts-ignore
 if (__DEV__ && isClientSide && !window.api) {
   Object.defineProperty(window, 'api', {
     get() {
-      return RESTManager.api
+      return proxy.api
     },
   })
 }
 
+export type RequestMethod = 'get' | 'delete' | 'post' | 'put' | 'patch'
+
 interface IRequestHandler<T = AxiosRequestConfig> {
-  (id?: string | number): IRequestHandler
+  (id?: string): IRequestHandler
   // @ts-ignore
   get<P = unknown>(options?: T): Promise<P>
   // @ts-ignore
@@ -86,6 +82,3 @@ interface IRequestHandler<T = AxiosRequestConfig> {
   put<P = unknown>(options?: T): Promise<P>
   [key: string]: IRequestHandler
 }
-export type Method = 'get' | 'delete' | 'post' | 'put' | 'patch'
-
-export {}

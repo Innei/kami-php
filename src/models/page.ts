@@ -1,8 +1,4 @@
-import { BaseModel, ImageSizeRecord } from './base'
-
-export interface PageRespDto extends BaseModel {
-  data: PageModel
-}
+import { ImageSizeRecord } from './base'
 
 export interface PageModel {
   commentsIndex: number
@@ -19,6 +15,12 @@ export interface PageModel {
   images: ImageSizeRecord[]
 }
 
-export interface PagesPagerRespDto extends BaseModel {
-  data: PageModel[]
+export interface PageDescriptionDto {
+  commentsIndex: number
+  order: number
+  id: string
+  created: string
+  modified: string
+  title: string
+  slug: string
 }

@@ -1,22 +1,23 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
+import camelcaseKeys from 'camelcase-keys'
+import { getToken } from './cookie'
 
-const service = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL as string) || '/api',
-  // withCredentials: true,
+const instance = axios.create({
+  baseURL: (import.meta.env.VITE_APP_API_URL as any) || '/api',
   timeout: 10000,
 })
 
-service.interceptors.request.use(
+instance.interceptors.request.use(
   (config) => {
-    // const token = getToken()
-    // if (token) {
-    //   config.headers['Authorization'] = 'bearer ' + getToken()
-    // }
+    const token = getToken()
+    if (token) {
+      config.headers['Authorization'] = 'bearer ' + getToken()
+    }
 
     return config
   },
   (error) => {
-    if (import.meta.env.DEV) {
+    if (__DEV__) {
       console.log(error.message)
     }
 
@@ -24,13 +25,10 @@ service.interceptors.request.use(
   },
 )
 
-service.interceptors.response.use(
-  (response) => {
-    return response
-  },
-  (error: AxiosError<Record<string, any> | undefined>) => {
-    return error
-  },
-)
+instance.interceptors.response.use((response) => {
+  const res = camelcaseKeys(response.data, { deep: true })
 
-export { service as request }
+  return res
+})
+
+export { instance as $http }

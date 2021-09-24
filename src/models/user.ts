@@ -1,6 +1,4 @@
-import { BaseModel } from './base'
-
-export interface UserDto extends BaseModel {
+export interface UserModel {
   username: string
   mail: string
   name: string

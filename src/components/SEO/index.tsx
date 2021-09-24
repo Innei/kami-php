@@ -16,27 +16,29 @@ export interface SeoProps {
     | undefined
 }
 export const Seo: FC<SeoProps> = (props) => {
-  const { seo, user } = useInitialData()
+  const {
+    data: { username },
+  } = useInitialData()
   const { title, description, meta, template = true } = props
 
   return (
     <Helmet
       htmlAttributes={{ lang: 'zh-cn' }}
       title={title}
-      titleTemplate={template ? `%s - ${seo.title}` : '%s'}
+      titleTemplate={template ? `%s - ${'demo'}` : '%s'}
       meta={merge(
         [
           {
             name: `description`,
-            content: description || seo.description,
+            content: description,
           },
           {
             property: `og:title`,
-            content: template ? title + ' - ' + seo.title : title,
+            content: template ? title + ' - ' + 'demo' : title,
           },
           {
             property: `og:description`,
-            content: description || seo.description,
+            content: description,
           },
           {
             property: `og:type`,
@@ -52,7 +54,7 @@ export const Seo: FC<SeoProps> = (props) => {
           },
           {
             name: `twitter:creator`,
-            content: user.name,
+            content: username,
           },
           {
             name: `twitter:title`,
@@ -60,7 +62,7 @@ export const Seo: FC<SeoProps> = (props) => {
           },
           {
             name: `twitter:description`,
-            content: description || seo.description,
+            content: description,
           },
         ],
         meta,

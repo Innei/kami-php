@@ -1,4 +1,3 @@
-// @ts-check
 const http = require('http')
 const path = require('path')
 const createViteHandle = require('./vite-handle')

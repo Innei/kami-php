@@ -3,200 +3,30 @@
 @tailwind utilities;
 @tailwind variants;
 
-:root {
-  --code-bg: transparent;
-  --black: #000;
-  --gray: #bbb;
-  --bg-opacity: rgba(255, 255, 255, 0.5);
-  --red: #ff6347;
-  --yellow: #ffc107;
-  --blue: #6495ed;
-  --green: #39c5bb;
-  --brown: #795548;
-  --light-brown: #67492e;
-  --purple: #8a2be2;
-  --light-bg: #fff;
-  --light-font: #fff;
-  --shallow: #eee;
-
-  --shizuku-background-color: #fff;
-  --shizuku-text-color: #333;
-  --shizuku-theme-color: #2bd;
-
-  font: 14px/1.15 Arial, Helvetica, noto sans sc, pingfang sc, hiragino sans gb,
-    microsoft yahei, 'sans-serif';
-}
 body {
-  padding-top: 4em;
-  background: url(https://gitee.com/xun7788/my-imagination/raw/master/cdn/background.png)
-    top center fixed;
-  background-color: var(--light-bg);
-}
-@supports not (backdrop-filter: blur(1px)) {
-  :root {
-    --bg-opacity: #fff;
-  }
-}
-
-html {
+  font-family: 'helvetica neue', arial, sans-serif;
   font-size: 14px;
-  overflow: overlay;
-  scroll-behavior: unset;
-  font-variant-numeric: tabular-nums;
-  font-display: swap;
-}
-html.dark {
-  --black: #fff;
-  --shizuku-background-color: #21212;
-  --shizuku-text-color: #858585;
-  --shizuku-theme-color: #3c946c;
-  --gray: #666;
-  --bg-opacity: rgba(17, 17, 17, 0.5);
-
-  @supports not (backdrop-filter: blur(1px)) {
-    & {
-      --bg-opacity: rgba(17, 17, 17, 0.98);
-    }
-  }
-
-  blockquote {
-    background: var(--shizuku-background-color);
-    border-left: 5px solid var(--shizuku-theme-color);
-  }
-  article {
-    color: var(--shizuku-text-color);
-  }
-}
-::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb:hover {
-  background-color: #ffc107;
-  background-clip: padding-box;
-  border: 3px solid transparent;
-  border-radius: 5px;
+  color: #1f2025;
+  background-color: #fefefe;
 }
 
-// for firefox
-:root {
-  scrollbar-color: rgb(255, 193, 7) transparent;
-  scrollbar-width: thin;
-}
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-@media (max-width: 799px) {
-  body {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-}
-body::-webkit-scrollbar {
-  height: 0;
-}
-
-@media screen and (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --gray: #666;
-    --shizuku-background-color: #212121;
-    --shizuku-text-color: #858585;
-    --shizuku-theme-color: #3c946c;
-    --bg-opacity: rgba(17, 17, 17, 0.5);
-    --black: #fff;
-
-    @supports not (backdrop-filter: blur(1px)) {
-      & {
-        --bg-opacity: rgba(17, 17, 17, 0.98);
-      }
-    }
-
-    blockquote {
-      background: var(--shizuku-background-color);
-      border-left: 5px solid var(--shizuku-theme-color);
-    }
-    article {
-      color: var(--shizuku-text-color);
-    }
-  }
-}
-
-html.light {
-  --red: #ff6347 !important;
-  --yellow: #ffc107 !important;
-  --blue: #6495ed !important;
-  --green: #28b9be !important;
-  --brown: #795548 !important;
-  --light-brown: #67492e !important;
-  --purple: #8a2be2 !important;
-  --light-bg: #fff !important;
-  --light-font: #fff !important;
-  --shallow: #eee !important;
-  color: inherit;
-}
-html.light body {
-  background: url(https://gitee.com/xun7788/my-imagination/raw/master/cdn/background.png)
-    top center fixed !important;
-}
-html.light img {
-  filter: brightness(1) !important;
-}
-html.dark {
-  color: #ddd !important;
-  --red: #ad1a00 !important;
-  --blue: #1346a4 !important;
-  --green: #1f8f93 !important;
-  --yellow: #806000 !important;
-  --brown: #c6aa9f !important;
-  --light-brown: #bc9c8f !important;
-  --purple: #561494 !important;
-  --light-bg: #111 !important;
-  --light-font: #ddd !important;
-  --shallow: #333 !important;
-}
-html.dark body {
-  background: #000
-    url(https://gitee.com/xun7788/my-imagination/raw/master/cdn/background-night.png)
-    top center fixed !important;
-}
-
-html.dark img {
-  filter: brightness(0.6) !important;
-}
-
-body * {
-  transition: color 0.1s ease-in, background 0.1s ease-in, border 0.1s ease-in;
-}
-@media screen and (prefers-color-scheme: dark) {
-  :root {
-    color: #ddd;
-    --red: #ad1a00;
-    --blue: #1346a4;
-    --green: #1f8f93;
-    --yellow: #806000;
-    --brown: #c6aa9f;
-    --light-brown: #bc9c8f;
-    --purple: #561494;
-    --light-bg: #111;
-    --light-font: #ddd;
-    --shallow: #333 !important;
-  }
-  body {
-    background: #000
-      url(https://gitee.com/xun7788/my-imagination/raw/master/cdn/background-night.png)
-      top center fixed;
-  }
-  img {
-    filter: brightness(0.6);
-  }
-}
-html.dark .header-top-navbar {
-  backdrop-filter: saturate(150%) blur(30px);
-}
-main {
+#app {
+  width: 800px;
   margin: 0 auto;
-  max-width: 75em;
-  padding: 5em 2em;
-  transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
-  min-height: calc(100vh - 10vw - 7.75em);
-  visibility: visible;
+}
+
+.main-nav {
+  margin-bottom: 50px;
+}
+
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+.main-nav ul li {
+  display: inline-block;
+  padding: 0 10px;
 }

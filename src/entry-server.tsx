@@ -1,9 +1,8 @@
 import axios from 'axios'
-import camelcaseKeys from 'camelcase-keys'
 import { IncomingMessage } from 'http'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
-import { RESTManager } from 'utils/api'
+import { $http } from 'utils/request'
 import Package from '../package.json'
 import { App } from './App'
 import { SSRProvider } from './context'
@@ -32,19 +31,17 @@ async function loadData(url, context) {
         data: arr[i],
       }
     }
-
-    const data = (await RESTManager.api.aggregate.get()) as any
-
-    // const VITE_API_URL = env.VITE_API_URL
-    // const $http = axios.create({ baseURL: VITE_API_URL })
-    // const { data } = await $http.get('aggregate')
-
-    return { ...dict, initialData: camelcaseKeys(data, { deep: true }) }
+    const data = await $http.get('/aggregate')
+    return {
+      ...dict,
+      initialData: {
+        data,
+      },
+    }
   } catch (e: any) {
     if (e.response) {
       const message = e.response?.data.message
       return {
-        initialData: {},
         message: Array.isArray(message) ? message[0] : message,
         status: e.response.statusCode || e.statusCode,
         code: e.code,
@@ -65,6 +62,7 @@ export async function render(url: string, context: any) {
   let data: any = null
 
   try {
+    // forward real ip to front side
     const req = context.req as IncomingMessage
     if (req) {
       let ip =
@@ -90,14 +88,10 @@ export async function render(url: string, context: any) {
   if (data.error) {
     data = { ...data, $ssrErrorMsg: data.message }
   } else {
-    if (data) {
-      for (const i in data) {
-        if (data[i]?.data?.redirect) {
-          return { redirect: data[i].data.redirect }
-        }
+    for (const i in data) {
+      if (data[i].data && data[i].data.redirect) {
+        return { redirect: data[i].data.redirect }
       }
-    } else {
-      data = {}
     }
   }
 
@@ -105,16 +99,9 @@ export async function render(url: string, context: any) {
     <SSRProvider value={data}>
       <StaticRouter location={url} context={context}>
         <App></App>
-        <ClassComponent />
       </StaticRouter>
     </SSRProvider>,
   )
 
   return { appHtml: html, propsData: data }
-}
-
-class ClassComponent extends React.Component<any, any> {
-  render() {
-    return null
-  }
 }

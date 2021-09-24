@@ -1,15 +1,14 @@
 import { IncomingMessage } from 'http'
 import { FC } from 'react'
 import { RouteComponentProps } from 'react-router'
+import 'vite-app-env'
 declare global {
   export interface Window {
     [K: string]: any
   }
 
-  export const React: typeof $React
   export const __DEV__: boolean
   export type KV = Record<string, any>
-
   export type SSRPage<P = unknown> = {
     loadData?: (ctx: {
       isSSR: boolean
@@ -24,8 +23,7 @@ declare global {
       ssrCurrent: boolean
     } & (({ loaded: true } & P) | { loaded: false })
   >
-
-  export type Unpacked<T> = T extends (infer U)[] ? U : T
 }
 
-export {}
+export { }
+
