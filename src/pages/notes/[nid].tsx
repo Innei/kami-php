@@ -1,4 +1,5 @@
 import { Markdown } from 'components/markdown'
+import { BaseLayout } from 'layouts/base'
 import { NoteAggregationModel } from 'models/note'
 import { proxy } from 'utils/rest'
 
@@ -7,16 +8,22 @@ const NotePage: SSRPage<NoteAggregationModel> = (props) => {
     return <div>Loading...</div>
   }
   return (
-    <article>
-      <h1>{props.data.title}</h1>
-      <Markdown text={props.data.text}></Markdown>
-    </article>
+    <BaseLayout>
+      <article>
+        <h1>{props.data.title}</h1>
+        <Markdown text={props.data.text}></Markdown>
+      </article>
+    </BaseLayout>
   )
 }
 
 NotePage.loadData = async (ctx) => {
   const { nid } = ctx.params || {}
-  const data = await proxy.api.notes.nid(nid).get<NoteAggregationModel>()
+
+  const data =
+    typeof +nid === 'number' && +nid
+      ? await proxy.api.notes.nid(nid).get<NoteAggregationModel>()
+      : await proxy.api.notes('latest').get<NoteAggregationModel>()
   return {
     ...data,
   }
