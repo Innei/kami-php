@@ -16,7 +16,7 @@ const NotePage: SSRPage<NoteAggregationModel> = (props) => {
 
 NotePage.loadData = async (ctx) => {
   const { nid } = ctx.params || {}
-  const data = await proxy.api.notes(nid).get<NoteAggregationModel>()
+  const data = await proxy.api.notes.nid(nid).get<NoteAggregationModel>()
   return {
     ...data,
   }

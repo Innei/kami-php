@@ -8,12 +8,23 @@ body {
   font-size: 14px;
   color: #1f2025;
 
-  @apply bg-primary-default;
+  @apply bg-background-default text-primary-default;
 }
 
-#app {
-  width: 800px;
-  margin: 0 auto;
+* {
+  @apply break-all;
+}
+
+.container {
+  width: 600px;
+
+  @apply m-auto pb-8;
+}
+
+.width-container {
+  width: 1200px;
+
+  @apply m-auto;
 }
 
 .main-nav {

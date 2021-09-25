@@ -1,11 +1,13 @@
+import { ErrorBoundary } from 'components/error'
+import { Header } from 'components/header'
 import { Seo } from 'components/SEO'
-import { Link } from 'react-router-dom'
+import { useInitialData } from 'hooks/use-initial-data'
 import './App.css'
 import { SSRConsumer } from './context'
 import ErrorPage from './pages/Error'
 import router from './router'
-
 export function App() {
+  const data = useInitialData()
   return (
     <>
       <SSRConsumer>
@@ -13,34 +15,20 @@ export function App() {
           if (ctx.$ssrErrorMsg) {
             return <ErrorPage message={ctx.$ssrErrorMsg} status={ctx.status!} />
           }
-
+          const {
+            seo: { title, description, keywords },
+          } = data
           return (
-            <>
+            <ErrorBoundary>
               <Seo
-                title="Vite React SSR"
-                description={'React SSR base on Vite'}
+                title={title}
+                description={description}
+                meta={[{ name: 'keywords', content: keywords.join(',') }]}
               ></Seo>
-              <h1 className="text-center text-4xl my-[40px]">
-                React SSR base on Vite
-              </h1>
-              <nav className="main-nav text-center">
-                <ul>
-                  <li>
-                    <Link to="/">Home</Link>
-                  </li>
-                  <li>
-                    <Link to="/about">About</Link>
-                  </li>
-                  <li>
-                    <Link to="/posts">Posts</Link>
-                  </li>
-                  <li>
-                    <Link to="/notes">Notes</Link>
-                  </li>
-                </ul>
-              </nav>
+              <Header />
+
               <div className="">{router.view({ ssr: ctx })}</div>
-            </>
+            </ErrorBoundary>
           )
         }}
       </SSRConsumer>

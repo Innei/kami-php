@@ -2,7 +2,6 @@ module.exports = {
   purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   mode: 'jit',
-  important: true, // important in prod is must be
 
   theme: {
     extend: {
@@ -14,8 +13,12 @@ module.exports = {
         tablet: { raw: '(max-width: 1023px)' },
       },
       colors: {
-        primary: {
+        background: {
           default: '#F3F5F9',
+          gray: '#9e9ea7',
+        },
+        primary: {
+          default: '#0A2871',
         },
         theme: {
           blue: { shallow: '#BEDCFA', primary: '#98ACF8' },

@@ -35,7 +35,7 @@ async function loadData(url, context) {
     return {
       ...dict,
       initialData: {
-        data,
+        ...data,
       },
     }
   } catch (e: any) {
@@ -76,9 +76,7 @@ export async function render(url: string, context: any) {
       axios.defaults.headers.common['x-forwarded-for'] = ip
 
       axios.defaults.headers.common['User-Agent'] =
-        req.headers['user-agent'] +
-        ' kami-v2 SSR server' +
-        `/${Package.version}`
+        req.headers['user-agent'] + ' vite-ssr' + `/${Package.version}`
     }
 
     data = await loadData(url, context)

@@ -1,0 +1,12 @@
+.sb {
+  :global {
+    h3 {
+      @apply my-4;
+    }
+    ul {
+      li {
+        @apply flex py-1 justify-between;
+      }
+    }
+  }
+}

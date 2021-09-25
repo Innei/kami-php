@@ -1,4 +1,5 @@
 import { Markdown } from 'components/markdown'
+import { BaseLayout } from 'layouts/base'
 import { PostModel } from 'models/post'
 import { proxy } from 'utils/rest'
 
@@ -8,10 +9,12 @@ export const PostPage: SSRPage<{ data: PostModel }> = (props) => {
   }
 
   return (
-    <article>
-      <h1>{props.data.title}</h1>
-      <Markdown text={props.data.text} />
-    </article>
+    <BaseLayout>
+      <article>
+        <h1>{props.data.title}</h1>
+        <Markdown text={props.data.text} />
+      </article>
+    </BaseLayout>
   )
 }
 

@@ -10,7 +10,7 @@ export const Markdown: FC<MarkdownProps> = ({ text }) => {
   return (
     <div>
       {SimpleMarkdown.outputFor(
-        SimpleMarkdown.defaultRules,
+        { ...SimpleMarkdown.defaultRules },
         'react',
       )(mdParse(text))}
     </div>

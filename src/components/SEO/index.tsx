@@ -17,7 +17,7 @@ export interface SeoProps {
 }
 export const Seo: FC<SeoProps> = (props) => {
   const {
-    data: { username },
+    user: { username },
   } = useInitialData()
   const { title, description, meta, template = true } = props
 
@@ -46,7 +46,7 @@ export const Seo: FC<SeoProps> = (props) => {
           },
           {
             property: 'og:image',
-            content: props.image,
+            content: props.image || '',
           },
           {
             name: `twitter:card`,
