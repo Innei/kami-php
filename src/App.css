@@ -16,15 +16,15 @@ body {
 }
 
 .container {
-  width: 600px;
+  max-width: 600px;
 
-  @apply m-auto pb-8;
+  @apply m-auto px-4 pb-8;
 }
 
 .width-container {
-  width: 1200px;
+  max-width: 1200px;
 
-  @apply m-auto;
+  @apply px-4 m-auto;
 }
 
 .main-nav {

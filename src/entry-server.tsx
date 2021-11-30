@@ -2,7 +2,7 @@ import axios from 'axios'
 import { IncomingMessage } from 'http'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
-import { $http } from 'utils/request'
+import { apiClient } from 'utils/request'
 import Package from '../package.json'
 import { App } from './App'
 import { SSRProvider } from './context'
@@ -31,7 +31,8 @@ async function loadData(url, context) {
         data: arr[i],
       }
     }
-    const data = await $http.get('/aggregate')
+    const data = await apiClient.aggregate.getAggregateData()
+
     return {
       ...dict,
       initialData: {
@@ -73,7 +74,7 @@ export async function render(url: string, context: any) {
       if (ip && ip.split(',').length > 0) {
         ip = ip.split(',')[0]
       }
-      axios.defaults.headers.common['x-forwarded-for'] = ip
+      axios.defaults.headers.common['x-forwarded-for'] = ip || ''
 
       axios.defaults.headers.common['User-Agent'] =
         req.headers['user-agent'] + ' vite-ssr' + `/${Package.version}`

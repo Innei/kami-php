@@ -1,25 +1,19 @@
+import { Pager, PostModel } from '@mx-space/api-client'
 import { useRouter } from 'hooks/use-router'
-import { PaginationModel } from 'models/base'
-import { PostModel } from 'models/post'
 import { FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { proxy } from 'utils/rest'
+import { apiClient } from 'utils/request'
 
 const PostListPage: FC = () => {
   const router = useRouter()
-  const [pagination, setPagination] = useState<PaginationModel | null>(null)
+  const [pagination, setPagination] = useState<Pager | null>(null)
   const [posts, setPosts] = useState<PostModel[]>([])
   const fetch = async () => {
     const { page, year } = router.query as any
-    const data = await proxy.api.posts.get<{
-      data: PostModel[]
-      pagination: PaginationModel
-    }>({
-      params: { page: page || 1, year },
+    apiClient.post.getList(page, 10, { year }).then((data) => {
+      setPosts(data.data)
+      setPagination(data.pagination)
     })
-
-    setPagination(data.pagination)
-    setPosts(data.data)
   }
   useEffect(() => {
     fetch()

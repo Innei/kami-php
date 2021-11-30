@@ -1,9 +1,13 @@
+import {
+  AggregateController,
+  CategoryController,
+  createClient,
+  NoteController,
+  PostController,
+} from '@mx-space/api-client'
 import axios from 'axios'
-import camelcaseKeys from 'camelcase-keys'
 import { getToken } from './cookie'
-
 const instance = axios.create({
-  baseURL: (import.meta.env.VITE_APP_API_URL as any) || '/api',
   timeout: 10000,
 })
 
@@ -11,7 +15,7 @@ instance.interceptors.request.use(
   (config) => {
     const token = getToken()
     if (token) {
-      config.headers['Authorization'] = 'bearer ' + getToken()
+      config.headers!['Authorization'] = 'bearer ' + getToken()
     }
 
     return config
@@ -25,10 +29,15 @@ instance.interceptors.request.use(
   },
 )
 
-instance.interceptors.response.use((response) => {
-  const res = camelcaseKeys(response.data, { deep: true })
+const apiClient = createClient(instance)(
+  (import.meta.env.VITE_APP_API_URL as any) || '/api',
+)
 
-  return res
-})
+apiClient.injectControllers([
+  PostController,
+  NoteController,
+  AggregateController,
+  CategoryController,
+])
 
-export { instance as $http }
+export { instance as $http, apiClient }

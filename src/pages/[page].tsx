@@ -1,5 +1,5 @@
-import { PageModel } from 'models/page'
-import { proxy } from 'utils/rest'
+import { PageModel } from '@mx-space/api-client'
+import { apiClient } from 'utils/request'
 
 const PageDetail: SSRPage<{ data: PageModel }> = (props) => {
   if (!props.loaded) {
@@ -17,7 +17,7 @@ const PageDetail: SSRPage<{ data: PageModel }> = (props) => {
 
 PageDetail.loadData = async function (ctx) {
   const { page } = ctx.params as any
-  const data = await proxy.api.pages.slug(page).get<PageModel>()
+  const data = await apiClient.page.getBySlug(page)
 
   return {
     data,

@@ -1,9 +1,9 @@
+import { NoteWrappedPayload } from '@mx-space/api-client'
 import { Markdown } from 'components/markdown'
 import { BaseLayout } from 'layouts/base'
-import { NoteAggregationModel } from 'models/note'
-import { proxy } from 'utils/rest'
+import { apiClient } from 'utils/request'
 
-const NotePage: SSRPage<NoteAggregationModel> = (props) => {
+const NotePage: SSRPage<NoteWrappedPayload> = (props) => {
   if (!props.loaded) {
     return <div>Loading...</div>
   }
@@ -22,8 +22,8 @@ NotePage.loadData = async (ctx) => {
 
   const data =
     typeof +nid === 'number' && +nid
-      ? await proxy.api.notes.nid(nid).get<NoteAggregationModel>()
-      : await proxy.api.notes('latest').get<NoteAggregationModel>()
+      ? await apiClient.note.getNoteById(nid)
+      : await apiClient.note.getLatest()
   return {
     ...data,
   }

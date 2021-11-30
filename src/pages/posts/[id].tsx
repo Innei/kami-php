@@ -1,7 +1,7 @@
+import { PostModel } from '@mx-space/api-client'
 import { Markdown } from 'components/markdown'
 import { BaseLayout } from 'layouts/base'
-import { PostModel } from 'models/post'
-import { proxy } from 'utils/rest'
+import { apiClient } from 'utils/request'
 
 export const PostPage: SSRPage<{ data: PostModel }> = (props) => {
   if (!props.loaded) {
@@ -26,7 +26,8 @@ PostPage.loadData = async (ctx) => {
       data: null as any,
     }
   }
-  const data = await proxy.api.posts(id).get<PostModel>()
+  const data = await apiClient.post.getPost(id)
+
   return { data }
 }
 

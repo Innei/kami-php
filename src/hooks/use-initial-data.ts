@@ -1,7 +1,7 @@
+import { AggregateRoot } from '@mx-space/api-client'
 import { SSRContext } from 'context'
-import { AggregateModel } from 'models/aggregate'
 import { useContext } from 'react'
 
 export const useInitialData = () => {
-  return useContext(SSRContext).initialData as AggregateModel
+  return useContext(SSRContext).initialData as AggregateRoot
 }

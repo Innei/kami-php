@@ -1,13 +1,13 @@
+import { AggregateTop } from '@mx-space/api-client'
 import { Avatar } from 'components/avatar'
 import { LaTwitter } from 'components/icons/icons'
 import { useInitialData } from 'hooks/use-initial-data'
 import { BaseLayout } from 'layouts/base'
-import { Top } from 'models/aggregate'
 import { Link } from 'react-router-dom'
-import { proxy } from 'utils/rest'
+import { apiClient } from 'utils/request'
 import styles from './Home.module.css'
 
-const Home: SSRPage<{ data: Top.Aggregate }> = (props) => {
+const Home: SSRPage<{ data: AggregateTop }> = (props) => {
   const initialData = useInitialData()
   if (!props.loaded) {
     return <span>Loading Data...</span>
@@ -81,7 +81,7 @@ const Home: SSRPage<{ data: Top.Aggregate }> = (props) => {
 }
 
 Home.loadData = async function (ctx) {
-  const data = await proxy.api.aggregate.top.get<Top.Aggregate>()
+  const data = await apiClient.aggregate.getTop()
 
   return {
     data,
