@@ -5,13 +5,12 @@ import {
   NoteController,
   PostController,
 } from '@mx-space/api-client'
-import axios from 'axios'
+import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
 import { getToken } from './cookie'
-const instance = axios.create({
-  timeout: 10000,
-})
+const $axios = axiosAdaptor.default
+$axios.defaults.timeout = 10000
 
-instance.interceptors.request.use(
+$axios.interceptors.request.use(
   (config) => {
     const token = getToken()
     if (token) {
@@ -29,7 +28,7 @@ instance.interceptors.request.use(
   },
 )
 
-const apiClient = createClient(instance)(
+const apiClient = createClient(axiosAdaptor)(
   (import.meta.env.VITE_APP_API_URL as any) || '/api',
 )
 
