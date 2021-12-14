@@ -3,6 +3,7 @@ import {
   CategoryController,
   createClient,
   NoteController,
+  PageController,
   PostController,
 } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
@@ -37,6 +38,7 @@ apiClient.injectControllers([
   NoteController,
   AggregateController,
   CategoryController,
+  PageController,
 ])
 
-export { instance as $http, apiClient }
+export { apiClient }

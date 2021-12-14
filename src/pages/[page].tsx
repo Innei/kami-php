@@ -10,7 +10,7 @@ const PageDetail: SSRPage<{ data: PageModel }> = (props) => {
     <>
       <h1>About</h1>
 
-      <article>{props.data.text}</article>
+      <article className="prose prose-base">{props.data.text}</article>
     </>
   )
 }

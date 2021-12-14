@@ -122,6 +122,7 @@ async function handleRender(req, res, { template, dev, vite, dist }) {
         <style>
         html {
           font-size: 14px;
+          font-family: monospace;
         }
         main {
           max-width: 800px;

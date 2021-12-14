@@ -1,7 +1,5 @@
 module.exports = {
-  purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.tsx'],
-  darkMode: false, // or 'media' or 'class'
-  mode: 'jit',
+  content: ['./src/**/*.html', './src/**/*.vue', './src/**/*.tsx'],
 
   theme: {
     extend: {
@@ -31,5 +29,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('daisyui'), require('@tailwindcss/typography')],
 }

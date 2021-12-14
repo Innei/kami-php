@@ -8,11 +8,11 @@ interface MarkdownProps {
 }
 export const Markdown: FC<MarkdownProps> = ({ text }) => {
   return (
-    <div>
+    <article className="prose prose-base">
       {SimpleMarkdown.outputFor(
         { ...SimpleMarkdown.defaultRules },
         'react',
       )(mdParse(text))}
-    </div>
+    </article>
   )
 }
