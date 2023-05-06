@@ -4,6 +4,9 @@ dependencies:
   '@mx-space/api-client':
     specifier: 1.4.0
     version: 1.4.0
+  '@tanstack/query-core':
+    specifier: 4.29.5
+    version: 4.29.5
   '@types/node':
     specifier: 18.16.3
     version: 18.16.3
@@ -22,6 +25,9 @@ dependencies:
   dayjs:
     specifier: 1.11.7
     version: 1.11.7
+  immer:
+    specifier: 10.0.1
+    version: 10.0.1
   js-cookie:
     specifier: 3.0.5
     version: 3.0.5
@@ -51,7 +57,7 @@ dependencies:
     version: 5.0.4
   zustand:
     specifier: 4.3.8
-    version: 4.3.8(react@18.2.0)
+    version: 4.3.8(immer@10.0.1)(react@18.2.0)
 
 devDependencies:
   '@innei/eslint-config-react-ts':
@@ -465,6 +471,10 @@ packages:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.5.0
+    dev: false
+
+  /@tanstack/query-core@4.29.5:
+    resolution: {integrity: sha512-xXIiyQ/4r9KfaJ3k6kejqcaqFXXBTzN2aOJ5H1J6aTJE9hl/nbgAdfF6oiIu0CD5xowejJEJ6bBg8TO7BN4NuQ==}
     dev: false
 
   /@trivago/prettier-plugin-sort-imports@4.1.1(prettier@2.8.8):
@@ -1702,6 +1712,10 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
     dev: true
+
+  /immer@10.0.1:
+    resolution: {integrity: sha512-zg++jJLsKKTwXGeSYIw0HgChSYQGtu0UDTnbKx5aGLYgte4CwTmH9eJDYyQ6FheyUtBe+lQW9FrGxya1G+Dtmg==}
+    dev: false
 
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -2970,7 +2984,7 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  /zustand@4.3.8(react@18.2.0):
+  /zustand@4.3.8(immer@10.0.1)(react@18.2.0):
     resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -2982,6 +2996,7 @@ packages:
       react:
         optional: true
     dependencies:
+      immer: 10.0.1
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
