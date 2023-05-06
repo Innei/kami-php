@@ -15,6 +15,7 @@ import { userAgent } from 'next/server'
 
 import { REQUEST_DEDUPE_TIMEOUT } from '~/constants/app'
 import { fetchThemeConfig } from '~/data/theme-config'
+import type { InitialDataType } from '~/providers/initial-data'
 import { $axios, apiClient } from '~/utils/api-client'
 import { cn } from '~/utils/helper'
 import { dedupeFetch } from '~/utils/query-core'
@@ -25,7 +26,7 @@ import { AppRootProviders } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const fetchInitialData = async (headers: Headers) => {
+const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
   const userAgentObject = userAgent({
     headers,
   })
@@ -60,7 +61,7 @@ const fetchInitialData = async (headers: Headers) => {
   )
   return {
     aggregateData,
-    themeConfig,
+    config: themeConfig,
   }
 }
 

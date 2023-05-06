@@ -1,6 +1,8 @@
 import type { FC } from 'react'
 import 'react-dom/next'
 
+import type { AggregateRoot } from '@mx-space/api-client'
+
 import type { XLogMeta } from '~/types/xlog'
 
 import type { KamiConfig } from './data/typings/theme'
@@ -13,6 +15,7 @@ declare global {
     [key: string]: any
 
     data?: {
+      aggregateData: AggregateRoot
       config: KamiConfig
     }
 

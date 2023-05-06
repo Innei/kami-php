@@ -1,15 +1,13 @@
-'use react'
-
 import { useContext } from 'react'
 
-import { InitialDataContext } from './providers'
+import { InitialContext } from '~/providers/initial-data'
 
 export const useInitialData = () => {
-  return useContext(InitialDataContext).aggregateData
+  return useContext(InitialContext).aggregateData
 }
 
 export const useThemeConfig = () => {
-  const config = useContext(InitialDataContext).themeConfig
+  const config = useContext(InitialContext).config
 
   return config
 }
