@@ -1,9 +1,0 @@
-.wrapper {
-  :global {
-    .avatar,
-    img,
-    .avatar-placeholder {
-      @apply rounded-full inline-block overflow-hidden;
-    }
-  }
-}

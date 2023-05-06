@@ -7,3 +7,5 @@ bundle-analyze
 stats.html
 .env.development
 .env
+
+.next
