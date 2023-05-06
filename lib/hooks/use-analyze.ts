@@ -48,7 +48,6 @@ export const emitTrackerEvent = (options: TrackerOptions) => {
 export const useAnalyze = () => {
   const config = useThemeConfig()
 
-  console.log(config)
   const GA_TRACKING_ID = config.function.analyze.ga
 
   const isEnableGA = config.function.analyze.enable
