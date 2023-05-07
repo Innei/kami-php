@@ -1,3 +1,5 @@
+'use client'
+
 import { produce } from 'immer'
 import { message } from 'react-message-popup'
 

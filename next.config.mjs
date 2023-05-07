@@ -15,6 +15,7 @@ let nextConfig = {
     serverActions: true,
     scrollRestoration: true,
     legacyBrowsers: false,
+    serverComponentsExternalPackages: ['socket.io-client', 'ws'],
   },
   output: 'standalone',
   assetPrefix: isProd ? env.ASSETPREFIX || undefined : undefined,

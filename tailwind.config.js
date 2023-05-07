@@ -1,3 +1,19 @@
+const { addDynamicIconSelectors } = require('@iconify/tailwind')
+const twColors = require('tailwindcss/colors')
+
+const deprecatedColorKeyMap = {
+  lightBlue: 'sky',
+  warmGray: 'stone',
+  trueGray: 'neutral',
+  coolGray: 'gray',
+  blueGray: 'slate',
+}
+
+const deprecatedColorKeys = Object.keys(deprecatedColorKeyMap)
+for (const key of deprecatedColorKeys) {
+  delete twColors[key]
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -39,7 +55,7 @@ module.exports = {
         mono: 'var(--monospace-font)',
       },
       colors: {
-        always: require('tailwindcss/colors'),
+        always: twColors,
         theme: {
           black: 'rgba(var(--black), <alpha-value>)',
           white: 'rgba(var(--white), <alpha-value>)',
@@ -69,5 +85,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [addDynamicIconSelectors()],
 }
