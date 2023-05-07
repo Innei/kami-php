@@ -12,9 +12,9 @@ import { CloseIcon } from '~/components/icons/close'
 import { useIsMountedState } from '~/hooks/common/use-is-mounted'
 import { cn } from '~/utils/helper'
 
-import { BottomUpTransitionView } from '../Transition/bottom-up'
+import { BottomToUpTransitionView } from '../Transition/bottom-up'
+import { ScaleTransitionView } from '../Transition/scale'
 import styles from './modal.module.css'
-import { ScaleModalTransition } from './scale-transition'
 
 export interface ModalProps {
   title?: string
@@ -134,14 +134,13 @@ export const Modal = forwardRef<
     </div>
   )
 
-  const timeout = useRef({ exit: 200 }).current
   return useDrawerStyle ? (
-    <BottomUpTransitionView in={modalIn} timeout={timeout}>
+    <BottomToUpTransitionView in={modalIn} duration={0.2}>
       {Children}
-    </BottomUpTransitionView>
+    </BottomToUpTransitionView>
   ) : (
-    <ScaleModalTransition in={modalIn} timeout={timeout}>
+    <ScaleTransitionView in={modalIn} duration={0.2}>
       {Children}
-    </ScaleModalTransition>
+    </ScaleTransitionView>
   )
 })

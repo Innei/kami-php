@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './variables.css';
-
 *::selection {
   background: var(--primary);
   color: var(--white);

@@ -21,9 +21,8 @@ import { cn } from '~/utils/helper'
 import { dedupeFetch } from '~/utils/query-core'
 
 import PKG from '../package.json'
-import './globals.css'
-import './progress.css'
 import { AppRootProviders } from './providers'
+import './styles'
 
 const inter = Inter({ subsets: ['latin'] })
 

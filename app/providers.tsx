@@ -6,6 +6,7 @@ import type { ShortcutOptions } from 'react-shortcut-guide'
 import { ShortcutProvider } from 'react-shortcut-guide'
 
 import { ProviderComposer } from '~/components/app/provider-composer'
+import { ModalStackProvider } from '~/components/ui/Modal'
 import { TrackerAction } from '~/enums/tracker'
 import { useAnalyze } from '~/hooks/app/use-analyze'
 import type { InitialDataType } from '~/providers/initial-data'
@@ -40,8 +41,7 @@ export const AppRootProviders = (
     () => [
       <SWRProvider key="SWRProvider" />,
       <InitialContextProvider value={data} key="InitialDataProvider" />,
-      // TODO ModalStackProvider
-      // <ModalStackProvider key="modalProvider" />,
+      <ModalStackProvider key="modalProvider" />,
     ],
     [data],
   )
