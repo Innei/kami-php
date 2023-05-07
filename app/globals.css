@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 *::selection {
-  background: var(--primary);
-  color: var(--white);
+  background: theme(colors.theme.accent);
+  color: theme(colors.theme.white);
 }
 
 html {
-  font: 14px/1.4 var(--sans-font);
-  color: var(--black);
+  font: 14px/1.4 theme(fontFamily.sans);
+  color: theme(colors.theme.black);
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   /*  for firefox */
-  scrollbar-color: var(--primary) transparent;
+  scrollbar-color: theme(colors.theme.accent) transparent;
   scrollbar-width: thin;
 
   overflow: overlay;
@@ -36,8 +36,8 @@ body::-webkit-scrollbar {
 
 ::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary);
-  border: 3px solid var(--light-bg);
+  background-color: theme(colors.theme.accent);
+  border: 3px solid theme(colors.theme.bg.DEFAULT);
   border-radius: 5px;
 }
 
@@ -52,17 +52,17 @@ body * {
 
 body {
   padding-top: 4em;
-  background-color: var(--light-bg);
+  background-color: theme(colors.theme.bg.DEFAULT);
 }
 
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background: var(--light-bg);
+  background: theme(colors.theme.bg.DEFAULT);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: theme(colors.theme.accent);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -70,7 +70,7 @@ body {
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--light-bg);
+  background: theme(colors.theme.bg.DEFAULT);
 }
 
 *:focus {
@@ -79,7 +79,7 @@ body {
 
 *:not(input):not(textarea):focus-visible {
   outline: 0 !important;
-  box-shadow: var(--primary) 0px 0px 0px 2px !important;
+  box-shadow: theme(colors.theme.accent) 0px 0px 0px 2px !important;
 }
 
 /* 样式重置 */
@@ -112,7 +112,7 @@ p:first-child {
 }
 
 a:hover {
-  color: var(--primary);
+  color: theme(colors.theme.accent);
 }
 
 a,
@@ -122,7 +122,7 @@ a,
 
 .btn {
   cursor: pointer;
-  background: var(--primary);
+  background: theme(colors.theme.accent);
   color: #fff;
   padding: 0.5em 1em;
   display: inline-block;
@@ -184,7 +184,7 @@ kbd {
 em {
   color: #fff;
   font-style: normal;
-  background: var(--blue);
+  background: theme(colors.theme.blue);
 }
 
 kbd {
@@ -199,7 +199,7 @@ article img {
 }
 
 :not(pre) > code {
-  color: var(--pink);
+  color: theme(colors.theme.accent);
   font-size: 85%;
   word-wrap: normal;
   border-radius: 0.5em;
@@ -217,7 +217,7 @@ blockquote {
 
 html.dark {
   blockquote {
-    background: var(--shizuku-background-color);
+    background: theme(colors.theme.white);
   }
 }
 
@@ -239,13 +239,13 @@ input[type='checkbox']:before {
   z-index: 1;
   width: 1rem;
   height: 1rem;
-  border: 1px solid var(--gray-2);
+  border: 1px solid theme(colors.theme.gray.2);
 }
 
 input[type='checkbox']:checked:before {
   transform: rotate(-45deg);
   height: 0.5rem;
-  border-color: var(--primary);
+  border-color: theme(colors.theme.accent);
   border-top-style: none;
   border-right-style: none;
   border-width: 2px;
@@ -258,7 +258,7 @@ input[type='checkbox']:after {
   left: 0;
   width: 1.1rem;
   height: 1.1rem;
-  background: var(--light-bg);
+  background: theme(colors.theme.bg.DEFAULT);
   transition: background 0.5s;
 }
 
@@ -345,7 +345,7 @@ article dl {
 }
 
 article {
-  color: var(--light-brown);
+  color: theme(colors.theme.black);
 }
 
 article > h1 {
@@ -386,6 +386,6 @@ h1.headline,
   &::before {
     content: '';
     padding-left: 0.75em;
-    border-left: 2px solid var(--secondary);
+    border-left: 2px solid theme(colors.theme.accent);
   }
 }

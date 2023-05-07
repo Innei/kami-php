@@ -55,6 +55,7 @@
     "js-cookie": "3.0.5",
     "lodash-es": "4.17.21",
     "next": "13.4.1",
+    "next-seo": "6.0.0",
     "postcss": "8.4.23",
     "qier-progress": "1.0.4",
     "randomcolor": "0.6.2",

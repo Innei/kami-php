@@ -20,10 +20,10 @@
   --gray-5: 229, 229, 234;
   --gray-6: 242, 242, 247;
 
-  --primary: theme(colors.theme.green);
-  --secondary: theme(colors.theme.yellow);
+  --primary: var(--green);
+  --secondary: var(--yellow);
 
-  --accent: theme(colors.theme.green);
+  --accent: var(--green);
 
   --serif-font: 'Noto Serif CJK SC', 'Noto Serif SC', 'Source Han Serif SC',
     'Source Han Serif', source-han-serif-sc, SongTi SC, SimSum,

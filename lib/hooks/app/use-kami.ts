@@ -23,7 +23,7 @@ export const useThemeBackground = () => {
     return loadStyle(
       `body .bg-fixed > .bg { background: url(${
         background.src[colorMode] || background.src.light || background.src.dark
-      }) ${background.position}; background-color: var(--light-bg);  };`,
+      }) ${background.position}; background-color: rgba(var(--white), 1);  };`,
     )
   }, [background.position, background.src, colorMode])
 }

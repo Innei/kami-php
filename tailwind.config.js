@@ -40,9 +40,14 @@ module.exports = {
       },
       colors: {
         theme: {
+          black: 'rgba(var(--black), <alpha-value>)',
+          white: 'rgba(var(--white), <alpha-value>)',
           green: 'rgba(var(--green), <alpha-value>)',
           blue: 'rgba(var(--blue), <alpha-value>)',
           yellow: 'rgba(var(--yellow), <alpha-value>)',
+
+          accent: 'rgba(var(--accent), <alpha-value>)',
+          primary: 'rgba(var(--primary), <alpha-value>)',
 
           gray: {
             DEFAULT: 'rgba(var(--gray-4), <alpha-value>)',
