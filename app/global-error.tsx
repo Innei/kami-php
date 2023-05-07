@@ -8,8 +8,12 @@ export default function ErrorPage({ error }: any) {
   }, [])
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      Error
-    </div>
+    <html>
+      <body>
+        <div className="h-screen w-screen flex items-center justify-center">
+          Error
+        </div>
+      </body>
+    </html>
   )
 }

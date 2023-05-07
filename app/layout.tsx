@@ -9,34 +9,87 @@
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
  */
-import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
+import { userAgent } from 'next/server'
 
-import { cn } from '~/utils/helper'
+import { fetchThemeConfig } from '~/data/theme-config'
+import type { InitialDataType } from '~/providers/initial-data'
+import { $axios, apiClient } from '~/utils/api-client'
 
-import './styles'
+import PKG from '../package.json'
+import { FetchInitialDataError } from './fetch-error'
+import { AppRootProviders } from './providers'
 
-const inter = Inter({ subsets: ['latin'] })
+const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
+  const userAgentObject = userAgent({
+    headers,
+  })
+
+  let ip =
+    headers.get('x-forwarded-for') ||
+    headers.get('X-Forwarded-For') ||
+    headers.get('X-Real-IP') ||
+    headers.get('x-real-ip') ||
+    undefined
+  if (ip && ip.split(',').length > 0) {
+    ip = ip.split(',')[0]
+  }
+  ip && ($axios.defaults.headers.common['x-forwarded-for'] = ip as string)
+
+  $axios.defaults.headers.common[
+    'User-Agent'
+  ] = `${userAgentObject.ua} NextJS/v${PKG.dependencies.next} Kami/${PKG.version}`
+
+  const [aggregateDataSettled, themeConfigSettled] = await Promise.allSettled([
+    apiClient.aggregate.getAggregateData().then((data) => ({ ...data })),
+    fetchThemeConfig(),
+  ])
+
+  if (aggregateDataSettled.status === 'rejected') {
+    throw new FetchInitialDataError(aggregateDataSettled.reason, 'aggregate')
+  }
+
+  if (themeConfigSettled.status === 'rejected') {
+    throw new FetchInitialDataError(themeConfigSettled.reason, 'config')
+  }
+  const [aggregateData, themeConfig] = [
+    aggregateDataSettled.value,
+    themeConfigSettled.value,
+  ]
+  return {
+    aggregateData,
+    config: themeConfig,
+  }
+}
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="zh-Hans">
-      <head>
-        <meta charSet="UTF-8" />
+  const data = await fetchInitialData(headers())
+  const { aggregateData } = data
+  const { seo } = aggregateData
+  const { title, description } = seo
 
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="alternate" href="/feed" type="application/atom+xml" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="sitemap" href="/sitemap.xml" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-      </head>
-      <body className={cn(inter.className, 'loading')} id="app">
-        {children}
-      </body>
-    </html>
+  return (
+    <AppRootProviders data={data}>
+      <html lang="zh-Hans">
+        <head>
+          <meta charSet="UTF-8" />
+          <title>{title}</title>
+          <meta name="description" content={description} />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <link rel="alternate" href="/feed" type="application/atom+xml" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <link rel="sitemap" href="/sitemap.xml" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        </head>
+        <body className="loading" id="app">
+          {children}
+        </body>
+      </html>
+    </AppRootProviders>
   )
 }
