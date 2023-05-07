@@ -22,6 +22,7 @@ import { dedupeFetch } from '~/utils/query-core'
 
 import PKG from '../package.json'
 import './globals.css'
+import './progress.css'
 import { AppRootProviders } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })

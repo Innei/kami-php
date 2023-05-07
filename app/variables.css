@@ -1,0 +1,117 @@
+/* for kami theme */
+:root {
+  --yellow: 255, 193, 7;
+  --blue: 100, 149, 237;
+  --green: 57, 197, 187;
+
+  --white: 255, 255, 255;
+  --shallow: 238, 238, 238;
+
+  --code-bg: transparent;
+  --black: 53, 53, 53;
+  --bg-opacity: rgba(255, 255, 255, 0.72);
+
+  --gray: rgba(var(--gray-4), 1);
+
+  --gray-1: 142, 142, 147;
+  --gray-2: 174, 174, 178;
+  --gray-3: 199, 199, 204;
+  --gray-4: 209, 209, 214;
+  --gray-5: 229, 229, 234;
+  --gray-6: 242, 242, 247;
+
+  --primary: theme(colors.theme.green);
+  --secondary: theme(colors.theme.yellow);
+
+  --accent: theme(colors.theme.green);
+
+  --serif-font: 'Noto Serif CJK SC', 'Noto Serif SC', 'Source Han Serif SC',
+    'Source Han Serif', source-han-serif-sc, SongTi SC, SimSum,
+    'Hiragino Sans GB', system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  --sans-font: system-ui, -apple-system, PingFang SC, 'Microsoft YaHei',
+    Segoe UI, Roboto, Helvetica, noto sans sc, hiragino sans gb, 'sans-serif',
+    Apple Color Emoji, Segoe UI Emoji, Not Color Emoji;
+  --monospace-font: OperatorMonoSSmLig Nerd Font, JetBrains Mono, Operator Mono,
+    Monaco, Consolas, 'Courier New', Courier, monospace;
+  --mono-font: var(--monospace-font);
+}
+
+html.dark {
+  color-scheme: dark;
+
+  --green: 31, 143, 147;
+  --yellow: 255, 193, 7;
+  --shallow: 51, 51, 51;
+
+  --white: 23, 23, 23;
+  --black: 221, 221, 221;
+  --bg-opacity: rgba(29, 29, 31, 0.72);
+
+  --gary-1: 142, 142, 147;
+  --gray-2: 99, 99, 102;
+  --gray-3: 72, 72, 74;
+  --gray-4: 58, 58, 60;
+  --gray-5: 44, 44, 46;
+  --gray-6: 28, 28, 30;
+
+  @supports not (backdrop-filter: blur(1px)) {
+    & {
+      --bg-opacity: rgba(29, 29, 31, 0.98);
+    }
+  }
+}
+
+@screen dark-mode {
+  html:not(.light) {
+    color-scheme: dark;
+
+    --green: 31, 143, 147;
+    --yellow: 255, 193, 7;
+    --shallow: 51, 51, 51;
+
+    --white: 23, 23, 23;
+    --black: 221, 221, 221;
+    --bg-opacity: rgba(29, 29, 31, 0.72);
+
+    --gary-1: 142, 142, 147;
+    --gray-2: 99, 99, 102;
+    --gray-3: 72, 72, 74;
+    --gray-4: 58, 58, 60;
+    --gray-5: 44, 44, 46;
+    --gray-6: 28, 28, 30;
+
+    @supports not (backdrop-filter: blur(1px)) {
+      & {
+        --bg-opacity: rgba(29, 29, 31, 0.98);
+      }
+    }
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  :root {
+    --bg-opacity: #fff;
+  }
+}
+
+/* for shizuku theme */
+:root {
+  --shizuku-background-color: theme(colors.theme.bg.DEFAULT);
+  --shizuku-text-color: theme(colors.theme.text);
+  --shizuku-theme-color: theme(colors.theme.green);
+}
+
+html.dark {
+  --shizuku-background-color: #212121;
+  --shizuku-text-color: #b4b4b4;
+  --shizuku-theme-color: #3c946c;
+}
+
+@screen dark-mode {
+  html:not(.light) {
+    --shizuku-background-color: #212121;
+    --shizuku-text-color: #b4b4b4;
+    --shizuku-theme-color: #3c946c;
+  }
+}

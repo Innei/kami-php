@@ -3,7 +3,6 @@
 import type { PropsWithChildren } from 'react'
 import { useMemo } from 'react'
 
-import { ErrorBoundary } from '~/components/app/error-boundary'
 import { ProviderComposer } from '~/components/app/provider-composer'
 import type { InitialDataType } from '~/providers/initial-data'
 import { InitialContextProvider } from '~/providers/initial-data'
@@ -17,9 +16,8 @@ export const AppRootProviders = (
   const pageProviders = useMemo(
     () => [
       <SWRProvider key="SWRProvider" />,
-      <ErrorBoundary key="ErrorBoundary1" />,
+
       <InitialContextProvider value={data} key="InitialDataProvider" />,
-      <ErrorBoundary key="ErrorBoundary2" />,
     ],
     [data],
   )

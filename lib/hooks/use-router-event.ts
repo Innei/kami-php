@@ -1,37 +1,113 @@
-import { Router } from 'next/router'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import QProgress from 'qier-progress'
-import { useEffect } from 'react'
-
-import { isClientSide, isServerSide } from '~/utils/env'
+import { useEffect, useRef, useState } from 'react'
 
 import { useAnalyze } from './use-analyze'
+import { useOnceClientEffect } from './use-once-client-effect'
+
+interface RouterNavigationEvent {}
+
+type RouterEventFunction = (e: RouterNavigationEvent) => void
+
+// TODO detect error event
+const useAppRouterEventerListener = () => {
+  const [isRouterStartChange, setIsRouterStartChange] = useState(false)
+  const [isRouterComplete, setIsRouterComplete] = useState(false)
+
+  const router = useRouter()
+  useOnceClientEffect(() => {
+    const rawPush = router.push
+    const rawReplace = router.replace
+
+    const popstateHandler = () => {
+      setIsRouterComplete(false)
+      setIsRouterStartChange(true)
+    }
+
+    window.addEventListener('popstate', popstateHandler)
+
+    router.push = (...rest) => {
+      console.log('punish')
+      setIsRouterComplete(false)
+      setIsRouterStartChange(true)
+
+      // eslint-disable-next-line prefer-spread
+      rawPush.apply(null, rest)
+    }
+
+    router.replace = (...rest) => {
+      setIsRouterComplete(false)
+      setIsRouterStartChange(true)
+
+      // eslint-disable-next-line prefer-spread
+      rawReplace.apply(null, rest)
+    }
+
+    return () => {
+      router.push = rawPush
+      router.replace = rawReplace
+
+      window.removeEventListener('popstate', popstateHandler)
+    }
+  })
+
+  const eventsRegisters = useRef({
+    onStart: [] as RouterEventFunction[],
+    onError: [] as RouterEventFunction[],
+    onComplete: [] as RouterEventFunction[],
+  })
+
+  const buildEvent = (): RouterNavigationEvent => {
+    return {}
+  }
+
+  useEffect(() => {
+    if (!isRouterStartChange) return
+
+    eventsRegisters.current.onStart.forEach(($) => $(buildEvent()))
+  }, [isRouterStartChange])
+
+  useEffect(() => {
+    if (!isRouterComplete) return
+
+    eventsRegisters.current.onComplete.forEach(($) => $(buildEvent()))
+  }, [isRouterComplete])
+
+  const currentPathname = usePathname()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (
+      currentPathname === location.pathname &&
+      searchParams.toString() ===
+        new URLSearchParams(location.search).toString()
+    ) {
+      setIsRouterComplete(true)
+      setIsRouterStartChange(false)
+    }
+  }, [currentPathname])
+
+  return eventsRegisters.current
+}
 
 export const useRouterEvent = () => {
   const { pageview } = useAnalyze()
-  useEffect(() => {
-    if (isServerSide()) {
-      return
-    }
-    const Progress = new QProgress({ colorful: false, color: 'var(--primary)' })
-    if (isClientSide()) {
-      ;(window as any).process = Progress
-    }
-    Router.events.on('routeChangeStart', () => {
-      Progress.start()
-      history.backPath = history.backPath
-        ? [...history.backPath, history.state.as]
-        : [history.state.as]
+
+  const registers = useAppRouterEventerListener()
+  const progressBarRef = useRef(new QProgress({ colorful: false }))
+  useOnceClientEffect(() => {
+    registers.onComplete.push(() => {
+      progressBarRef.current.finish()
+
+      pageview(location.pathname + location.search)
     })
 
-    Router.events.on('routeChangeComplete', () => {
-      Progress.finish()
+    registers.onStart.push(() => {
+      progressBarRef.current.start()
     })
 
-    Router.events.on('routeChangeError', () => {
+    registers.onError.push(() => {
       history.backPath?.pop()
-      Progress.finish()
     })
-
-    Router.events.on('routeChangeComplete', (url) => pageview(url))
-  }, [])
+  })
 }
