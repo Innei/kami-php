@@ -1,3 +1,4 @@
+import './extra.css'
 import './globals.css'
 import './progress.css'
 import './variables.css'

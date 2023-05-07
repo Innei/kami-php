@@ -9,13 +9,7 @@
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
  */
-import { Inter } from 'next/font/google'
-
-import { cn } from '~/utils/helper'
-
-import './styles'
-
-const inter = Inter({ subsets: ['latin'] })
+import '~/styles'
 
 export default async function RootLayout({
   children,
@@ -34,7 +28,7 @@ export default async function RootLayout({
         <link rel="sitemap" href="/sitemap.xml" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       </head>
-      <body className={cn(inter.className, 'loading')} id="app">
+      <body className="loading" id="app">
         {children}
       </body>
     </html>

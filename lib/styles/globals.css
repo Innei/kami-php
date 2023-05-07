@@ -4,7 +4,7 @@
 
 *::selection {
   background: theme(colors.theme.accent);
-  color: theme(colors.theme.white);
+  color: theme(colors.always.white);
 }
 
 html {
@@ -121,57 +121,19 @@ a,
 }
 
 .btn {
+  @apply text-always-white rounded-full;
+
   cursor: pointer;
-  background: theme(colors.theme.accent);
-  color: #fff;
+  background-color: theme(colors.theme.accent);
   padding: 0.5em 1em;
   display: inline-block;
   border: 1px solid transparent;
-  border-radius: 1em;
-}
-
-.btn:hover {
-  color: inherit;
 }
 
 /* -- 禁用的按钮 */
 .btn[disabled] {
   filter: grayscale(1);
   cursor: not-allowed;
-}
-
-/* -- 按钮颜色 */
-.btn.red,
-.btn.yellow,
-.btn.blue,
-.btn.green {
-  color: #fff;
-}
-
-.btn.red {
-  background: var(--red);
-}
-
-.btn.yellow {
-  background: var(--yellow);
-}
-
-.btn.blue {
-  background: var(--blue);
-}
-
-.btn.green {
-  background: var(--green);
-}
-
-.btn.brown {
-  color: #fff;
-  background: var(--brown);
-}
-
-.btn.black {
-  color: #fff;
-  background: #010101;
 }
 
 em,

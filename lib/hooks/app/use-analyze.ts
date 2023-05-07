@@ -57,7 +57,7 @@ export const useAnalyze = () => {
       if (!GA_TRACKING_ID || !isEnableGA) {
         return
       }
-      window.gtag('config', GA_TRACKING_ID, {
+      window.gtag?.('config', GA_TRACKING_ID, {
         page_path: url,
       })
 

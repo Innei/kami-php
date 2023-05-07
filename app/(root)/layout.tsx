@@ -46,11 +46,23 @@ const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
   ])
 
   if (aggregateDataSettled.status === 'rejected') {
-    throw new FetchInitialDataError(aggregateDataSettled.reason, 'aggregate')
+    throw new FetchInitialDataError(
+      JSON.stringify({
+        message: '初始数据加载出错，检查服务端是否正常',
+        type: 'aggregate',
+      }),
+      'aggregate',
+    )
   }
 
   if (themeConfigSettled.status === 'rejected') {
-    throw new FetchInitialDataError(themeConfigSettled.reason, 'config')
+    throw new FetchInitialDataError(
+      JSON.stringify({
+        message: '主题配置加载出错，检查服务端是否正常',
+        type: 'config',
+      }),
+      'config',
+    )
   }
   const [aggregateData, themeConfig] = [
     aggregateDataSettled.value,

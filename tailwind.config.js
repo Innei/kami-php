@@ -39,6 +39,7 @@ module.exports = {
         mono: 'var(--monospace-font)',
       },
       colors: {
+        always: require('tailwindcss/colors'),
         theme: {
           black: 'rgba(var(--black), <alpha-value>)',
           white: 'rgba(var(--white), <alpha-value>)',
