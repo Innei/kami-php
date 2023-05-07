@@ -1,10 +1,13 @@
+'use client'
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import QProgress from 'qier-progress'
 import { useEffect, useRef, useState } from 'react'
 
+import { useOnceClientEffect } from '../common/use-once-client-effect'
 import { useAnalyze } from './use-analyze'
-import { useOnceClientEffect } from './use-once-client-effect'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RouterNavigationEvent {}
 
 type RouterEventFunction = (e: RouterNavigationEvent) => void
@@ -94,7 +97,7 @@ export const useRouterEvent = () => {
   const { pageview } = useAnalyze()
 
   const registers = useAppRouterEventerListener()
-  const progressBarRef = useRef(new QProgress({ colorful: false }))
+  const progressBarRef = useRef(new QProgress({ colorful: true }))
   useOnceClientEffect(() => {
     registers.onComplete.push(() => {
       progressBarRef.current.finish()

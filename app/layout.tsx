@@ -91,7 +91,7 @@ export default async function RootLayout({
           <link rel="sitemap" href="/sitemap.xml" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         </head>
-        <body className={cn([inter.className, 'loading'])} id="app">
+        <body className={cn(inter.className, 'loading')} id="app">
           {children}
         </body>
       </html>

@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react'
 
 import { useUserStore } from '~/atoms/user'
 import type { TrackerAction } from '~/enums/tracker'
-import { useThemeConfig } from '~/hooks/use-initial-data'
+import { useThemeConfig } from '~/hooks/app/use-initial-data'
 import { CustomEventTypes } from '~/types/events'
 import { isDev } from '~/utils/env'
 import { eventBus } from '~/utils/event-emitter'

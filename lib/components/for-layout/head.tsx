@@ -6,7 +6,7 @@ import React, { memo, useInsertionEffect } from 'react'
 
 import { API_URL } from '~/constants/env'
 import type { ThemeColor } from '~/data/typings/theme'
-import { useInitialData, useKamiConfig } from '~/hooks/use-initial-data'
+import { useInitialData, useKamiConfig } from '~/hooks/app/use-initial-data'
 import { isDev } from '~/utils/env'
 import { loadScript } from '~/utils/load-script'
 

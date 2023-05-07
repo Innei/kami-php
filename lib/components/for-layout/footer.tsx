@@ -2,7 +2,7 @@
 
 import { memo, useMemo } from 'react'
 
-import { useThemeConfig } from '~/hooks/use-initial-data'
+import { useThemeConfig } from '~/hooks/app/use-initial-data'
 
 export const DynamicFooterScript = memo(() => {
   const themeConfig = useThemeConfig()

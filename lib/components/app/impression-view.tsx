@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { TrackerAction } from '~/enums/tracker'
-import { useAnalyze } from '~/hooks/use-analyze'
+import { useAnalyze } from '~/hooks/app/use-analyze'
 
 type ImpressionProps = {
   trackerMessage?: string

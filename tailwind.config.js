@@ -17,6 +17,21 @@ module.exports = {
         wider: { raw: '(min-width: 1500px)' },
 
         w900: { raw: '(max-width: 900px)' },
+
+        'w-screen': '100vw',
+        'h-screen': '100vh',
+      },
+      maxWidth: {
+        screen: '100vw',
+      },
+      width: {
+        screen: '100vw',
+      },
+      height: {
+        screen: '100vh',
+      },
+      maxHeight: {
+        screen: '100vh',
       },
       fontFamily: {
         serif: 'var(--serif-font)',

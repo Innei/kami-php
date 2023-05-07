@@ -50,6 +50,7 @@
     "axios": "1.4.0",
     "dayjs": "1.11.7",
     "devtools-detector": "2.0.14",
+    "framer-motion": "10.12.8",
     "immer": "10.0.1",
     "js-cookie": "3.0.5",
     "lodash-es": "4.17.21",

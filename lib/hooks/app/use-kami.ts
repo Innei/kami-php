@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { useAppStore } from '~/atoms/app'
-import { useKamiConfig } from '~/hooks/use-initial-data'
+import { useKamiConfig } from '~/hooks/app/use-initial-data'
 import { shuffle } from '~/utils/_'
 import { getRandomImage } from '~/utils/images'
 

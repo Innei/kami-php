@@ -1,7 +1,7 @@
 import { message } from 'react-message-popup'
 
 import { useUserStore } from '~/atoms/user'
-import { useThemeConfig } from '~/hooks/use-initial-data'
+import { useThemeConfig } from '~/hooks/app/use-initial-data'
 import { apiClient } from '~/utils/api-client'
 import { devtoolForbidden } from '~/utils/console'
 import { getToken, removeToken, setToken } from '~/utils/cookie'

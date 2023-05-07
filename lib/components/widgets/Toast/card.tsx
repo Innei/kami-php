@@ -9,8 +9,8 @@ import { ImpressionView } from '~/components/app/impression-view'
 import { CloseIcon } from '~/components/icons/close'
 import { Avatar } from '~/components/ui/Avatar'
 import { RelativeTime } from '~/components/universal/RelativeTime'
-import { useInitialData } from '~/hooks/use-initial-data'
-import { useDetectPadOrMobile } from '~/hooks/use-viewport'
+import { useInitialData } from '~/hooks/app/use-initial-data'
+import { useDetectPadOrMobile } from '~/hooks/ui/use-viewport'
 
 const wrapperProps = { className: '!border-none !shadow-none' }
 export const ToastCard: FC<{
