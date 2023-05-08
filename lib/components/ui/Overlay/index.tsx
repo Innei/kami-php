@@ -67,8 +67,8 @@ const OverLay: FC<OverlayProps> = (props) => {
       {!isExitAnimationEnd && (
         <div
           className={cn(
-            'z-[61] inset-0 fixed',
-            center && 'flex items-center justify-center flex-col',
+            'fixed inset-0 z-[61]',
+            center && 'flex flex-col items-center justify-center',
           )}
           style={typeof zIndex !== 'undefined' ? { zIndex } : undefined}
         >
@@ -93,7 +93,7 @@ const OverLay: FC<OverlayProps> = (props) => {
       {!isExitAnimationEnd && (
         <div
           className={cn(
-            'z-[99] fixed inset-0 flex',
+            'fixed inset-0 z-[99] flex',
             props.center && 'items-center justify-center',
             standaloneWrapperClassName,
           )}

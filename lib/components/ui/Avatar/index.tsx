@@ -82,7 +82,7 @@ export const Avatar: FC<
             />
           </div>
         ) : props.text ? (
-          <div className="flex flex-grow relative h-full w-full items-center justify-center">
+          <div className="relative flex h-full w-full flex-grow items-center justify-center">
             <FlexText size={0.8} text={props.text} />
           </div>
         ) : null,

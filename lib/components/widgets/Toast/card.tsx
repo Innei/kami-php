@@ -32,10 +32,10 @@ export const ToastCard: FC<{
     >
       <div
         onClick={(e) => props.onClick?.(e.nativeEvent)}
-        className="relative flex space-x-4 items-center p-4 w-full text-[12px] bg-bg-opacity overflow-hidden
-    text-inherit border border-shallow border-opacity-50
-    rounded-xl backdrop-filter backdrop-brightness-110 backdrop-saturate-150 backdrop-blur-md
-  select-none cursor-pointer mb-4 mr-4 box-border ml-auto"
+        className="bg-bg-opacity border-shallow relative mb-4 ml-auto mr-4 box-border flex w-full
+    cursor-pointer select-none items-center space-x-4
+    overflow-hidden rounded-xl border border-opacity-50 p-4
+  text-[12px] text-inherit backdrop-blur-md backdrop-brightness-110 backdrop-saturate-150 backdrop-filter"
         style={{
           width: isPadOrMobile ? 'calc(100% - 16px - 16px)' : '350px',
         }}
@@ -43,7 +43,7 @@ export const ToastCard: FC<{
         <div
           role="button"
           tabIndex={0}
-          className="flex items-center justify-center absolute z-10 top-2 left-2 h-6 w-6 rounded-full overflow-hidden bg-theme-gray-6 bg-opacity-80 dark:bg-dark-100 text-dark-50 dark:text-white"
+          className="dark:bg-dark-100 text-dark-50 absolute left-2 top-2 z-10 flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-theme-gray-6 bg-opacity-80 dark:text-white"
           onClick={(e) => {
             e.stopPropagation()
             props.getToastId && toast.dismiss(props.getToastId())
@@ -59,8 +59,8 @@ export const ToastCard: FC<{
             wrapperProps={wrapperProps}
           />
         </div>
-        <div className="flex-grow relative flex-shrink min-w-0 break-all leading-[1.5] pr-10">
-          <p className="text-[1.05em] leading-none font-medium truncate mb-1">
+        <div className="relative min-w-0 flex-shrink flex-grow break-all pr-10 leading-[1.5]">
+          <p className="mb-1 truncate text-[1.05em] font-medium leading-none">
             {title}
           </p>
           {text && (
@@ -70,11 +70,11 @@ export const ToastCard: FC<{
           )}
 
           {description && (
-            <p className="text-theme-gray-2 line-clamp-2">{description}</p>
+            <p className="line-clamp-2 text-theme-gray-2">{description}</p>
           )}
         </div>
 
-        <div className="absolute right-4 top-4 text-[0.8em] self-start text-theme-gray-2">
+        <div className="absolute right-4 top-4 self-start text-[0.8em] text-theme-gray-2">
           <RelativeTime date={date.current} />
         </div>
       </div>

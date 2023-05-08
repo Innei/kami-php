@@ -25,7 +25,7 @@ export default function ErrorPage({ error }: any) {
     <>
       {showBg && (
         <div
-          className="absolute opacity-20 blur-[15px] filter inset-0 bg-center bg-cover pointer-events-none"
+          className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20 blur-[15px] filter"
           style={{
             backgroundImage: `url("https://fastly.jsdelivr.net/gh/mx-space/docs-images@master/images/chichi-1.jpeg")`,
           }}

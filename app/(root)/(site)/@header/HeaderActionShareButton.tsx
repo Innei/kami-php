@@ -39,7 +39,7 @@ export const HeaderActionButtonWithIcon: FC<{
 }> = memo(({ icon, title, onClick }) => {
   return (
     <div onClick={onClick} className="flex items-center justify-center">
-      <span className="inline-flex items-center mr-2">{icon}</span>
+      <span className="mr-2 inline-flex items-center">{icon}</span>
 
       <span className="flex-shrink-0">{title}</span>
     </div>

@@ -42,7 +42,7 @@ const _HeaderDrawer: FC<
         <Overlay show={show} onClose={onExit} zIndex={60} />
         <div className={cn(styles['drawer'], show ? styles['show'] : null)}>
           <div className="pb-4 text-right">
-            <span className="p-4 inline-block -mr-5 -mt-4" onClick={onExit}>
+            <span className="-mr-5 -mt-4 inline-block p-4" onClick={onExit}>
               <CloseIcon />
             </span>
           </div>

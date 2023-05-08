@@ -77,10 +77,6 @@ const useDarkModeInternal = (
   const getDarkMode = useStateToRef(darkMode)
   useEffect(() => {
     const handler = () => {
-      console.log(
-        window.matchMedia('(prefers-color-scheme: dark)').matches,
-        getDarkMode.current,
-      )
       // if set color mode follow system, del storage
       if (
         window.matchMedia('(prefers-color-scheme: dark)').matches ===

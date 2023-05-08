@@ -7,19 +7,26 @@ import { Effect } from './effect'
 
 interface PageSlot {
   header: React.ReactNode
+  footer: React.ReactNode
+  player: React.ReactNode
 }
-export default function SiteLayout(props: PropsWithChildren<PageSlot>) {
-  const { children } = props
+export default function SiteLayout(slots: PropsWithChildren<PageSlot>) {
+  const { children } = slots
 
   return (
     <>
-      {props.header}
+      {slots.header}
 
       <Effect />
 
       <SiteBackground />
       <LampSwitch />
-      <div className="relative z-[1]">{children}</div>
+      <div className="relative z-[1]">
+        {children}
+
+        {slots.footer}
+        {slots.player}
+      </div>
     </>
   )
 }

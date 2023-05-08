@@ -46,16 +46,16 @@ export const ErrorView: NextPage<{
   const router = useRouter()
   const message = errorToText(isNumber(statusCode) ? statusCode : 500)
   return (
-    <div className="text-current h-[calc(100vh-16rem)] text-center flex flex-col items-center justify-center">
+    <div className="flex h-[calc(100vh-16rem)] flex-col items-center justify-center text-center text-current">
       {seo && <Seo title={message} />}
-      <div className="flex items-center mb-4">
-        <h1 className="inline-block text-2xl font-medium align-top">
+      <div className="mb-4 flex items-center">
+        <h1 className="inline-block align-top text-2xl font-medium">
           {statusCode}
         </h1>
-        <div className="border-r border-theme-black mx-5 border-opacity-30 h-full" />
+        <div className="mx-5 h-full border-r border-theme-black border-opacity-30" />
         <div className="inline-block text-left align-middle leading-none">
           {description ?? (
-            <h2 className="text-base font-normal !m-0 !p-0">{message}</h2>
+            <h2 className="!m-0 !p-0 text-base font-normal">{message}</h2>
           )}
         </div>
       </div>
@@ -63,7 +63,7 @@ export const ErrorView: NextPage<{
         <div className="mt-5">
           {showBackButton && (
             <button
-              className="btn !bg-red-500 mr-3"
+              className="btn mr-3 !bg-red-500"
               onClick={() => router.push('/')}
             >
               回到首页

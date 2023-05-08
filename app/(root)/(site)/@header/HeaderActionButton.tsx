@@ -16,7 +16,7 @@ export const HeaderActionButton: FC<JSX.IntrinsicElements['button']> = (
   return (
     <button
       className={cn(
-        'flex items-center justify-center rounded-full px-3 bg-shallow cursor-pointer h-10',
+        'bg-shallow flex h-10 cursor-pointer items-center justify-center rounded-full px-3',
         className,
       )}
       {...rest}

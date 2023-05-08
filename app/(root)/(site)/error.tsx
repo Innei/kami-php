@@ -16,8 +16,8 @@ export default function Error({
   }, [error])
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
+    <div className="m-4 inline-flex flex-col bg-red-400 p-2">
+      <h2>Component crash</h2>
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment

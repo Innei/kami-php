@@ -102,11 +102,11 @@ export const Header: FC = () => {
         )}
       >
         <div
-          className={cn(styles['head-swiper'], 'justify-between min-w-0')}
+          className={cn(styles['head-swiper'], 'min-w-0 justify-between')}
           ref={appHeaderRef}
         >
           <div
-            className="flex items-center justify-center cursor-pointer select-none min-w-0"
+            className="flex min-w-0 cursor-pointer select-none items-center justify-center"
             onClick={clickFunc}
           >
             <div className={styles['header-logo']}>
