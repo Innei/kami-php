@@ -1,15 +1,14 @@
 import type { FC } from 'react'
 import { memo } from 'react'
 
-import { MdiShare } from '@mx-space/kami-design/components/Icons/layout'
-
-import { useGetHeaderShare } from '~/hooks/use-header-meta'
+import { useGetHeaderShare } from '~/hooks/app/use-header-meta'
 
 import {
   HeaderActionButton,
   HeaderActionButtonsContainer,
 } from './HeaderActionButton'
 
+const MdiShare = () => <i className="icon-[radix-icons--share-1]" />
 export const HeaderActionShareButton: FC = () => {
   const hasShare = 'share' in navigator
   const shareData = useGetHeaderShare()

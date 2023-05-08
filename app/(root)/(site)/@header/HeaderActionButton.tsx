@@ -1,11 +1,11 @@
-import { clsx } from 'clsx'
-import type { FC } from 'react'
-import { memo, useCallback, useRef } from 'react'
+import type { FC, PropsWithChildren } from 'react'
+import { useCallback, useRef } from 'react'
 
 import { useNoteCollection } from '~/atoms/collections/note'
-import { LikeButton } from '~/components/universal/LikeButton'
-import { TrackerAction } from '~/constants/tracker'
-import { useAnalyze } from '~/hooks/use-analyze'
+import { LikeButton } from '~/components/ui/LikeButton'
+import { TrackerAction } from '~/enums/tracker'
+import { useAnalyze } from '~/hooks/app/use-analyze'
+import { cn } from '~/utils/helper'
 
 import styles from './index.module.css'
 
@@ -15,7 +15,7 @@ export const HeaderActionButton: FC<JSX.IntrinsicElements['button']> = (
   const { className, ...rest } = props
   return (
     <button
-      className={clsx(
+      className={cn(
         'flex items-center justify-center rounded-full px-3 bg-shallow cursor-pointer h-10',
         className,
       )}
@@ -23,9 +23,9 @@ export const HeaderActionButton: FC<JSX.IntrinsicElements['button']> = (
     />
   )
 }
-export const HeaderActionButtonsContainer = memo((props) => {
+export const HeaderActionButtonsContainer = (props: PropsWithChildren) => {
   return <div className="mr-3 flex items-center">{props.children}</div>
-})
+}
 
 export const HeaderActionLikeButtonForNote: FC<{ id: number }> = (props) => {
   const { id } = props

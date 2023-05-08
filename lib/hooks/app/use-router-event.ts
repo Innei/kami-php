@@ -1,46 +1,49 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import QProgress from 'qier-progress'
 import { useEffect, useRef, useState } from 'react'
 
+import { pick } from '~/utils/_'
+
 import { useOnceClientEffect } from '../common/use-once-client-effect'
 import { useAnalyze } from './use-analyze'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable @typescript-eslint/no-empty-interface */
+
 interface RouterNavigationEvent {}
 
 type RouterEventFunction = (e: RouterNavigationEvent) => void
 
 // TODO detect error event
-const useAppRouterEventerListener = () => {
-  const [isRouterStartChange, setIsRouterStartChange] = useState(false)
+export const useAppRouterEventerListener = () => {
   const [isRouterComplete, setIsRouterComplete] = useState(false)
 
+  const startChangeCallback = () => {
+    eventsRegisters.current.onStartQ.forEach(($) => $(buildEvent()))
+    setIsRouterComplete(false)
+  }
   const router = useRouter()
-  useOnceClientEffect(() => {
+  useEffect(() => {
     const rawPush = router.push
     const rawReplace = router.replace
 
     const popstateHandler = () => {
-      setIsRouterComplete(false)
-      setIsRouterStartChange(true)
+      startChangeCallback()
     }
 
     window.addEventListener('popstate', popstateHandler)
 
     router.push = (...rest) => {
-      console.log('punish')
-      setIsRouterComplete(false)
-      setIsRouterStartChange(true)
+      startChangeCallback()
 
       // eslint-disable-next-line prefer-spread
       rawPush.apply(null, rest)
     }
 
     router.replace = (...rest) => {
-      setIsRouterComplete(false)
-      setIsRouterStartChange(true)
+      startChangeCallback()
 
       // eslint-disable-next-line prefer-spread
       rawReplace.apply(null, rest)
@@ -52,28 +55,39 @@ const useAppRouterEventerListener = () => {
 
       window.removeEventListener('popstate', popstateHandler)
     }
-  })
+  }, [])
 
   const eventsRegisters = useRef({
-    onStart: [] as RouterEventFunction[],
-    onError: [] as RouterEventFunction[],
-    onComplete: [] as RouterEventFunction[],
+    onStartQ: [] as RouterEventFunction[],
+    // onErrorQ: [] as RouterEventFunction[],
+    onCompleteQ: [] as RouterEventFunction[],
+    onStart(cb: RouterEventFunction) {
+      eventsRegisters.current.onStartQ.push(cb)
+      return () => {
+        eventsRegisters.current.onStartQ =
+          eventsRegisters.current.onStartQ.filter(($) => $ !== cb)
+      }
+    },
+
+    onComplete(cb: RouterEventFunction) {
+      eventsRegisters.current.onCompleteQ.push(cb)
+      return () => {
+        eventsRegisters.current.onCompleteQ =
+          eventsRegisters.current.onCompleteQ.filter(($) => $ !== cb)
+      }
+    },
   })
 
   const buildEvent = (): RouterNavigationEvent => {
-    return {}
+    return {
+      url: location.pathname + location.search,
+    }
   }
-
-  useEffect(() => {
-    if (!isRouterStartChange) return
-
-    eventsRegisters.current.onStart.forEach(($) => $(buildEvent()))
-  }, [isRouterStartChange])
 
   useEffect(() => {
     if (!isRouterComplete) return
 
-    eventsRegisters.current.onComplete.forEach(($) => $(buildEvent()))
+    eventsRegisters.current.onCompleteQ.forEach(($) => $(buildEvent()))
   }, [isRouterComplete])
 
   const currentPathname = usePathname()
@@ -82,15 +96,14 @@ const useAppRouterEventerListener = () => {
   useEffect(() => {
     if (
       currentPathname === location.pathname &&
-      searchParams.toString() ===
+      searchParams?.toString() ===
         new URLSearchParams(location.search).toString()
     ) {
       setIsRouterComplete(true)
-      setIsRouterStartChange(false)
     }
   }, [currentPathname])
 
-  return eventsRegisters.current
+  return pick(eventsRegisters.current, ['onStart', 'onComplete'])
 }
 
 export const useRouterEvent = () => {
@@ -99,18 +112,18 @@ export const useRouterEvent = () => {
   const registers = useAppRouterEventerListener()
   const progressBarRef = useRef(new QProgress({ colorful: true }))
   useOnceClientEffect(() => {
-    registers.onComplete.push(() => {
+    registers.onComplete(() => {
       progressBarRef.current.finish()
 
       pageview(location.pathname + location.search)
     })
 
-    registers.onStart.push(() => {
+    registers.onStart(() => {
       progressBarRef.current.start()
     })
 
-    registers.onError.push(() => {
-      history.backPath?.pop()
-    })
+    // registers.onErrorQ.push(() => {
+    //   history.backPath?.pop()
+    // })
   })
 }

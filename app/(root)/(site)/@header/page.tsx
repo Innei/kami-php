@@ -1,5 +1,7 @@
 'use client'
 
+import { Header } from './Header'
+
 export default function PostPage() {
-  return <div>1</div>
+  return <Header />
 }

@@ -1,32 +1,31 @@
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import type { FC } from 'react'
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
 
-import { useKamiConfig } from '~/hooks/use-initial-data'
+import { useKamiConfig } from '~/hooks/app/use-initial-data'
 
 import { HeaderNavigationList } from './HeaderNavigationList'
 import styles from './index.module.css'
 
 export const MenuList: FC = memo(() => {
   const groupRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
+  const pathname = usePathname()
   const kamiConfig = useKamiConfig()
   const ballIndex = useMemo(() => {
-    const asPath = router.asPath
     const menu = kamiConfig.site.header.menu
 
-    if (asPath === '' || asPath === '/') {
+    if (pathname === '' || pathname === '/') {
       const idx = menu.findIndex((item) => item.type == 'Home')
 
       return ~idx ? idx : -1
     }
-    const firstPath = asPath.split('/')[1]
+    const firstPath = pathname.split('/')[1]
 
     const inMenuIndex = menu.findIndex(
       (item) =>
         item.path != '/' &&
-        (asPath.startsWith(item.path) ||
-          item.subMenu?.find((subItem) => asPath.startsWith(subItem.path))),
+        (pathname.startsWith(item.path) ||
+          item.subMenu?.find((subItem) => pathname.startsWith(subItem.path))),
     )
 
     if (inMenuIndex > -1) {
@@ -56,7 +55,18 @@ export const MenuList: FC = memo(() => {
       default:
         return 0
     }
-  }, [kamiConfig.site.header.menu, router.asPath])
+  }, [kamiConfig.site.header.menu, pathname])
+
+  // NOTE: force update and re-calculating ball position, biz RSC not mount to dom at first time, will got left = 0px
+  const [trigger, update] = useState(0)
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      update((v) => v + 1)
+    }, 150)
+
+    return () => clearTimeout(timerId)
+  }, [])
+
   const [ballOffsetLeft, setBallOffsetLeft] = useState(0)
   useEffect(() => {
     if (!groupRef.current || typeof ballIndex === 'undefined') {
@@ -64,6 +74,7 @@ export const MenuList: FC = memo(() => {
     }
 
     const $group = groupRef.current
+
     const $child = $group.children.item(ballIndex) as HTMLElement
 
     if ($child) {
@@ -71,7 +82,7 @@ export const MenuList: FC = memo(() => {
         $child.offsetLeft + $child.getBoundingClientRect().width / 2,
       )
     }
-  }, [ballIndex])
+  }, [ballIndex, trigger])
 
   return (
     <div className={styles['link-group']} ref={groupRef}>

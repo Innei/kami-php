@@ -6,9 +6,9 @@ export default async function (props: PropsWithChildren) {
   const { children } = props
 
   return (
-    <div>
+    <>
       <SiteBackground />
       <div className="relative z-[1]">{children}</div>
-    </div>
+    </>
   )
 }

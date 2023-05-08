@@ -1,9 +1,9 @@
-import { clsx } from 'clsx'
 import type { FC } from 'react'
 import React, { useDeferredValue } from 'react'
 
 import { useAppStore } from '~/atoms/app'
-import { useIsOverFirstScreenHeight } from '~/hooks/use-viewport'
+import { useIsOverFirstScreenHeight } from '~/hooks/ui/use-viewport'
+import { cn } from '~/utils/helper'
 
 import styles from './index.module.css'
 
@@ -27,7 +27,7 @@ export const HeaderBase: FC<{ children?: React.ReactNode }> = (props) => {
 
   return (
     <header
-      className={clsx(
+      className={cn(
         styles['header'],
         // !appStore.headerNav.show &&
         isOverFirstScreenHeight && isMobile ? styles['hide'] : null,

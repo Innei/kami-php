@@ -1,16 +1,14 @@
-import { clsx } from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { memo, useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { Modifier, ShortcutContext } from 'react-shortcut-guide'
 
-import { FloatPopover } from '@mx-space/kami-design/components/FloatPopover'
-
-import { FontIcon } from '~/components/universal/FontIcon'
-import { TrackerAction } from '~/constants/tracker'
-import { useAnalyze } from '~/hooks/use-analyze'
-import { useHeaderNavList } from '~/hooks/use-header-nav-list'
-import type { Menu } from '~/types/config'
+import { FloatPopover } from '~/components/ui/FloatPopover'
+import { FontIcon } from '~/components/ui/FontIcon'
+import type { Menu } from '~/data/typings/theme'
+import { TrackerAction } from '~/enums/tracker'
+import { useAnalyze } from '~/hooks/app/use-analyze'
+import { useHeaderNavList } from '~/hooks/app/use-header-nav-list'
 
 import styles from './index.module.css'
 
@@ -53,7 +51,7 @@ const MenuLink: FC<{ menu: Menu; isPublicUrl: boolean; index: number }> = (
       headless
       placement="bottom"
       offset={0}
-      popoverWrapperClassNames="z-19 relative"
+      popoverWrapperClassNames="z-[19] relative"
       triggerComponent={() => (
         <Link
           href={menu.path}
@@ -72,7 +70,7 @@ const MenuLink: FC<{ menu: Menu; isPublicUrl: boolean; index: number }> = (
       )}
     >
       {menu.subMenu?.length ? (
-        <ul className={clsx(styles['sub-dropdown'])}>
+        <ul className={styles['sub-dropdown']}>
           {menu.subMenu?.map((m, i) => {
             return (
               <Link
@@ -95,7 +93,7 @@ const MenuLink: FC<{ menu: Menu; isPublicUrl: boolean; index: number }> = (
   )
 }
 
-export const HeaderNavigationList: FC = memo(() => {
+export const HeaderNavigationList: FC = () => {
   const { mergedMenu } = useHeaderNavList()
   return (
     <>
@@ -114,4 +112,4 @@ export const HeaderNavigationList: FC = memo(() => {
       })}
     </>
   )
-})
+}

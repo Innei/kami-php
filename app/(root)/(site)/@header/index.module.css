@@ -53,7 +53,7 @@
 }
 
 .subtitle {
-  @apply text-sm text-gray-2 flex-1 min-w-0 truncate;
+  @apply text-sm text-theme-gray-2 flex-1 min-w-0 truncate;
 
   margin-top: -0.3rem;
 }
@@ -111,8 +111,8 @@
 }
 
 .drawer {
-  @apply fixed z-90 top-0 bottom-0 right-0 bg-light-bg overflow-auto;
-  @apply transition-transform duration-300 p-6 text-light-brown;
+  @apply fixed z-[90] top-0 bottom-0 right-0 bg-theme-bg overflow-auto;
+  @apply transition-transform duration-300 p-6 text-always-amber-950 dark:text-always-amber-500;
 
   width: 300px;
   max-width: 80vw;
@@ -180,7 +180,7 @@
 
   &:hover .anchor-ball {
     opacity: 1;
-    background-color: var(--secondary);
+    background-color: theme(colors.theme.accent);
     border-radius: 3px;
     width: 3rem;
     height: 2px;
@@ -240,7 +240,7 @@
   align-items: center;
 
   & .meta {
-    @apply text-gray-2;
+    @apply text-theme-gray-2;
 
     font-size: 0.8rem;
     flex-shrink: 1;
@@ -263,7 +263,7 @@
 }
 
 .site-info {
-  @apply text-gray-3;
+  @apply text-theme-gray-3;
 }
 
 .swiper-metawrapper {
@@ -272,7 +272,7 @@
 }
 
 .sub-dropdown {
-  @apply bg-light-bg p-2;
+  @apply bg-theme-bg p-2;
   @apply shadow-out-sm;
 
   border-radius: 0.5em;

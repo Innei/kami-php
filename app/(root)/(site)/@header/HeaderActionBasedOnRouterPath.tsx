@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
+import { usePathname, useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import React, { Fragment, memo } from 'react'
 
-import { useInitialData } from '~/hooks/use-initial-data'
+import { useInitialData } from '~/hooks/app/use-initial-data'
 
 import {
   HeaderActionButton,
@@ -13,17 +13,18 @@ import { HeaderActionShareButton } from './HeaderActionShareButton'
 import styles from './index.module.css'
 
 export const HeaderActionBasedOnRouterPath: FC = memo(() => {
-  const router = useRouter()
-  const pathname = router.pathname
+  const search = useSearchParams()
+  const pathname = usePathname()
   const {
     seo: { title },
   } = useInitialData()
 
   const Comp = (() => {
     const titleComp = <div className={styles['site-info']}>{title}</div>
+    // TODO case
     switch (pathname) {
       case '/notes/[id]': {
-        const id = parseInt(router.query.id as any)
+        const id = parseInt(search.get('id') as any)
 
         if (id && typeof id === 'number') {
           return (
@@ -49,7 +50,7 @@ export const HeaderActionBasedOnRouterPath: FC = memo(() => {
           <Fragment>
             <HeaderActionShareButton />
             <div className="flex flex-col flex-shrink-0">
-              <span>/{router.query.page}</span>
+              <span>/{search.get('page')}</span>
               {titleComp}
             </div>
           </Fragment>

@@ -43,7 +43,7 @@ export const ToastCard: FC<{
         <div
           role="button"
           tabIndex={0}
-          className="flex items-center justify-center absolute z-10 top-2 left-2 h-6 w-6 rounded-full overflow-hidden bg-gray-6 bg-opacity-80 dark:bg-dark-100 text-dark-50 dark:text-white"
+          className="flex items-center justify-center absolute z-10 top-2 left-2 h-6 w-6 rounded-full overflow-hidden bg-theme-gray-6 bg-opacity-80 dark:bg-dark-100 text-dark-50 dark:text-white"
           onClick={(e) => {
             e.stopPropagation()
             props.getToastId && toast.dismiss(props.getToastId())
@@ -70,11 +70,11 @@ export const ToastCard: FC<{
           )}
 
           {description && (
-            <p className="text-gray-2 line-clamp-2">{description}</p>
+            <p className="text-theme-gray-2 line-clamp-2">{description}</p>
           )}
         </div>
 
-        <div className="absolute right-4 top-4 text-[0.8em] self-start text-gray-2">
+        <div className="absolute right-4 top-4 text-[0.8em] self-start text-theme-gray-2">
           <RelativeTime date={date.current} />
         </div>
       </div>
