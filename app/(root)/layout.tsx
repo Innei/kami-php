@@ -11,6 +11,8 @@
  */
 import { headers } from 'next/headers'
 import { userAgent } from 'next/server'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 
 import { fetchThemeConfig } from '~/data/theme-config'
 import type { InitialDataType } from '~/providers/initial-data'
@@ -74,11 +76,12 @@ const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
   }
 }
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface PropsWithSlot extends PropsWithChildren {
+  head: React.ReactNode
+  footer: React.ReactNode
+}
+export default async function RootLayout(props: PropsWithSlot) {
+  const { children, head, footer } = props
   const data = await fetchInitialData(headers())
   const { aggregateData } = data
   const { seo } = aggregateData
@@ -86,9 +89,22 @@ export default async function RootLayout({
 
   return (
     <AppRootProviders data={data}>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      {children}
+      <head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="alternate" href="/feed" type="application/atom+xml" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="sitemap" href="/sitemap.xml" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        {head}
+      </head>
+      <body className="loading" id="app">
+        {children}
+        <footer>{footer}</footer>
+      </body>
     </AppRootProviders>
   )
 }

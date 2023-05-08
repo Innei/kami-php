@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 
-import { DynamicFooterScript } from '~/components/site/footer'
-import { DynamicHeadMeta } from '~/components/site/head'
+import { SiteBackground } from '~/components/site/background'
+import { LampSwitch } from '~/components/ui/LampSwitch'
 
 import { Effect } from './effect'
 
@@ -14,11 +14,12 @@ export default function SiteLayout(props: PropsWithChildren<PageSlot>) {
   return (
     <>
       {props.header}
-      <DynamicHeadMeta />
-      <DynamicFooterScript />
+
       <Effect />
 
-      {children}
+      <SiteBackground />
+      <LampSwitch />
+      <div className="relative z-[1]">{children}</div>
     </>
   )
 }

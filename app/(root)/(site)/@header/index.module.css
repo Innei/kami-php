@@ -9,7 +9,7 @@
 
     backdrop-filter: blur(20px) saturate(180%);
     transition: transform 0.5s;
-    background-color: var(--bg-opacity);
+    background-color: theme(colors.theme.bg.opacity);
     z-index: 0;
     content: '';
     opacity: var(--opacity);

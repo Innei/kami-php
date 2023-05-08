@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
 
-import { useAppStore } from '~/atoms/app'
 import { useKamiConfig } from '~/hooks/app/use-initial-data'
 import { shuffle } from '~/utils/_'
 import { getRandomImage } from '~/utils/images'
+
+import { useCurrentColorMode } from '../ui/use-dark'
 
 const loadStyle = (css: string) => {
   const $style = document.createElement('style')
@@ -18,7 +19,8 @@ export const useThemeBackground = () => {
   const {
     site: { background },
   } = useKamiConfig()
-  const colorMode = useAppStore((state) => state.colorMode)
+  const colorMode = useCurrentColorMode()
+
   useEffect(() => {
     return loadStyle(
       `body .bg-fixed > .bg { background: url(${
@@ -40,7 +42,7 @@ export const useFooterBackground = (footerClassName: string) => {
       footer: { background },
     },
   } = useKamiConfig()
-  const colorMode = useAppStore((state) => state.colorMode)
+  const colorMode = useCurrentColorMode()
   useEffect(() => {
     return loadStyle(
       `.${footerClassName}::before { background: url(${

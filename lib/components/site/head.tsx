@@ -1,8 +1,7 @@
 'use client'
 
-import Head from 'next/head'
 import type { FC } from 'react'
-import React, { memo, useInsertionEffect } from 'react'
+import React, { Suspense, memo, useInsertionEffect } from 'react'
 
 import { API_URL } from '~/constants/env'
 import type { ThemeColor } from '~/data/typings/theme'
@@ -76,7 +75,7 @@ export const DynamicHeadMeta: FC = memo(() => {
   }, [])
 
   return (
-    <Head>
+    <Suspense>
       <meta name="api_url" content={API_URL} />
 
       <meta
@@ -114,13 +113,13 @@ export const DynamicHeadMeta: FC = memo(() => {
       <link rel="icon" href={favicon} />
       <link rel="apple-touch-icon" href={favicon} />
 
-      <link rel="preload" href={darkBg} as="image" />
-      <link rel="preload" href={lightBg} as="image" />
-      <link rel="preload" href={darkFooter} as="image" />
-      <link rel="preload" href={lightFooter} as="image" />
+      {darkBg && <link rel="preload" href={darkBg} as="image" />}
+      {lightBg && <link rel="preload" href={lightBg} as="image" />}
+      {darkFooter && <link rel="preload" href={darkFooter} as="image" />}
+      {lightFooter && <link rel="preload" href={lightFooter} as="image" />}
 
       {themeColorMetaElement}
       {secondaryColorElement}
-    </Head>
+    </Suspense>
   )
 })

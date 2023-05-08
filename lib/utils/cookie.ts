@@ -58,3 +58,23 @@ export function isLikedBefore(id: string) {
 function getTomorrow() {
   return dayjs().add(1, 'd').set('h', 2).set('m', 0).toDate()
 }
+
+const { get, remove, set } = Cookies
+
+export const setCookie = (key: string, value: any) => {
+  set(key, JSON.stringify(value))
+}
+
+export const getCookie = (key: string, fallback?: any) => {
+  try {
+    const value = get(key)
+
+    if (!value) return fallback
+
+    return JSON.parse(value)
+  } catch {
+    return fallback
+  }
+}
+
+export const removeCookie = (key: string) => remove(key)

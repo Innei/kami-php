@@ -9,28 +9,34 @@
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
  */
+import { cookies } from 'next/headers'
+
+import { darkModeKey } from '~/constants/ui'
 import '~/styles'
 
+const safeParse = (v?: string) => {
+  try {
+    return JSON.parse(v!)
+  } catch {
+    return null
+  }
+}
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="zh-Hans">
-      <head>
-        <meta charSet="UTF-8" />
+  const dark = cookies().get(darkModeKey)
+  const { value: isDarkBoolString } = dark || {}
+  const isDark = isDarkBoolString ? safeParse(isDarkBoolString as any) : null
 
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="alternate" href="/feed" type="application/atom+xml" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="sitemap" href="/sitemap.xml" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-      </head>
-      <body className="loading" id="app">
-        {children}
-      </body>
+  return (
+    <html
+      lang="zh-Hans"
+      data-dark-cookie={isDarkBoolString}
+      className={isDark === true ? 'dark' : isDark === false ? 'light' : ''}
+    >
+      {children}
     </html>
   )
 }

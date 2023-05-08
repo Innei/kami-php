@@ -63,8 +63,9 @@ module.exports = {
           blue: 'rgba(var(--blue), <alpha-value>)',
           yellow: 'rgba(var(--yellow), <alpha-value>)',
 
-          accent: 'rgba(var(--accent), <alpha-value>)',
-          primary: 'rgba(var(--primary), <alpha-value>)',
+          accent: 'var(--accent)',
+          primary: 'var(--primary)',
+          secondary: 'var(--secondary)',
 
           gray: {
             DEFAULT: 'rgba(var(--gray-4), <alpha-value>)',

@@ -19,7 +19,7 @@ interface AppState {
   viewport: ViewportRecord
   position: number
   scrollDirection: 'up' | 'down' | null
-  colorMode: 'light' | 'dark'
+
   mediaType: 'screen' | 'print'
 
   gatewayOnline: number
@@ -30,7 +30,6 @@ interface AppState {
 interface AppAction {
   updatePosition(direction: 'up' | 'down' | null, y: number): void
   updateViewport(): void
-  setColorMode(colorMode: 'light' | 'dark'): void
 
   setMedia(type: 'screen' | 'print'): void
   fetchUrl(): Promise<void>
@@ -44,7 +43,6 @@ export interface UrlConfig {
 }
 
 const appDefault: AppState = {
-  colorMode: 'light',
   mediaType: 'screen',
   position: 0,
   scrollDirection: null,
@@ -60,9 +58,6 @@ export const useAppStore = create<AppState & AppAction>(
     return {
       ...appDefault,
 
-      setColorMode(colorMode) {
-        setState({ colorMode })
-      },
       updatePosition(direction, y) {
         setState({
           position: y,
