@@ -1,11 +1,11 @@
 import useSWR from 'swr'
 
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
-import { useModalStack } from '@mx-space/kami-design'
 
-import { TrackerAction } from '~/constants/tracker'
-import { useAnalyze } from '~/hooks/use-analyze'
-import { apiClient } from '~/utils/client'
+import { useModalStack } from '~/components/ui/Modal'
+import { TrackerAction } from '~/enums/tracker'
+import { useAnalyze } from '~/hooks/app/use-analyze'
+import { apiClient } from '~/utils/api-client'
 
 import { SubscribeModal } from './modal'
 

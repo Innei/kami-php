@@ -2,15 +2,15 @@
 
 import { animateValue } from 'framer-motion'
 
+import { microdampingPreset } from '~/constants/spring'
+
 export const springScrollTo = (y: number) => {
   const scrollTop =
     document.documentElement.scrollTop || document.body.scrollTop
   const animation = animateValue({
     keyframes: [scrollTop, y],
     autoplay: true,
-    type: 'spring',
-    damping: 24,
-
+    ...microdampingPreset,
     onUpdate(latest) {
       if (latest <= 0) {
         animation.stop()

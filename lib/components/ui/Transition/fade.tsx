@@ -12,33 +12,34 @@ export const FadeInOutTransitionView: FC<
   const { enter = 0, exit = 0 } = timeout
   return (
     <AnimatePresence onExitComplete={props.onExited}>
-      {props.in && appear ? (
-        props.children
-      ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-            transition: {
-              delay: enter / 1000,
-            },
-            onTransitionEnd() {
-              props.onEntered?.()
-            },
-          }}
-          exit={{
-            opacity: 0,
-            transition: {
-              delay: exit / 1000,
-            },
-          }}
-          transition={{
-            duration,
-          }}
-        >
-          {props.children}
-        </motion.div>
-      )}
+      {props.in &&
+        (appear ? (
+          props.children
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: {
+                delay: enter / 1000,
+              },
+              onTransitionEnd() {
+                props.onEntered?.()
+              },
+            }}
+            exit={{
+              opacity: 0,
+              transition: {
+                delay: exit / 1000,
+              },
+            }}
+            transition={{
+              duration,
+            }}
+          >
+            {props.children}
+          </motion.div>
+        ))}
     </AnimatePresence>
   )
 }

@@ -3,11 +3,6 @@
   overflow: hidden;
 
   :global {
-    p,
-    .paragraph {
-      color: #aaa;
-    }
-
     .intro-avatar {
       margin-right: 2em;
       height: 130px;

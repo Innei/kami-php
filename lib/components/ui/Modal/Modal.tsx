@@ -9,6 +9,7 @@ import React, {
 
 import { RootPortalProvider } from '~/components/app/portal'
 import { CloseIcon } from '~/components/icons/close'
+import { microReboundPreset } from '~/constants/spring'
 import { useIsMountedState } from '~/hooks/common/use-is-mounted'
 import { cn } from '~/utils/helper'
 
@@ -135,11 +136,16 @@ export const Modal = forwardRef<
   )
 
   return useDrawerStyle ? (
-    <BottomToUpTransitionView in={modalIn} duration={0.2}>
-      {Children}
-    </BottomToUpTransitionView>
+    <BottomToUpTransitionView in={modalIn}>{Children}</BottomToUpTransitionView>
   ) : (
-    <ScaleTransitionView in={modalIn} duration={0.2}>
+    <ScaleTransitionView
+      animation={{
+        enter: {
+          ...microReboundPreset,
+        },
+      }}
+      in={modalIn}
+    >
       {Children}
     </ScaleTransitionView>
   )

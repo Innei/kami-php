@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { memo } from 'react'
 import useSWR from 'swr'
 
-import { TextUpTransitionView } from '~/components/ui/Transition/text-fade'
+import { TextUpTransitionView } from '~/components/ui/Transition/text-up'
 import { apiClient } from '~/utils/api-client'
 
 let isLoaded = false
@@ -28,7 +28,7 @@ export const HomeRandomSay: FC = memo(() => {
   )
 
   return (
-    <div className="overflow-hidden leading-6 text-[#aaa] my-[2rem]">
+    <div className="overflow-hidden leading-6 text-theme-gray-1 my-[2rem]">
       <TextUpTransitionView text={data || ''} key={data} />
     </div>
   )

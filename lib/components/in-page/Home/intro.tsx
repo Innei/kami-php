@@ -6,7 +6,8 @@ import { Avatar } from '~/components/ui/Avatar'
 import { FloatPopover } from '~/components/ui/FloatPopover'
 import { FontIcon } from '~/components/ui/FontIcon'
 import { BottomToUpTransitionView } from '~/components/ui/Transition/bottom-up'
-import { TextUpTransitionView } from '~/components/ui/Transition/text-fade'
+import { TextUpTransitionView } from '~/components/ui/Transition/text-up'
+import { reboundPreset } from '~/constants/spring'
 import { useThemeConfig } from '~/hooks/app/use-initial-data'
 
 import { useHomePageViewContext } from './context'
@@ -34,11 +35,14 @@ export const HomeIntro: FC = () => {
         <h1>
           <TextUpTransitionView>{user.name || ''}</TextUpTransitionView>
         </h1>
-        <div className="paragraph">
-          <TextUpTransitionView appear={doAnimation}>
-            {user.introduce || ''}
-          </TextUpTransitionView>
-        </div>
+
+        <TextUpTransitionView
+          appear={doAnimation}
+          className="leading-7 mt-2 text-theme-gray-1"
+        >
+          {user.introduce || ''}
+        </TextUpTransitionView>
+
         <Social />
       </div>
     </section>
@@ -56,7 +60,12 @@ const Social: FC = withNoSSR(() => {
         return (
           <BottomToUpTransitionView
             appear={doAnimation}
-            timeout={{ enter: 500 + 50 * i }}
+            animation={{
+              enter: {
+                ...reboundPreset,
+              },
+            }}
+            timeout={{ enter: 1500 + 50 * i }}
             key={item.title}
           >
             <FloatPopover
@@ -74,7 +83,7 @@ const Social: FC = withNoSSR(() => {
               )}
               headless
             >
-              <div className="bg-light-bg px-3 py-2 border border-dark-100 border-opacity-10 rounded-full shadow-out-sm">
+              <div className="bg-theme-bg px-3 py-2 border border-dark-100 border-opacity-10 rounded-full shadow-out-sm">
                 {item.title}
               </div>
             </FloatPopover>

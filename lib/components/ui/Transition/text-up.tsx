@@ -2,16 +2,27 @@ import { motion } from 'framer-motion'
 import type { FC } from 'react'
 import React from 'react'
 
+import { microReboundPreset } from '~/constants/spring'
+
 export const TextUpTransitionView: FC<
   {
     text?: string
     children?: string
 
-    delay?: number
     appear?: boolean
+
+    eachDelay?: number
+    initialDelay?: number
   } & JSX.IntrinsicElements['div']
 > = (props) => {
-  const { appear = true, delay = 100, children, text, ...rest } = props
+  const {
+    appear = true,
+    eachDelay = 0.1,
+    initialDelay = 0,
+    children,
+    text,
+    ...rest
+  } = props
 
   if (!appear) {
     return <div {...rest}>{text ?? children}</div>
@@ -22,14 +33,15 @@ export const TextUpTransitionView: FC<
         <motion.span
           key={i}
           className="inline-block whitespace-pre"
-          initial={{ translateY: '10px', opacity: 0 }}
+          initial={{ transform: 'translateY(10px)', opacity: 0 }}
           animate={{
-            type: 'spring',
-            translateY: '0px',
+            transform: 'translateY(0px)',
+
             opacity: 1,
             transition: {
-              // TODO
-              delay: i * delay,
+              ...microReboundPreset,
+              duration: 0.1,
+              delay: i * eachDelay + initialDelay,
             },
           }}
         >

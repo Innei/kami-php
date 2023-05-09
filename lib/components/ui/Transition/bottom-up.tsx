@@ -4,9 +4,11 @@ import { createTransitionView } from './factor'
 
 export const BottomToUpTransitionView = createTransitionView({
   from: {
-    translateY: 30,
+    translateY: 50,
+    opacity: 0,
   },
   to: {
     translateY: 0,
+    opacity: 1,
   },
 })

@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC, MouseEvent } from 'react'
 import { memo, useCallback, useMemo, useState } from 'react'
 import useSWR from 'swr'
 
@@ -55,9 +55,6 @@ const LikeCard = (props: UniversalProps) => {
   )
   const [showLikeThisNotice, setShowLikeThisNotice] = useState(false)
   const cover = useMemo(() => src || getRandomUnRepeatImage(), [src])
-  function stopEventDefault(e: any) {
-    throw new Error('Function not implemented.')
-  }
 
   return (
     <>
@@ -79,8 +76,8 @@ const LikeCard = (props: UniversalProps) => {
         desc={desc || '如果你喜欢的话点个赞呗'}
         src={cover}
         href="/like_this"
-        onClick={useCallback((e) => {
-          stopEventDefault(e)
+        onClick={useCallback((e: MouseEvent) => {
+          e.preventDefault()
           apiClient
             .proxy('like_this')
             .post({ params: { ts: Date.now() } })

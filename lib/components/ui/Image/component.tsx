@@ -1,5 +1,6 @@
-import { clsx } from 'clsx'
-import mediumZoom from 'medium-zoom'
+'use client'
+
+// import mediumZoom from 'medium-zoom'
 import React, {
   forwardRef,
   memo,
@@ -17,10 +18,10 @@ import type {
   ImgHTMLAttributes,
 } from 'react'
 
+import { LazyLoad } from '~/components/universal/Lazyload'
 import { isDarkColorHex } from '~/utils/color'
-import { escapeHTMLTag } from '~/utils/utils'
+import { cn, escapeHTMLTag } from '~/utils/helper'
 
-import { LazyLoad } from '../Lazyload'
 import styles from './index.module.css'
 import { useCalculateNaturalSize } from './use-calculate-size'
 
@@ -57,13 +58,12 @@ const Image: FC<
     }
     const $image = imageRef.current
     if ($image) {
-      const zoom = mediumZoom($image, {
-        background: 'var(--light-bg)',
-      })
-
-      return () => {
-        zoom.detach(zoom.getImages())
-      }
+      // const zoom = mediumZoom($image, {
+      //   background: 'var(--light-bg)',
+      // })
+      // return () => {
+      //   zoom.detach(zoom.getImages())
+      // }
     }
   }, [popup])
 
@@ -74,7 +74,7 @@ const Image: FC<
   return (
     <>
       <div
-        className={clsx(
+        className={cn(
           styles['lazyload-image'],
           !loaded && styles['image-hide'],
         )}
@@ -225,7 +225,7 @@ export const ImageLazy = memo(
           <img src={defaultImage} alt={alt} {...rest} ref={realImageRef} />
         ) : (
           <div
-            className={clsx(
+            className={cn(
               'transition-none relative max-w-full m-auto inline-block min-h-[1px]',
               rest.className,
             )}
@@ -262,7 +262,7 @@ const PlaceholderImage = memo(
     const { backgroundColor, height, width } = props
     return (
       <div
-        className={clsx(styles['placeholder-image'], props.className)}
+        className={cn(styles['placeholder-image'], props.className)}
         ref={ref}
         style={{
           height,

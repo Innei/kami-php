@@ -201,7 +201,7 @@ export const FloatPopover: FC<
           <div
             className={cn(
               'float-popover',
-
+              'relative z-[99]',
               popoverWrapperClassNames,
             )}
             {...(trigger === 'hover' || trigger === 'both' ? listener : {})}

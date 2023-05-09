@@ -6,6 +6,8 @@ import type { AggregateTop } from '@mx-space/api-client'
 
 import { withNoSSR } from '~/components/app/no-ssr'
 import { IcTwotoneSignpost } from '~/components/icons/menu-collection'
+import { BottomToUpTransitionView } from '~/components/ui/Transition/bottom-up'
+import { reboundPreset } from '~/constants/spring'
 import type { HomePageSectionName } from '~/data/typings/theme'
 import { useKamiConfig } from '~/hooks/app/use-initial-data'
 import { useRandomImage } from '~/hooks/app/use-kami'
@@ -106,16 +108,22 @@ const SectionsInternal: FC<Omit<AggregateTop, 'says'>> = ({ notes, posts }) => {
 
   return (
     <section className={styles['root']}>
-      {/* TODO */}
-      {/* <TransitionGroup appear={doAnimation}>
-        {SectionElementList.map((El, i) => {
-          return (
-            <BottomUpTransitionView timeout={{ enter: 1200 + 200 * i }} key={i}>
-              {El}
-            </BottomUpTransitionView>
-          )
-        })}
-      </TransitionGroup> */}
+      {SectionElementList.map((El, i) => {
+        return (
+          <BottomToUpTransitionView
+            duration={0.5}
+            animation={{
+              enter: {
+                ...reboundPreset,
+              },
+            }}
+            timeout={{ enter: 1800 + 200 * i }}
+            key={i}
+          >
+            {El}
+          </BottomToUpTransitionView>
+        )
+      })}
     </section>
   )
 }

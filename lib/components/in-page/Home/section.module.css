@@ -17,6 +17,10 @@
       top: 0;
     }
 
+    i {
+      vertical-align: middle;
+    }
+
     .news-item:last-child {
       margin-bottom: 0;
     }
@@ -28,35 +32,13 @@
       border-radius: 1em;
       display: inline-flex;
       align-items: center;
-      background: var(--purple);
       padding: 0.6em 2em 0.6em 4em;
-    }
-
-    .news-head.red h3 {
-      background-color: var(--red);
-    }
-
-    .news-head.blue h3 {
-      background-color: var(--blue);
-    }
-
-    .news-head.grey h3 {
-      background-color: #a9a9a9;
     }
 
     .news-head a {
       color: inherit;
       display: block;
       padding: 0.6em 1em;
-    }
-
-    .news-head .title i {
-      top: 0;
-      left: 0;
-      padding: 1rem 1em;
-      position: absolute;
-      border-radius: 1em;
-      background: rgb(0 0 0 / 10%);
     }
 
     .news-head .more {

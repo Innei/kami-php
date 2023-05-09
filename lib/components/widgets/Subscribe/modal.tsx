@@ -1,13 +1,13 @@
 import type { FC } from 'react'
 import { useEffect, useReducer } from 'react'
 import { message } from 'react-message-popup'
+import { useStateToRef } from 'react-shortcut-guide'
 
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
-import { Input, useStateToRef } from '@mx-space/kami-design'
-import { MdiEmailFastOutline } from '@mx-space/kami-design/components/Icons/for-comment'
 
-import { useInitialData } from '~/hooks/use-initial-data'
-import { apiClient } from '~/utils/client'
+import { Input } from '~/components/ui/Input'
+import { useInitialData } from '~/hooks/app/use-initial-data'
+import { apiClient } from '~/utils/api-client'
 
 import { useSubscribeStatusQuery } from './hooks'
 
@@ -113,7 +113,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
         type="text"
         placeholder="留下你的邮箱哦 *"
         required
-        prefix={<MdiEmailFastOutline />}
+        prefix={<i className="icon-[mdi--email-fast-outline]" />}
         value={state.email}
         onChange={(e) => {
           dispatch({ type: 'set', data: { email: e.target.value } })
