@@ -86,11 +86,12 @@ export default async function RootLayout(props: PropsWithSlot) {
   const { aggregateData } = data
   const { seo } = aggregateData
   const { title, description } = seo
+  const fullTitle = `${title} · ${description}`
 
   return (
     <AppRootProviders data={data}>
       <head>
-        <title>{title}</title>
+        <title>{fullTitle}</title>
         <meta name="description" content={description} />
 
         <meta name="mobile-web-app-capable" content="yes" />

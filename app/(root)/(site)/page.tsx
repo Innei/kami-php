@@ -1,46 +1,39 @@
-'use client'
+import type { Metadata } from 'next'
 
-import Link from 'next/link'
-import React from 'react'
+import { omit } from '~/utils/_'
+import { apiClient } from '~/utils/api-client'
+import { dedupeFetch } from '~/utils/query-core'
 
-import { useModalStack } from '~/components/ui/Modal'
-import { Overlay } from '~/components/ui/Overlay'
+import PageClient from './page.client'
 
-export default function Home() {
-  const [show, setShow] = React.useState(false)
-  const modal = useModalStack()
+const fetchHomePageData = () => {
+  return dedupeFetch(['home-data'], async () => {
+    const aggregateData = await apiClient.aggregate.getTop()
+
+    return omit({ ...aggregateData }, ['says'])
+  })
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const {} = await fetchHomePageData()
+  // return {}
+  return {}
+}
+
+const IndexView = async () => {
+  const data = await fetchHomePageData()
 
   return (
-    <>
-      <Link href="/posts">Posts</Link>
-      <button
-        onClick={() => {
-          modal.present({
-            component: () => <span>Test</span>,
-            name: 'Test',
-          })
-        }}
-      >
-        Present
-      </button>
-      <Overlay
-        show={show}
-        onClose={() => {
-          console.log('close')
-          setShow(false)
-        }}
-        blur
-      >
-        <Link href="/posts">Posts</Link>
-        <br />
-        <Link href="/posts?a=1">Posts?a=1</Link>
-
-        <br />
-        <Link href="/posts/1">Posts/1</Link>
-        <br />
-
-        <Link href="/posts?1">Posts?1</Link>
-      </Overlay>
-    </>
+    <main>
+      <PageClient data={data} />
+    </main>
   )
 }
+
+// IndexView.getInitialProps = async () => {
+//   const aggregateData = await apiClient.aggregate.getTop()
+
+//   return omit({ ...aggregateData }, ['says']) as any
+// }
+
+export default IndexView

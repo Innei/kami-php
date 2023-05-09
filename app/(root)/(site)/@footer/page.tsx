@@ -48,7 +48,7 @@ export const FooterContent: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <div className="left to-center">
+      <div className="justify-center flex flex-col items-center sm:items-start">
         <p>
           © {thisYear !== 2020 && '2020-'}
           {thisYear}{' '}
@@ -85,7 +85,7 @@ export const FooterContent: FC = () => {
           </p>
         </ImpressionView>
       </div>
-      <div className="right to-center">
+      <div className="flex flex-col items-center sm:items-end justify-center">
         <p className="mr-12 phone:mr-0">
           {navigation.map((nav, i) => {
             return (

@@ -2,7 +2,7 @@
   @apply z-[1] transform-gpu;
 
   a:hover {
-    color: theme(colors.theme.secondary);
+    color: theme(colors.theme.accent);
   }
 
   p {
@@ -18,8 +18,7 @@
   }
 
   & {
-    color: #fff;
-    color: var(--light-font);
+    color: theme(colors.always.white);
     position: relative;
     padding: 10vw 0 2em;
   }
@@ -61,18 +60,4 @@
   box-sizing: content-box;
 
   @apply grid grid-cols-1 sm:grid-cols-2;
-
-  :global {
-    .to-center {
-      @apply justify-center;
-    }
-
-    .left {
-      @apply flex flex-col items-center sm:items-start;
-    }
-
-    .right {
-      @apply flex flex-col items-center sm:items-end;
-    }
-  }
 }

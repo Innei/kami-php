@@ -2,11 +2,11 @@
 
 import { animateValue } from 'framer-motion'
 
-export const springScrollToTop = () => {
+export const springScrollTo = (y: number) => {
   const scrollTop =
     document.documentElement.scrollTop || document.body.scrollTop
   const animation = animateValue({
-    keyframes: [scrollTop, 0],
+    keyframes: [scrollTop, y],
     autoplay: true,
     type: 'spring',
     damping: 24,
@@ -18,4 +18,23 @@ export const springScrollToTop = () => {
       window.scrollTo(0, latest)
     },
   })
+}
+export const springScrollToTop = () => {
+  springScrollTo(0)
+}
+
+// TODO check it
+export const springScrollToElement = (element: HTMLElement, delta = 40) => {
+  const y = calculateElementTop(element)
+  const to = y - delta
+  springScrollTo(to)
+}
+
+const calculateElementTop = (el: HTMLElement) => {
+  let top = 0
+  while (el) {
+    top += el.offsetTop
+    el = el.offsetParent as HTMLElement
+  }
+  return top
 }
