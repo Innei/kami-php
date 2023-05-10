@@ -1,19 +1,17 @@
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 import { memo, useEffect } from 'react'
-
-import { ModalStackProvider } from '@mx-space/kami-design/components/Modal'
 
 import { useAppStore } from '~/atoms/app'
 
-export const DebugLayout: FC = memo((props) => {
+import { ModalStackProvider } from '../ui/Modal'
+
+export const DebugLayout: FC = memo((props: PropsWithChildren) => {
   useEffect(() => {
     useAppStore.getState().updateViewport()
   }, [])
 
-  const mobile = useAppStore((state) => state.viewport.mobile)
-
   return (
-    <ModalStackProvider isMobileViewport={mobile}>
+    <ModalStackProvider>
       <div
         style={{
           maxWidth: '600px',
