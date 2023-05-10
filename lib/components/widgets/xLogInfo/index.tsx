@@ -101,7 +101,7 @@ export const XLogInfoBase: FC<{
           setCollapse((c) => !c)
         }}
       >
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between text-theme-black">
           <span className="flex flex-grow space-x-2">
             <SafeIcon />
             <span>此文章已经由它的创作者签名并安全地存储在区块链上。</span>
