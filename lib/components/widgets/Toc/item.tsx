@@ -1,7 +1,7 @@
-import { clsx } from 'clsx'
 import type { FC, RefObject } from 'react'
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 
+import { cn } from '~/utils/helper'
 import { springScrollToElement } from '~/utils/spring'
 
 import styles from './index.module.css'
@@ -74,7 +74,7 @@ export const TocItem: FC<{
           onClick(index)
           const $el = document.getElementById(title)
           if ($el) {
-            springScrollToElement($el, undefined, -100)
+            springScrollToElement($el, -100)
           }
         },
         [index, title, onClick],
