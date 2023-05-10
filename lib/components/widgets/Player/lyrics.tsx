@@ -98,7 +98,7 @@ const LyricsRender: FC<{ lyrics: string }> = memo(({ lyrics }) => {
   // )
   const classNameMap = useRef([
     '!opacity-0 pointer-events-none',
-    'text-gray-1',
+    'text-theme-gray-1',
     'filter blur-[2px]',
     'filter blur-[4px]',
   ]).current
@@ -108,7 +108,7 @@ const LyricsRender: FC<{ lyrics: string }> = memo(({ lyrics }) => {
       <div className="absolute bottom-2">
         <ul
           // ref={animationParent}
-          className="text-gray-1 !hover:children:text-shizuku-text !hover:children:filter-none max-w-[250px] pl-2"
+          className="!hover:children:text-shizuku-text !hover:children:filter-none max-w-[250px] pl-2 text-theme-gray-1"
         >
           {list.map((item, index) => {
             return (

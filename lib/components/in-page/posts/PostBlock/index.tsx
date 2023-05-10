@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -46,11 +47,16 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
   }, [initialData.categories])
 
   const router = useRouter()
-  const goToPost = useCallback(() => {
+
+  const postLink = useMemo(() => {
     const categorySlug = post.category?.slug ?? categoryMap.get(post.categoryId)
-    router.push(`/posts/${categorySlug}/${slug}`)
+    return `/posts/${categorySlug}/${slug}`
+  }, [])
+  const goToPost = useCallback(() => {
+    router.push(postLink)
     springScrollToTop()
-  }, [categoryMap, post.category?.slug, post.categoryId, slug])
+  }, [postLink, router])
+
   const hasImage = post.images?.length > 0 && post.images[0].src
 
   const [pinState, setPinState] = useState(!!pin)
@@ -100,7 +106,7 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
           className={cn('inline w-[calc(100%-1rem)]', !isMobile && 'relative')}
         >
           {d}
-          <small className="text-gray-2">（{week}）</small>
+          <small className="text-theme-gray-2">（{week}）</small>
           {isMobile && pinEl}
         </div>
         {!isMobile && (
@@ -111,7 +117,11 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
       </h1>
       <div className={styles.text}>
         {isMobile && <div className="my-2 text-lg font-medium">{tilteEl}</div>}
-        {post.summary && <p className="mb-2">摘要：{post.summary}</p>}
+        {post.summary && (
+          <p className="mb-2 text-sm leading-6 text-theme-gray-1">
+            摘要：{post.summary}
+          </p>
+        )}
         <article
           className={cn(
             styles['content'],
@@ -133,11 +143,20 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
           </p>
           <div className="mb-10" />
         </article>
-        <section className={styles.navigator}>
-          <button className={styles.btn} onClick={goToPost}>
-            查看原文
-          </button>
-        </section>
+        <div className="mt-3 flex justify-end">
+          <Link
+            href={postLink}
+            className="inline-flex items-center text-theme-accent hover:text-theme-accent [&>i]:hover:ml-2"
+            onClick={(e) => {
+              e.preventDefault()
+
+              goToPost()
+            }}
+          >
+            阅读全文{' '}
+            <i className="icon-[material-symbols--keyboard-double-arrow-right-rounded] text-lg transition-[margin]" />
+          </Link>
+        </div>
       </div>
       <div className="mb-4 pb-8" />
     </>

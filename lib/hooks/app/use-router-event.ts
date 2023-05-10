@@ -12,6 +12,12 @@ import { useAnalyze } from './use-analyze'
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
+/* eslint-disable @typescript-eslint/no-empty-interface */
+
+/* eslint-disable @typescript-eslint/no-empty-interface */
+
+/* eslint-disable @typescript-eslint/no-empty-interface */
+
 interface RouterNavigationEvent {
   url: string
 }
@@ -103,7 +109,7 @@ export const useAppRouterEventerListener = () => {
     ) {
       setIsRouterComplete(true)
     }
-  }, [currentPathname])
+  }, [currentPathname, searchParams])
 
   return pick(eventsRegisters.current, ['onStart', 'onComplete'])
 }

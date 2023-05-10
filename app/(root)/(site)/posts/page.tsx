@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 
@@ -82,36 +83,44 @@ export default function PostPage() {
       </article>
 
       {pagination && (
-        <section className="mt-4 text-center">
-          {pagination.hasPrevPage && (
-            <button
-              className="btn brown"
+        <section className="mt-4 flex justify-between">
+          {pagination.hasPrevPage ? (
+            <PaginationButton
               onClick={() => {
                 router.push(`/posts?page=${pagination.currentPage - 1}`)
               }}
             >
               上一页
-            </button>
+            </PaginationButton>
+          ) : (
+            <div />
           )}
           {pagination.hasNextPage && (
-            <button
-              className="btn !bg-secondary !text-white"
-              style={
-                pagination.hasNextPage && pagination.hasPrevPage
-                  ? { marginLeft: '6px' }
-                  : undefined
-              }
+            <PaginationButton
               onClick={() => {
                 router.push(`/posts?page=${pagination.currentPage + 1}`)
               }}
             >
               下一页
-            </button>
+            </PaginationButton>
           )}
         </section>
       )}
       <TagFAB />
       <SearchFAB />
     </ArticleLayout>
+  )
+}
+
+const PaginationButton = (props: { onClick: () => void; children: string }) => {
+  const { onClick, children: text } = props
+  return (
+    <motion.button
+      whileTap={{ scale: 0.9 }}
+      className="btn !rounded-md !border-[2px] !border-theme-accent !bg-transparent !text-theme-accent"
+      onClick={onClick}
+    >
+      {text}
+    </motion.button>
   )
 }

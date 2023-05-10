@@ -105,7 +105,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
   } = useInitialData()
   return (
     <form action="#" onSubmit={handleSubList} className="flex flex-col gap-5">
-      <p className="text-gray-1 text-sm">
+      <p className="text-sm text-theme-gray-1">
         欢迎订阅「{title}
         」，我会定期推送最新的内容到你的邮箱。
       </p>
@@ -124,7 +124,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
           .filter((type) => query.data?.allowTypes.includes(type as any))
           .map((name) => (
             <fieldset
-              className="inline-flex items-center children:cursor-pointer text-lg"
+              className="inline-flex items-center text-lg children:cursor-pointer"
               key={name}
             >
               <input
@@ -150,7 +150,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
           ))}
       </div>
 
-      <p className="text-gray-1 -mt-2 text-sm">
+      <p className="-mt-2 text-sm text-theme-gray-1">
         或者你也可以通过{' '}
         <a href="/feed" className="text-green" target="_blank">
           /feed

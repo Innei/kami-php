@@ -160,7 +160,7 @@ export const SearchPanel: FC<SearchPanelProps> = (props) => {
     <div className={styles['root']} onKeyDown={handleKeyDown} role="dialog">
       <input
         autoFocus
-        className="p-4 px-5 w-full text-[16px] leading-4 bg-transparent"
+        className="w-full bg-transparent p-4 px-5 text-[16px] leading-4"
         placeholder="Search..."
         defaultValue={defaultKeyword}
         value={keyword}
@@ -176,8 +176,8 @@ export const SearchPanel: FC<SearchPanelProps> = (props) => {
         }}
       />
       <div className={cn(styles['status-bar'], loading && styles['loading'])} />
-      <div className="flex-grow flex-shrink relative overflow-overlay">
-        <ul className="py-4 px-3 h-full" ref={listRef}>
+      <div className="overflow-overlay relative flex-shrink flex-grow">
+        <ul className="h-full px-3 py-4" ref={listRef}>
           {list.length === 0 && !loading ? (
             <div className="flex h-full items-center justify-center">
               <div className="flex flex-col items-center space-y-2">
@@ -208,7 +208,7 @@ export const SearchPanel: FC<SearchPanelProps> = (props) => {
                     <span className="block flex-1 flex-shrink-0 truncate">
                       {item.title}
                     </span>
-                    <span className="text-gray-2 block text-deepgray flex-grow-0 flex-shrink-0">
+                    <span className="text-deepgray block flex-shrink-0 flex-grow-0 text-theme-gray-2">
                       {item.subtitle}
                     </span>
                   </Link>
@@ -261,7 +261,7 @@ export const SearchOverlay: FC<OverlayProps> = (props) => {
     >
       <div
         className={cn(
-          'duration-200 transition-opacity',
+          'transition-opacity duration-200',
           !props.show && 'opacity-0',
         )}
       >
