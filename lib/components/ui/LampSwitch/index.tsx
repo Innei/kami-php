@@ -30,23 +30,21 @@ export const LampSwitch = withNoSSR(
           },
           y: window.innerHeight / 10,
         }}
+        onTap={() => {
+          event({
+            action: TrackerAction.Interaction,
+            label: `颜色切换`,
+          })
+
+          toggle()
+          props.onToggle()
+        }}
       >
         <div className={styles['select-line']}>
           <div className={styles['line']} />
         </div>
         <div className={styles['sakura-wrap']} {...props}>
-          <motion.div
-            className={styles['sakura-img']}
-            onClick={() => {
-              event({
-                action: TrackerAction.Interaction,
-                label: `颜色切换`,
-              })
-
-              toggle()
-              props.onToggle()
-            }}
-          />
+          <div className={styles['sakura-img']} />
         </div>
       </motion.div>
     )

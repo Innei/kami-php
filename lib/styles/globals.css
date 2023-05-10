@@ -121,7 +121,7 @@ a,
 }
 
 .btn {
-  @apply text-always-white rounded-full;
+  @apply rounded-full text-always-white;
 
   cursor: pointer;
   background-color: theme(colors.theme.accent);

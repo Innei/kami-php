@@ -121,6 +121,7 @@ module.exports = {
   },
   plugins: [
     addDynamicIconSelectors(),
+    require('tailwind-children'),
     function ({ addUtilities }) {
       const styles = {
         '.content-auto': {

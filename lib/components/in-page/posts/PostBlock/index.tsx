@@ -1,20 +1,16 @@
-import { clsx } from 'clsx'
-import Router from 'next/router'
+import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
 import React, { useCallback, useMemo, useState } from 'react'
 import removeMd from 'remove-markdown'
 
 import type { PostModel } from '@mx-space/api-client'
-import {
-  PhPushPin,
-  PhPushPinFill,
-} from '@mx-space/kami-design/components/Icons/for-post'
 
 import { useAppStore } from '~/atoms/app'
 import { useIsLogged } from '~/atoms/user'
-import { IconTransition } from '~/components/universal/IconTransition'
-import { useInitialData } from '~/hooks/use-initial-data'
-import { apiClient } from '~/utils/client'
+import { IconTransition } from '~/components/ui/Transition/icon-switch'
+import { useInitialData } from '~/hooks/app/use-initial-data'
+import { apiClient } from '~/utils/api-client'
+import { cn } from '~/utils/helper'
 import { springScrollToTop } from '~/utils/spring'
 import { parseDate } from '~/utils/time'
 
@@ -49,9 +45,10 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
     return map
   }, [initialData.categories])
 
+  const router = useRouter()
   const goToPost = useCallback(() => {
     const categorySlug = post.category?.slug ?? categoryMap.get(post.categoryId)
-    Router.push('/posts/[category]/[slug]', `/posts/${categorySlug}/${slug}`)
+    router.push(`/posts/${categorySlug}/${slug}`)
     springScrollToTop()
   }, [categoryMap, post.category?.slug, post.categoryId, slug])
   const hasImage = post.images?.length > 0 && post.images[0].src
@@ -70,9 +67,9 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
 
   const pinEl = (
     <div
-      className={clsx(
-        'absolute right-0 top-0 bottom-0 items-center hidden overflow-hidden h-5 w-5',
-        isLogged && 'cursor-pointer !inline-flex',
+      className={cn(
+        'absolute bottom-0 right-0 top-0 hidden h-5 w-5 items-center overflow-hidden',
+        isLogged && '!inline-flex cursor-pointer',
         !isLogged && pinState && 'pointer-events-none',
         pinState && 'text-red !inline-flex',
       )}
@@ -82,8 +79,8 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
       <i className="absolute h-full w-full">
         <IconTransition
           currentState={pinState ? 'solid' : 'regular'}
-          regularIcon={<PhPushPin />}
-          solidIcon={<PhPushPinFill />}
+          regularIcon={<i className="icon-[ph--push-pin]" />}
+          solidIcon={<i className="icon-[ph--push-pin-fill]" />}
         />
       </i>
     </div>
@@ -98,12 +95,9 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
   )
   return (
     <>
-      <h1 className={clsx(styles.head, 'headline', isMobile && '!mb-0')}>
+      <h1 className={cn(styles.head, 'headline', isMobile && '!mb-0')}>
         <div
-          className={clsx(
-            'inline w-[calc(100%-1rem)]',
-            !isMobile && 'relative',
-          )}
+          className={cn('inline w-[calc(100%-1rem)]', !isMobile && 'relative')}
         >
           {d}
           <small className="text-gray-2">（{week}）</small>
@@ -116,10 +110,10 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
         )}
       </h1>
       <div className={styles.text}>
-        {isMobile && <div className="text-lg my-2 font-medium">{tilteEl}</div>}
+        {isMobile && <div className="my-2 text-lg font-medium">{tilteEl}</div>}
         {post.summary && <p className="mb-2">摘要：{post.summary}</p>}
         <article
-          className={clsx(
+          className={cn(
             styles['content'],
             hasImage ? styles['has-image'] : null,
           )}
@@ -145,7 +139,7 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
           </button>
         </section>
       </div>
-      <div className="pb-8 mb-4" />
+      <div className="mb-4 pb-8" />
     </>
   )
 }

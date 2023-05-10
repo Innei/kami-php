@@ -16,3 +16,6 @@ export const escapeHTMLTag = (html: string) => {
     .replace(ap, '&#39;')
     .replace(ic, '&#34;')
 }
+export const resolveUrl = (pathname: string | undefined, base: string) => {
+  return base.replace(/\/$/, '').concat(pathname || '')
+}

@@ -1,0 +1,82 @@
+import { memo } from 'react'
+
+import { useAppStore } from '~/atoms/app'
+import { useIsLogged } from '~/atoms/user'
+import { TextUpTransitionView } from '~/components/ui/Transition/text-up'
+import { useIsClient } from '~/hooks/common/use-is-client'
+import { resolveUrl } from '~/utils/helper'
+
+import { useArticleLayoutProps } from './hooks'
+import styles from './index.module.css'
+
+export const ArticleLayoutTitle = memo<{ animate?: boolean }>(
+  ({ animate = true }) => {
+    const {
+      title,
+      type,
+      id,
+      subtitle,
+      subtitleAnimation = true,
+    } = useArticleLayoutProps()
+    const isLogged = useIsLogged()
+    const url = useAppStore((state) => state.appUrl)
+    const isClientSide = useIsClient()
+    if (!title) {
+      return null
+    }
+    return (
+      <section className={styles['post-title']}>
+        <h1 className={styles['h1']} suppressHydrationWarning>
+          {isClientSide ? (
+            <TextUpTransitionView appear={animate} key={title}>
+              {title}
+            </TextUpTransitionView>
+          ) : (
+            title
+          )}
+
+          {type && id && isLogged && url ? (
+            <a
+              data-hide-print
+              className="edit-link float-right"
+              target="_blank"
+              href={
+                resolveUrl(
+                  `#/${type === 'page' ? 'pages' : 'posts'}/edit?id=${id}`,
+                  url.adminUrl,
+                )!
+              }
+            >
+              编辑
+            </a>
+          ) : null}
+        </h1>
+
+        {subtitle && (
+          <h2 suppressHydrationWarning>
+            {isClientSide && subtitleAnimation ? (
+              typeof subtitle === 'string' ? (
+                <TextUpTransitionView appear={animate} key={subtitle}>
+                  {subtitle}
+                </TextUpTransitionView>
+              ) : (
+                subtitle.map((str, index) => (
+                  <TextUpTransitionView
+                    appear={animate}
+                    className="mb-2"
+                    initialDelay={index}
+                    key={subtitle[index]}
+                  >
+                    {str}
+                  </TextUpTransitionView>
+                ))
+              )
+            ) : (
+              subtitle
+            )}
+          </h2>
+        )}
+      </section>
+    )
+  },
+)

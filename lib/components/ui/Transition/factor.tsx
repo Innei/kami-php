@@ -1,6 +1,7 @@
 import type { Target } from 'framer-motion'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
+import { Fragment } from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
 import { isClientSide } from '~/utils/env'
@@ -13,6 +14,20 @@ interface TransitionViewParams {
   initial?: Target
 }
 
+const PresenceFC = ({
+  children,
+  onExited,
+  useAnimatePresence,
+}: PropsWithChildren<{
+  useAnimatePresence: boolean
+  onExited?: () => void
+}>) => {
+  return useAnimatePresence ? (
+    <AnimatePresence onExitComplete={onExited}>{children}</AnimatePresence>
+  ) : (
+    <Fragment>{children}</Fragment>
+  )
+}
 export const createTransitionView = (
   params: TransitionViewParams,
 ): FC<PropsWithChildren<BaseTransitionProps>> => {
@@ -24,16 +39,25 @@ export const createTransitionView = (
       appear = true,
       in: In = true,
       animation = {},
+      as = 'div',
+      useAnimatePresence = true,
+      ...rest
     } = props
 
     const { enter = 0, exit = 0 } = timeout
+    const MotionComponent = motion[as]
+
     return (
-      <AnimatePresence onExitComplete={props.onExited}>
+      <PresenceFC
+        useAnimatePresence={useAnimatePresence}
+        onExited={props.onExited}
+      >
         {In &&
           (!appear ? (
             props.children
           ) : (
-            <motion.div
+            // @ts-ignore
+            <MotionComponent
               initial={isClientSide() && { ...(initial || from) }}
               animate={{
                 ...to,
@@ -56,11 +80,12 @@ export const createTransitionView = (
               transition={{
                 duration,
               }}
+              {...rest}
             >
               {props.children}
-            </motion.div>
+            </MotionComponent>
           ))}
-      </AnimatePresence>
+      </PresenceFC>
     )
   }
 }

@@ -1,6 +1,13 @@
-import type { Inertia, Keyframes, Spring, Tween } from 'framer-motion'
+import type {
+  HTMLMotionProps,
+  Inertia,
+  Keyframes,
+  Spring,
+  Tween,
+  motion,
+} from 'framer-motion'
 
-export interface BaseTransitionProps {
+export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
   in?: boolean
   onExited?: () => void
   duration?: number
@@ -15,4 +22,10 @@ export interface BaseTransitionProps {
     enter?: Tween | Spring | Keyframes | Inertia
     exit?: Tween | Spring | Keyframes | Inertia
   }
+  /**
+   * @default true
+   */
+  useAnimatePresence?: boolean
+
+  as?: keyof typeof motion
 }
