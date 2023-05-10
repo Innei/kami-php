@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
 import { memo, useCallback, useMemo } from 'react'
 
@@ -38,6 +38,7 @@ export const MLink: FC<{
     ),
     [],
   )
+  const router = useRouter()
   const handleRedirect = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       const href = props.href
@@ -56,15 +57,15 @@ export const MLink: FC<{
 
         switch (headPath) {
           case 'posts': {
-            Router.push('/posts/[category]/[slug]', toUrlParser.pathname)
+            router.push(toUrlParser.pathname)
             break
           }
           case 'notes': {
-            Router.push('/notes/[id]', toUrlParser.pathname)
+            router.push(toUrlParser.pathname)
             break
           }
           case 'category': {
-            Router.push('/categories/[slug]', toUrlParser.pathname)
+            router.push(toUrlParser.pathname)
             break
           }
           default: {
@@ -94,7 +95,7 @@ export const MLink: FC<{
           </>
         )}
       >
-        <p>{props.href}</p>
+        <span>{props.href}</span>
       </FloatPopover>
     </div>
   )
