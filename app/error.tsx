@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import { ErrorView } from '~/components/app/error'
 import { API_URL } from '~/constants/env'
 
@@ -20,6 +22,11 @@ export default function ErrorPage({ error }: any) {
     statusCode = '无数据'
     showBg = true
   }
+
+  useEffect(() => {
+    console.error(error)
+    console.dir(error)
+  }, [error])
 
   return (
     <>

@@ -1,5 +1,4 @@
 'use client'
-
-export default async function PostPage() {
-  return 'Test'
+export default function PostPage() {
+  return <span>Tes</span>
 }

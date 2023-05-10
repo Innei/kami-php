@@ -25,7 +25,7 @@ import { HeaderDrawerNavigation } from './HeaderDrawerNavigation'
 import { MenuList } from './HeaderMenuList'
 import styles from './index.module.css'
 
-export const Header: FC = () => {
+export const SiteHeader: FC = () => {
   const {
     seo: { title, description },
   } = useInitialData()

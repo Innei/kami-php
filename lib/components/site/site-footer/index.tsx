@@ -14,7 +14,7 @@ import { useInitialData, useThemeConfig } from '~/hooks/app/use-initial-data'
 import { useFooterBackground } from '~/hooks/app/use-kami'
 
 import { FooterActions } from './actions'
-import styles from './page.module.css'
+import styles from './index.module.css'
 
 const version = Package.version
 
@@ -48,7 +48,7 @@ export const FooterContent: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <div className="justify-center flex flex-col items-center sm:items-start">
+      <div className="flex flex-col items-center justify-center sm:items-start">
         <p>
           © {thisYear !== 2020 && '2020-'}
           {thisYear}{' '}
@@ -85,7 +85,7 @@ export const FooterContent: FC = () => {
           </p>
         </ImpressionView>
       </div>
-      <div className="flex flex-col items-center sm:items-end justify-center">
+      <div className="flex flex-col items-center justify-center sm:items-end">
         <p className="mr-12 phone:mr-0">
           {navigation.map((nav, i) => {
             return (
@@ -114,7 +114,7 @@ const GatewayCount = () => {
   const gatewayCount = useAppStore((state) => state.gatewayOnline)
   return <>{gatewayCount || 1}</>
 }
-export default withNoSSR(() => {
+export const SiteFooter = withNoSSR(() => {
   return (
     <FooterContainer>
       <FooterContent />
