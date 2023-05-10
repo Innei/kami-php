@@ -154,7 +154,7 @@ export const PostBlock: FC<PostBlockProps> = (props) => {
             }}
           >
             阅读全文{' '}
-            <i className="icon-[material-symbols--keyboard-double-arrow-right-rounded] text-lg transition-[margin]" />
+            <i className="icon-[material-symbols--arrow-right-alt-rounded] text-lg transition-[margin]" />
           </Link>
         </div>
       </div>

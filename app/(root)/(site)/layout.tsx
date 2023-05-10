@@ -1,3 +1,4 @@
+import 'next/navigation'
 import type { PropsWithChildren } from 'react'
 
 import { SiteBackground } from '~/components/site/background'
@@ -8,7 +9,7 @@ import { SiteHeader } from '~/components/site/site-header/Header'
 import { MusicMiniPlayerStoreControlled } from '~/components/widgets/Player'
 
 import { Effect } from './effect'
- 
+
 export default function SiteLayout(slots: PropsWithChildren) {
   const { children } = slots
 

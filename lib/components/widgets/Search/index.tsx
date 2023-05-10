@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import throttle from 'lodash-es/throttle'
 import Link from 'next/link'
 import type { FC, KeyboardEventHandler } from 'react'
@@ -157,7 +158,22 @@ export const SearchPanel: FC<SearchPanelProps> = (props) => {
   )
 
   return (
-    <div className={styles['root']} onKeyDown={handleKeyDown} role="dialog">
+    <motion.div
+      className={styles['root']}
+      onKeyDown={handleKeyDown}
+      role="dialog"
+      initial={{
+        translateY: 20,
+      }}
+      animate={{
+        translateY: 0,
+        transition: {
+          type: 'spring',
+          stiffness: 260,
+          damping: 10,
+        },
+      }}
+    >
       <input
         autoFocus
         className="w-full bg-transparent p-4 px-5 text-[16px] leading-4"
@@ -236,7 +252,7 @@ export const SearchPanel: FC<SearchPanelProps> = (props) => {
           </svg>
         </a>
       </div>
-    </div>
+    </motion.div>
   )
 }
 export const SearchOverlay: FC<OverlayProps> = (props) => {
