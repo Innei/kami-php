@@ -6,7 +6,7 @@ import { useThemeConfig } from '~/hooks/app/use-initial-data'
 
 export const DynamicFooterScript = memo(() => {
   const themeConfig = useThemeConfig()
-  const analyze = themeConfig.function.analyze
+  const analyze = themeConfig?.function?.analyze || {}
   const AnalyzeScripts = useMemo(
     () =>
       analyze.enable &&

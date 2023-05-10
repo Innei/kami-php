@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC } from 'react'
 
 import { useKamiConfig } from '~/hooks/app/use-initial-data'
@@ -31,10 +33,9 @@ export const DefaultLogo: FC<JSX.IntrinsicElements['svg']> = (props) => {
 }
 
 export const CustomLogo: FC<JSX.IntrinsicElements['svg']> = (props) => {
-  const {
-    site: { logoSvg },
-  } = useKamiConfig()
-  // FIXME: div props
+  const { site } = useKamiConfig()
+  const { logoSvg } = site
+
   const { className, height, onAnimationEnd } = props
   if (logoSvg) {
     return (

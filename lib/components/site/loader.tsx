@@ -7,6 +7,7 @@ import { CustomLogo } from '~/components/universal/Logo'
 
 const Loader: FC = () => {
   const ref = useRef<HTMLDivElement>(null)
+
   return (
     <>
       <div className="loader" ref={ref} />

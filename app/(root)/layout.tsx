@@ -9,17 +9,17 @@
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
  */
+import type { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { userAgent } from 'next/server'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 
-import { fetchThemeConfig } from '~/data/theme-config'
 import type { InitialDataType } from '~/providers/initial-data'
-import { $axios, apiClient } from '~/utils/api-client'
+import { queryInitialData } from '~/queries/initial'
+import { $axios } from '~/utils/api-client'
 
 import PKG from '../../package.json'
-import { FetchInitialDataError } from './fetch-error'
 import { AppRootProviders } from './providers'
 
 const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
@@ -42,37 +42,31 @@ const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
     'User-Agent'
   ] = `${userAgentObject.ua} NextJS/v${PKG.dependencies.next} Kami/${PKG.version}`
 
-  const [aggregateDataSettled, themeConfigSettled] = await Promise.allSettled([
-    apiClient.aggregate.getAggregateData().then((data) => ({ ...data })),
-    fetchThemeConfig(),
-  ])
+  return await queryInitialData()
+}
 
-  if (aggregateDataSettled.status === 'rejected') {
-    throw new FetchInitialDataError(
-      JSON.stringify({
-        message: '初始数据加载出错，检查服务端是否正常',
-        type: 'aggregate',
-      }),
-      'aggregate',
-    )
-  }
+export const generateMetadata = async (): Promise<Metadata> => {
+  const data = await queryInitialData()
+  const { aggregateData } = data
 
-  if (themeConfigSettled.status === 'rejected') {
-    throw new FetchInitialDataError(
-      JSON.stringify({
-        message: '主题配置加载出错，检查服务端是否正常',
-        type: 'config',
-      }),
-      'config',
-    )
-  }
-  const [aggregateData, themeConfig] = [
-    aggregateDataSettled.value,
-    themeConfigSettled.value,
-  ]
+  const { seo, user } = aggregateData
+  const { title, description } = seo
+  const fullTitle = `${title} · ${description}`
   return {
-    aggregateData,
-    config: themeConfig,
+    title: fullTitle,
+    description,
+    twitter: {
+      card: 'summary',
+    },
+    category: 'personal_site',
+    openGraph: {
+      type: 'website',
+      images: user.avatar,
+      title,
+      description,
+      siteName: 'Kami / Mix Space',
+      locale: 'zh_CN',
+    },
   }
 }
 
@@ -83,17 +77,10 @@ interface PropsWithSlot extends PropsWithChildren {
 export default async function RootLayout(props: PropsWithSlot) {
   const { children, head, footer } = props
   const data = await fetchInitialData(headers())
-  const { aggregateData } = data
-  const { seo } = aggregateData
-  const { title, description } = seo
-  const fullTitle = `${title} · ${description}`
 
   return (
     <AppRootProviders data={data}>
       <head>
-        <title>{fullTitle}</title>
-        <meta name="description" content={description} />
-
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="alternate" href="/feed" type="application/atom+xml" />
@@ -104,7 +91,7 @@ export default async function RootLayout(props: PropsWithSlot) {
       </head>
       <body className="loading" id="app">
         {children}
-        <footer>{footer}</footer>
+        {footer}
       </body>
     </AppRootProviders>
   )

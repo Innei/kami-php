@@ -1,5 +1,3 @@
-'use client'
-
 import { DynamicHeadMeta } from '~/components/site/head'
 
 export default () => {

@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
@@ -88,7 +90,6 @@ export const Header: FC = () => {
 
   const headerSubTitle = subtitle || description || ''
 
-  // const headerSubTitle = ''
   if (!isClient) {
     return null
   }

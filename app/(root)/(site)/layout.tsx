@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react'
 
 import { SiteBackground } from '~/components/site/background'
+import Loader from '~/components/site/loader'
 
 import { Effect } from './effect'
 
@@ -9,7 +10,6 @@ interface PageSlot {
   footer: React.ReactNode
   player: React.ReactNode
   extra: React.ReactNode
-  loader: React.ReactNode
 }
 export default function SiteLayout(slots: PropsWithChildren<PageSlot>) {
   const { children } = slots
@@ -17,7 +17,7 @@ export default function SiteLayout(slots: PropsWithChildren<PageSlot>) {
   return (
     <>
       {slots.header}
-
+      <Loader />
       <Effect />
 
       <SiteBackground />
@@ -29,7 +29,6 @@ export default function SiteLayout(slots: PropsWithChildren<PageSlot>) {
         {slots.player}
         {slots.extra}
       </div>
-      {slots.loader}
     </>
   )
 }

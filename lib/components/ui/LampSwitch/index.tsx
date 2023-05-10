@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { memo, useRef, useState } from 'react'
+import { memo, useRef } from 'react'
 
 import { withNoSSR } from '~/components/app/no-ssr'
 import { TrackerAction } from '~/enums/tracker'
@@ -17,27 +17,25 @@ export const LampSwitch = withNoSSR(
     const { event } = useAnalyze()
     const toggle = useDarkModeSwitch()
 
-    const [y, setY] = useState(0)
     return (
       <motion.div
         className={styles['select-container']}
         ref={containerRef}
         data-hide-print
-        transition={{ type: 'inertia', velocity: 50 }}
-        animate={{
-          y,
+        whileTap={{
           transition: {
             type: 'spring',
             velocity: 0.5,
             damping: 5,
           },
+          y: window.innerHeight / 10,
         }}
       >
         <div className={styles['select-line']}>
           <div className={styles['line']} />
         </div>
         <div className={styles['sakura-wrap']} {...props}>
-          <div
+          <motion.div
             className={styles['sakura-img']}
             onClick={() => {
               event({
@@ -47,12 +45,6 @@ export const LampSwitch = withNoSSR(
 
               toggle()
               props.onToggle()
-
-              setY(window.innerHeight / 10)
-
-              setTimeout(() => {
-                setY(0)
-              }, 500)
             }}
           />
         </div>

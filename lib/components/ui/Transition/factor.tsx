@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
+import { isClientSide } from '~/utils/env'
 
 import type { BaseTransitionProps } from './typings'
 
@@ -33,7 +34,7 @@ export const createTransitionView = (
             props.children
           ) : (
             <motion.div
-              initial={{ ...(initial || from) }}
+              initial={isClientSide() && { ...(initial || from) }}
               animate={{
                 ...to,
                 transition: {

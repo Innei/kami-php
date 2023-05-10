@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC } from 'react'
 import { useCallback, useMemo, useRef } from 'react'
 import { useStateToRef } from 'react-shortcut-guide'
@@ -117,6 +119,7 @@ const SectionsInternal: FC<Omit<AggregateTop, 'says'>> = ({ notes, posts }) => {
                 ...reboundPreset,
               },
             }}
+            appear={doAnimation}
             timeout={{ enter: 1800 + 200 * i }}
             key={i}
           >

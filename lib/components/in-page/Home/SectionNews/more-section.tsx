@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC, MouseEvent } from 'react'
 import { memo, useCallback, useMemo, useState } from 'react'
 import useSWR from 'swr'

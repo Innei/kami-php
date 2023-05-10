@@ -1,3 +1,5 @@
+'use client'
+
 import throttle from 'lodash-es/throttle'
 import Link from 'next/link'
 import type { FC, KeyboardEventHandler } from 'react'

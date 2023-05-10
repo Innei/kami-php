@@ -1,8 +1,11 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import type { FC } from 'react'
 import React from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
+import { isClientSide } from '~/utils/env'
 
 export const TextUpTransitionView: FC<
   {
@@ -33,7 +36,9 @@ export const TextUpTransitionView: FC<
         <motion.span
           key={i}
           className="inline-block whitespace-pre"
-          initial={{ transform: 'translateY(10px)', opacity: 0 }}
+          initial={
+            isClientSide() && { transform: 'translateY(10px)', opacity: 0 }
+          }
           animate={{
             transform: 'translateY(0px)',
 

@@ -1,5 +1,3 @@
-'use client'
-
 import type { FC } from 'react'
 import { memo, useEffect } from 'react'
 import useSWR from 'swr'
@@ -60,7 +58,7 @@ export const FriendsSection: FC<{
       title={title}
       moreUrl="friends"
       icon={<i className="icon-[ph--users-duotone]" />}
-      className="w-full !block !gap-0"
+      className="!block w-full !gap-0"
     >
       <div className={styles['friends-wrap']}>
         {friends?.map((item) => {

@@ -48,9 +48,9 @@ export const emitTrackerEvent = (options: TrackerOptions) => {
 export const useAnalyze = () => {
   const config = useThemeConfig()
 
-  const GA_TRACKING_ID = config.function.analyze.ga
+  const GA_TRACKING_ID = config?.function?.analyze?.ga
 
-  const isEnableGA = config.function.analyze.enable
+  const isEnableGA = config?.function?.analyze?.enable
 
   const pageview = useCallback(
     (url: string) => {
