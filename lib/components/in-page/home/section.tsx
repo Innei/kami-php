@@ -82,7 +82,7 @@ const SectionsInternal: FC<Omit<AggregateTop, 'says'>> = ({ notes, posts }) => {
     return result
   }, [sectionSet, titleMapping.note, titleMapping.post])
 
-  const { doAnimation } = useHomePageViewContext()
+  const { doFirstLoadAnimation } = useHomePageViewContext()
 
   const sectionMap: Record<HomePageSectionName, JSX.Element | null> = {
     post: sections.postSection ? (
@@ -119,8 +119,7 @@ const SectionsInternal: FC<Omit<AggregateTop, 'says'>> = ({ notes, posts }) => {
                 ...reboundPreset,
               },
             }}
-            appear={doAnimation}
-            timeout={{ enter: 1800 + 200 * i }}
+            timeout={{ enter: (doFirstLoadAnimation ? 1800 : 100) + 200 * i }}
             key={i}
           >
             {El}

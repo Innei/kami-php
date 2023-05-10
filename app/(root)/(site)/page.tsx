@@ -15,8 +15,6 @@ const fetchHomePageData = () => {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  // const {} = await fetchHomePageData()
-  // return {}
   return {}
 }
 
@@ -29,11 +27,5 @@ const IndexView = async () => {
     </main>
   )
 }
-
-// IndexView.getInitialProps = async () => {
-//   const aggregateData = await apiClient.aggregate.getTop()
-
-//   return omit({ ...aggregateData }, ['says']) as any
-// }
 
 export default IndexView

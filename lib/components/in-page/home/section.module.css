@@ -2,10 +2,6 @@
   @apply min-h-[34rem];
 
   :global {
-    .news-item {
-      margin-bottom: 5em;
-    }
-
     .title::before {
       content: '';
       width: 3rem;

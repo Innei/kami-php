@@ -12,15 +12,9 @@ import { useAnalyze } from './use-analyze'
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
-interface RouterNavigationEvent {}
+interface RouterNavigationEvent {
+  url: string
+}
 
 type RouterEventFunction = (e: RouterNavigationEvent) => void
 
@@ -122,8 +116,12 @@ export const useRouterEvent = () => {
     new QProgress({ colorful: false, color: 'var(--accent)' }),
   )
   useOnceClientEffect(() => {
-    registers.onComplete(() => {
+    registers.onComplete((e) => {
       progressBarRef.current.finish()
+
+      history.backPath = history.backPath
+        ? [...history.backPath, e.url]
+        : [e.url]
 
       pageview(location.pathname + location.search)
     })

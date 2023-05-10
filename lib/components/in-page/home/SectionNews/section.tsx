@@ -35,7 +35,7 @@ export const SectionWrap = memo(
     } = props
     const colorMode = useCurrentColorMode()
     return (
-      <div className="news-item" ref={ref}>
+      <div className="mb-14" ref={ref}>
         <div className="news-head">
           <h3
             className="title"
@@ -45,7 +45,7 @@ export const SectionWrap = memo(
             }}
             suppressHydrationWarning
           >
-            <div className="absolute left-4 z-1 transform scale-120">
+            <div className="scale-120 absolute left-4 z-1 transform">
               {icon}
             </div>
 
@@ -65,9 +65,9 @@ export const SectionWrap = memo(
             </h3>
           )}
         </div>
-        <div className="news-body mt-4 mb-8">
+        <div className="news-body mb-8 mt-4">
           <div
-            className={cn('grid sm:grid-cols-4 grid-cols-2 gap-4', className)}
+            className={cn('grid grid-cols-2 gap-4 sm:grid-cols-4', className)}
             {...rest}
           >
             {props.children}

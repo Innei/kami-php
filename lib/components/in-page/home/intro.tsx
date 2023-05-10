@@ -15,7 +15,7 @@ import styles from './intro.module.css'
 
 const wrapperProps = { className: '!w-full !h-full !border-none !shadow-none' }
 export const HomeIntro: FC = () => {
-  const { doAnimation } = useHomePageViewContext()
+  const { doFirstLoadAnimation: doAnimation } = useHomePageViewContext()
   const user = useUserStore((state) => state.master)
 
   if (!user) {
@@ -38,7 +38,7 @@ export const HomeIntro: FC = () => {
 
         <TextUpTransitionView
           appear={doAnimation}
-          className="leading-7 mt-2 text-theme-gray-1"
+          className="mt-2 leading-7 text-theme-gray-1"
         >
           {user.introduce || ''}
         </TextUpTransitionView>
@@ -51,7 +51,7 @@ export const HomeIntro: FC = () => {
 // 首页 社交 图标栏
 const Social: FC = withNoSSR(() => {
   const config = useThemeConfig()
-  const { doAnimation } = useHomePageViewContext()
+  const { doFirstLoadAnimation: doAnimation } = useHomePageViewContext()
   const { social } = config.site
 
   return (
@@ -83,7 +83,7 @@ const Social: FC = withNoSSR(() => {
               )}
               headless
             >
-              <div className="bg-theme-bg px-3 py-2 border border-dark-100 border-opacity-10 rounded-full shadow-out-sm">
+              <div className="rounded-full border border-dark-100 border-opacity-10 bg-theme-bg px-3 py-2 shadow-out-sm">
                 {item.title}
               </div>
             </FloatPopover>
