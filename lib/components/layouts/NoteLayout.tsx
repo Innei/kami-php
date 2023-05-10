@@ -1,4 +1,4 @@
-// import clsx from 'clsx'
+// import { cn } from '~/utils/helper'
 // import dayjs from 'dayjs'
 // import dynamic from 'next/dynamic'
 // import type { ReactNode } from 'react'
@@ -149,7 +149,7 @@
 //             <Collapse isOpened={!!banner}>
 //               {banner && (
 //                 <div
-//                   className={clsx(
+//                   className={cn(
 //                     'mt-8 p-4 flex justify-center ml-[calc(-3em)] mr-[calc(-3em)] w900:ml-[-1.25em] w900:mr-[-1.25em] w900:text-sm leading-8',
 //                     banner.className,
 //                   )}

@@ -43,8 +43,8 @@ export const LampSwitch = withNoSSR(
         <div className={styles['select-line']}>
           <div className={styles['line']} />
         </div>
-        <div className={styles['sakura-wrap']} {...props}>
-          <div className={styles['sakura-img']} />
+        <div className={styles['lamp-wrap']} {...props}>
+          <div className={styles['lamp-handle']} />
         </div>
       </motion.div>
     )

@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import 'next/navigation'
 import type { PropsWithChildren } from 'react'
 
@@ -10,13 +11,20 @@ import { MusicMiniPlayerStoreControlled } from '~/components/widgets/Player'
 
 import { Effect } from './effect'
 
-export default function SiteLayout(slots: PropsWithChildren) {
+export default async function SiteLayout(slots: PropsWithChildren) {
   const { children } = slots
+  const urlString = headers().get('x-url')
+
+  let pathname
+
+  if (urlString) {
+    pathname = new URL(urlString).pathname
+  }
 
   return (
     <>
       <SiteHeader />
-      <Loader />
+      {pathname === '/' && <Loader />}
       <Effect />
 
       <SiteBackground />

@@ -6,9 +6,9 @@ import { toast } from 'react-toastify'
 
 import { useUserStore } from '~/atoms/user'
 import { ImpressionView } from '~/components/app/impression-view'
+import { RelativeTime } from '~/components/common/RelativeTime'
 import { CloseIcon } from '~/components/icons/close'
 import { Avatar } from '~/components/ui/Avatar'
-import { RelativeTime } from '~/components/universal/RelativeTime'
 import { useInitialData } from '~/hooks/app/use-initial-data'
 import { useDetectPadOrMobile } from '~/hooks/ui/use-viewport'
 
@@ -32,9 +32,9 @@ export const ToastCard: FC<{
     >
       <div
         onClick={(e) => props.onClick?.(e.nativeEvent)}
-        className="bg-bg-opacity border-shallow relative mb-4 ml-auto mr-4 box-border flex w-full
-    cursor-pointer select-none items-center space-x-4
-    overflow-hidden rounded-xl border border-opacity-50 p-4
+        className="border-shallow relative mb-4 ml-auto mr-4 box-border flex w-full cursor-pointer
+    select-none items-center space-x-4 overflow-hidden
+    rounded-xl border border-opacity-50 bg-theme-bg-opacity p-4
   text-[12px] text-inherit backdrop-blur-md backdrop-brightness-110 backdrop-saturate-150 backdrop-filter"
         style={{
           width: isPadOrMobile ? 'calc(100% - 16px - 16px)' : '350px',
@@ -43,7 +43,7 @@ export const ToastCard: FC<{
         <div
           role="button"
           tabIndex={0}
-          className="dark:bg-dark-100 text-dark-50 absolute left-2 top-2 z-10 flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-theme-gray-6 bg-opacity-80 dark:text-white"
+          className="absolute left-2 top-2 z-10 flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-theme-gray-6 bg-opacity-80 text-dark-50 dark:bg-dark-100 dark:text-white"
           onClick={(e) => {
             e.stopPropagation()
             props.getToastId && toast.dismiss(props.getToastId())

@@ -89,6 +89,7 @@ module.exports = {
         always: twColors,
 
         ...windiColors,
+
         theme: {
           black: 'rgba(var(--black), <alpha-value>)',
           white: 'rgba(var(--white), <alpha-value>)',

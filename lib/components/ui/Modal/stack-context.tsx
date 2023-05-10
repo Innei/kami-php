@@ -294,7 +294,7 @@ export const ModalStackProvider: FC<PropsWithChildren> = memo((props) => {
           return (
             <Overlay
               center={!(isMobileViewport && useBottomDrawerInMobile)}
-              standaloneWrapperClassName={clsx(
+              standaloneWrapperClassName={cn(
                 isMobileViewport &&
                   useBottomDrawerInMobile &&
                   'items-end justify-center',

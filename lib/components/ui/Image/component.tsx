@@ -18,7 +18,7 @@ import type {
   ImgHTMLAttributes,
 } from 'react'
 
-import { LazyLoad } from '~/components/universal/Lazyload'
+import { LazyLoad } from '~/components/common/Lazyload'
 import { isDarkColorHex } from '~/utils/color'
 import { cn, escapeHTMLTag } from '~/utils/helper'
 
@@ -226,7 +226,7 @@ export const ImageLazy = memo(
         ) : (
           <div
             className={cn(
-              'transition-none relative max-w-full m-auto inline-block min-h-[1px]',
+              'relative m-auto inline-block min-h-[1px] max-w-full transition-none',
               rest.className,
             )}
             style={imageWrapperStyle}

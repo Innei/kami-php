@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation'
 import { isNumber } from '~/utils/_'
 import { isServerSide } from '~/utils/env'
 
-import { Seo } from './seo'
-
 export const errorToText = (statusCode: number) => {
   switch (statusCode) {
     case 404:
@@ -41,13 +39,11 @@ export const ErrorView: NextPage<{
   showBackButton = true,
   showRefreshButton = true,
   description,
-  seo = true,
 }) => {
   const router = useRouter()
   const message = errorToText(isNumber(statusCode) ? statusCode : 500)
   return (
     <div className="flex h-[calc(100vh-16rem)] flex-col items-center justify-center text-center text-current">
-      {seo && <Seo title={message} />}
       <div className="mb-4 flex items-center">
         <h1 className="inline-block align-top text-2xl font-medium">
           {statusCode}
