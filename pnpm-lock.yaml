@@ -129,6 +129,9 @@ devDependencies:
   dotenv:
     specifier: 16.0.3
     version: 16.0.3
+  postcss-import:
+    specifier: 15.1.0
+    version: 15.1.0(postcss@8.4.23)
   postcss-nesting:
     specifier: 11.2.2
     version: 11.2.2(postcss@8.4.23)
