@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import * as React from 'react'
 
+import { microReboundPreset, microdampingPreset } from '~/constants/spring'
+
 export const Collapse = ({
   isOpened,
   className,
@@ -20,10 +22,18 @@ export const Collapse = ({
             animate="open"
             exit="collapsed"
             variants={{
-              open: { opacity: 1, height: 'auto' },
-              collapsed: { opacity: 0, height: 0, overflow: 'hidden' },
+              open: {
+                opacity: 1,
+                height: 'auto',
+                transition: microReboundPreset,
+              },
+              collapsed: {
+                opacity: 0,
+                height: 0,
+                overflow: 'hidden',
+                transition: microdampingPreset,
+              },
             }}
-            transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
             className={className}
           >
             {children}

@@ -4,7 +4,7 @@ import { memo, useCallback, useMemo } from 'react'
 
 import { FloatPopover } from '~/components/ui/FloatPopover'
 
-import styles from './index.module.css'
+import styles from './link.module.css'
 
 export const MLink: FC<{
   href: string
@@ -78,25 +78,26 @@ export const MLink: FC<{
   )
 
   return (
-    <div className={styles['link']}>
-      <FloatPopover
-        triggerComponent={() => (
-          <>
-            <a
-              href={props.href}
-              target="_blank"
-              onClick={handleRedirect}
-              title={props.title}
-            >
-              {props.children}
-            </a>
+    <FloatPopover
+      as="span"
+      wrapperClassNames="!inline"
+      triggerComponent={() => (
+        <>
+          <a
+            className={styles['anchor']}
+            href={props.href}
+            target="_blank"
+            onClick={handleRedirect}
+            title={props.title}
+          >
+            {props.children}
+          </a>
 
-            {ExtendIcon}
-          </>
-        )}
-      >
-        <span>{props.href}</span>
-      </FloatPopover>
-    </div>
+          {ExtendIcon}
+        </>
+      )}
+    >
+      <span>{props.href}</span>
+    </FloatPopover>
   )
 })

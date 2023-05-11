@@ -1,50 +1,14 @@
 'use client'
 
 import type { FC } from 'react'
-import React, { Suspense, memo, useInsertionEffect } from 'react'
+import { Suspense, memo, useInsertionEffect } from 'react'
 
 import { API_URL } from '~/constants/env'
-import type { ThemeColor } from '~/data/typings/theme'
 import { useInitialData, useKamiConfig } from '~/hooks/app/use-initial-data'
+import { useCustomThemeColor } from '~/hooks/app/use-kami'
 import { isDev } from '~/utils/env'
 import { loadScript } from '~/utils/load-script'
 
-const useCustomThemeColor = (
-  themeColorConfig: string | ThemeColor | undefined,
-  cssVarKay = 'primary',
-) => {
-  if (!themeColorConfig) return [null, null] as const
-
-  let nextThemeColorConfig = themeColorConfig
-  if (typeof themeColorConfig === 'string') {
-    nextThemeColorConfig = {
-      dark: themeColorConfig,
-      light: themeColorConfig,
-      darkHover: themeColorConfig,
-      lightHover: themeColorConfig,
-    }
-  } else {
-    nextThemeColorConfig = {
-      dark: themeColorConfig.dark || themeColorConfig.light,
-      light: themeColorConfig.light || themeColorConfig.dark,
-      darkHover: themeColorConfig.darkHover || themeColorConfig.dark,
-      lightHover: themeColorConfig.lightHover || themeColorConfig.light,
-    }
-  }
-
-  const { dark, light, darkHover, lightHover } = nextThemeColorConfig
-
-  return [
-    // eslint-disable-next-line react/jsx-key
-    <style
-      id="theme-style"
-      dangerouslySetInnerHTML={{
-        __html: `html {--${cssVarKay}: ${light}!important;--${cssVarKay}-hover: ${lightHover}!important};html.dark {--${cssVarKay}: ${dark}!important;--${cssVarKay}-hover: ${darkHover}!important};`,
-      }}
-    />,
-    nextThemeColorConfig,
-  ] as const
-}
 export const DynamicHeadMeta: FC = memo(() => {
   const initialData = useInitialData()
   const title = initialData.seo.title

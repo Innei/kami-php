@@ -1,9 +1,11 @@
 'use client'
 
+import dayjs from 'dayjs'
 import { pick } from 'lodash-es'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
-import { memo, useEffect, useMemo, useRef } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { message } from 'react-message-popup'
 import { shallow } from 'zustand/shallow'
 
@@ -12,14 +14,21 @@ import type { PostModel } from '@mx-space/api-client'
 import { usePostCollection } from '~/atoms/collections/post'
 import type { ModelWithDeleted } from '~/atoms/collections/utils/base'
 import { KamiMarkdown } from '~/components/common/KamiMarkdown'
+import { MdiCalendar } from '~/components/icons/calendar'
+import { IonThumbsup } from '~/components/icons/thumbs-up'
+import { Copyright } from '~/components/in-page/posts/Copyright'
 import Outdate from '~/components/in-page/posts/Outdate'
 import { PostRelated } from '~/components/in-page/posts/PostRelated'
 import { ArticleLayout } from '~/components/layouts/ArticleLayout'
 import { Banner } from '~/components/ui/Banner'
+import { FeHash } from '~/components/ui/FontIcon/hash'
 import { ImageSizeMetaContext } from '~/components/ui/Image/contexts'
 import { Loading } from '~/components/ui/Loading'
+import { NumberRecorder } from '~/components/ui/NumberRecorder'
+import type { ActionProps } from '~/components/widgets/ArticleFooterAction'
+import { ArticleFooterAction } from '~/components/widgets/ArticleFooterAction'
 import { CommentLazy } from '~/components/widgets/Comment'
-import { Copyright } from '~/components/widgets/Copyright'
+import { DonatePopover } from '~/components/widgets/DonatePopover'
 import { SearchFAB } from '~/components/widgets/Search'
 import { SubscribeBell } from '~/components/widgets/SubscribeBell'
 import { XLogInfoForPost } from '~/components/widgets/xLogInfo'
@@ -28,31 +37,14 @@ import {
   useSetHeaderMeta,
   useSetHeaderShare,
 } from '~/hooks/app/use-header-meta'
-import { useInitialData } from '~/hooks/app/use-initial-data'
+import { useThemeConfig } from '~/hooks/app/use-initial-data'
 import { useJumpToSimpleMarkdownRender } from '~/hooks/app/use-jump-to-render'
 import { useBackgroundOpacity } from '~/hooks/app/use-kami'
-import { useIsClient } from '~/hooks/common/use-is-client'
 import { isEqualObject } from '~/utils/_'
+import { apiClient } from '~/utils/api-client'
+import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { imagesRecord2Map } from '~/utils/images'
 import { springScrollToTop } from '~/utils/spring'
-
-// const ArticleFooterAction = dynamic(() =>
-//   import('~/components/widgets/ArticleAction').then(
-//     (mo) => mo.ArticleFooterAction,
-//   ),
-// )
-// const DonatePopover = dynamic(() =>
-//   import('~/components/widgets/Donate').then((mo) => mo.DonatePopover),
-// )
-// const CommentLazy = dynamic(() =>
-//   import('~/components/widgets/Comment').then((mo) => mo.CommentLazy),
-// )
-
-// const NumberTransition = dynamic(() =>
-//   import('~/components/universal/NumberRecorder').then(
-//     (mo) => mo.NumberTransition,
-//   ),
-// )
 
 const useUpdatePost = (post: ModelWithDeleted<PostModel>) => {
   const beforeModel = useRef<PostModel>()
@@ -103,99 +95,98 @@ const useUpdatePost = (post: ModelWithDeleted<PostModel>) => {
   ])
 }
 
-// const FooterActionBar: FC<{ id: string }> = ({ id }) => {
-//   const [actions, setActions] = useState<ActionProps>({})
+const FooterActionBar: FC<{ id: string }> = ({ id }) => {
+  const [actions, setActions] = useState<ActionProps>({})
 
-//   const post = usePostCollection(
-//     (state) => state.data.get(id) || (noop as PostModel),
-//   )
+  const post = usePostCollection((state) => state.data.get(id))
 
-//   const themeConfig = useThemeConfig()
-//   const donateConfig = themeConfig.function.donate
-//   const createTime = dayjs(post.created)
-//     .locale('cn')
-//     .format('YYYY 年 M 月 D 日')
+  const themeConfig = useThemeConfig()
+  const donateConfig = themeConfig.function.donate
+  const createTime = dayjs(post?.created)
+    .locale('cn')
+    .format('YYYY 年 M 月 D 日')
 
-//   useEffect(() => {
-//     setActions({
-//       informs: [
-//         {
-//           icon: <MdiCalendar />,
-//           name: createTime,
-//         },
-//         {
-//           icon: <FeHash />,
-//           name: `${post.category.name}${
-//             post.tags.length ? `[${post.tags[0]}]` : ''
-//           }`,
+  useEffect(() => {
+    if (!post?.id) return
+    setActions({
+      informs: [
+        {
+          icon: <MdiCalendar />,
+          name: createTime,
+        },
+        {
+          icon: <FeHash />,
+          name: `${post.category.name}${
+            post.tags.length ? `[${post.tags[0]}]` : ''
+          }`,
 
-//           tip: () => (
-//             <div className="leading-7">
-//               <p>
-//                 分类：
-//                 <Link href={`/categories/${post.category.slug}`}>
-//                   {post.category.name}
-//                 </Link>
-//               </p>
-//               <p>{post.tags.length ? `标签：${post.tags.join(', ')}` : ''}</p>
-//             </div>
-//           ),
-//         },
-//         {
-//           icon: <PhBookOpen />,
-//           name: post.count.read ?? 0,
-//         },
-//       ],
+          tip: () => (
+            <div className="leading-7">
+              <p>
+                分类：
+                <Link href={`/categories/${post.category.slug}`}>
+                  {post.category.name}
+                </Link>
+              </p>
+              <p>{post.tags.length ? `标签：${post.tags.join(', ')}` : ''}</p>
+            </div>
+          ),
+        },
+        {
+          icon: <i className="icon-[ph--book-open]" />,
+          name: post.count.read ?? 0,
+        },
+      ],
 
-//       actions: [
-//         donateConfig.enable && {
-//           icon: <GgCoffee />,
-//           name: '',
-//           wrapperComponent: DonatePopover,
-//           callback: () => {
-//             window.open(donateConfig.link)
-//           },
-//         },
-//         {
-//           icon: <IonThumbsup />,
-//           name: (
-//             <span className="leading-[1.1] inline-flex items-center">
-//               <NumberTransition number={post.count?.like || 0} />
-//             </span>
-//           ),
-//           color: isLikedBefore(post.id) ? '#f1c40f' : undefined,
-//           callback: () => {
-//             if (isLikedBefore(post.id)) {
-//               return message.error('你已经支持过啦！')
-//             }
+      actions: [
+        donateConfig.enable && {
+          icon: <i className="icon-[ph--coffee]" />,
+          name: '',
+          wrapperComponent: DonatePopover,
+          callback: () => {
+            window.open(donateConfig.link)
+          },
+        },
+        {
+          icon: <IonThumbsup />,
+          name: (
+            <span className="inline-flex items-center leading-[1.1]">
+              <NumberRecorder number={post.count?.like || 0} />
+            </span>
+          ),
+          color: isLikedBefore(post.id) ? '#f1c40f' : undefined,
+          callback: () => {
+            if (isLikedBefore(post.id)) {
+              return message.error('你已经支持过啦！')
+            }
 
-//             apiClient.post.thumbsUp(post.id).then(() => {
-//               message.success('感谢支持！')
+            apiClient.post.thumbsUp(post.id).then(() => {
+              message.success('感谢支持！')
 
-//               setLikeId(post.id)
-//               usePostCollection.getState().up(post.id)
-//             })
-//           },
-//         },
-//       ],
-//       copyright: post.copyright,
-//     })
-//   }, [
-//     post.id,
-//     post.category.name,
-//     post.copyright,
-//     post.count.read,
-//     post.tags,
-//     donateConfig.enable,
-//     donateConfig.link,
-//     post.count.like,
-//     post.count,
-//     createTime,
-//     post.category.slug,
-//   ])
+              setLikeId(post.id)
+              usePostCollection.getState().up(post.id)
+            })
+          },
+        },
+      ],
+      copyright: post.copyright,
+    })
+  }, [
+    post?.id,
+    post?.category.name,
+    post?.copyright,
+    post?.count.read,
+    post?.tags,
+    donateConfig.enable,
+    donateConfig.link,
+    post?.count?.like,
+    post?.count,
+    createTime,
+    post?.category.slug,
+  ])
 
-//   return <ArticleFooterAction {...actions} />
-// }
+  return <ArticleFooterAction {...actions} />
+}
 
 const PostUpdateObserver: FC<{ id: string }> = memo(({ id }) => {
   const post = usePostCollection((state) => state.data.get(id))
@@ -221,10 +212,6 @@ export const PostView: PageOnlyProps = (props) => {
     shallow,
   )
 
-  const {
-    url: { webUrl },
-  } = useInitialData()
-
   useEffect(() => {
     springScrollToTop()
   }, [props.id])
@@ -235,8 +222,6 @@ export const PostView: PageOnlyProps = (props) => {
 
   useBackgroundOpacity(0.2)
   useJumpToSimpleMarkdownRender(post.id)
-
-  const isClientSide = useIsClient()
 
   const imagesMap = useMemo(() => imagesRecord2Map(post.images), [post.images])
 
@@ -270,16 +255,12 @@ export const PostView: PageOnlyProps = (props) => {
 
         <PostRelated id={post.id} />
         <SubscribeBell defaultType="post_c" />
-        {post.copyright && isClientSide ? (
-          <Copyright
-            date={post.modified}
-            link={new URL(location.pathname, webUrl).toString()}
-            title={post.title}
-          />
+        {post.copyright ? (
+          <Copyright date={post.modified} title={post.title} />
         ) : null}
 
         <XLogInfoForPost id={post.id} />
-        {/* <FooterActionBar id={post.id} /> */}
+        <FooterActionBar id={post.id} />
 
         <CommentLazy
           key={post.id}

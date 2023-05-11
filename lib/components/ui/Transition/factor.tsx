@@ -4,7 +4,6 @@ import type { FC, PropsWithChildren } from 'react'
 import { Fragment } from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
-import { isClientSide } from '~/utils/env'
 
 import type { BaseTransitionProps } from './typings'
 
@@ -58,7 +57,7 @@ export const createTransitionView = (
           ) : (
             // @ts-ignore
             <MotionComponent
-              initial={isClientSide() && { ...(initial || from) }}
+              initial={{ ...(initial || from) }}
               animate={{
                 ...to,
                 transition: {

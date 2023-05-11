@@ -27,6 +27,8 @@ export const FloatPopover: FC<
     debug?: boolean
 
     animate?: boolean
+
+    as?: keyof HTMLElementTagNameMap
   }> &
     UseFloatingOptions
 > = withNoSSR((props) => {
@@ -40,6 +42,7 @@ export const FloatPopover: FC<
     popoverWrapperClassNames,
     debug,
     animate = true,
+    as: As = 'div',
     ...floatingProps
   } = props
 
@@ -177,7 +180,8 @@ export const FloatPopover: FC<
   ])
 
   const TriggerWrapper = (
-    <div
+    <As
+      // @ts-ignore
       role={trigger === 'both' || trigger === 'click' ? 'button' : 'note'}
       tabIndex={0}
       className={cn('inline-block', wrapperClassNames)}
@@ -185,7 +189,7 @@ export const FloatPopover: FC<
       {...listener}
     >
       <TriggerComponent />
-    </div>
+    </As>
   )
 
   if (!props.children) {

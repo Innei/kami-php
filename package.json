@@ -68,7 +68,8 @@
     "socket.io-client": "4.6.1",
     "swr": "2.1.5",
     "validator": "13.9.0",
-    "zustand": "4.3.8"
+    "zustand": "4.3.8",
+    "react-smooth-number-counter": "npm:@reactify-components/smooth-number-counter"
   },
   "devDependencies": {
     "@iconify/tailwind": "0.1.2",

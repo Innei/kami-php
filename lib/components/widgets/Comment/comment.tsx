@@ -62,7 +62,11 @@ export const Comment: FC<
     $el && springScrollToElement($el, -window.innerHeight / 2 + 50)
   }, [id])
   return (
-    <div className={cn(styles['comment'], className)} id={id} {...htmlProps}>
+    <div
+      className={cn('comment', 'relative', styles['comment'], className)}
+      id={id}
+      {...htmlProps}
+    >
       <div className={cn(highlight && styles['highlight'], styles['inner'])}>
         <div className={styles['comment-avatar']}>{avatar}</div>
         <div className={styles['content']}>
@@ -80,7 +84,7 @@ export const Comment: FC<
             {location && <span>来自：{location}</span>}
             {whispers && <LaUserSecret />}
           </div>
-          <div className="text-shizuku-text">{content}</div>
+          <div className="text-theme-text">{content}</div>
           <ul className={styles['actions']}>
             {actions && actions.map((action, i) => <li key={i}>{action}</li>)}
           </ul>

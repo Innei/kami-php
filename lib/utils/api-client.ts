@@ -47,38 +47,36 @@ $axios.interceptors.response.use(
       return Promise.reject(error)
     }
 
-    if (process.env.NODE_ENV === 'development') {
-      console.error(error.message)
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //   console.error(error.message)
+    // }
 
-    if (
-      !error.response ||
-      error.response.status === 408 ||
-      error.code === 'ECONNABORTED'
-    ) {
-      if (isClientSide()) {
-        message.error('请求超时，请检查一下网络哦！')
-      } else {
+    if (isClientSide()) {
+      if (
+        !error.response ||
+        error.response.status === 408 ||
+        error.code === 'ECONNABORTED'
+      ) {
         const msg = '上游服务器请求超时'
         message.error(msg)
         console.error(msg, error.message)
       }
-    }
 
-    const response = error.response
-    if (response) {
-      const data = response.data
+      const response = error.response
+      if (response) {
+        const data = response.data
 
-      // eslint-disable-next-line no-empty
-      if (response.status == 401) {
-      } else if (data && data.message) {
-        message.error(
-          typeof data.message == 'string'
-            ? data.message
-            : Array.isArray(data.message)
-            ? data.message[0]
-            : '请求错误',
-        )
+        // eslint-disable-next-line no-empty
+        if (response.status == 401) {
+        } else if (data && data.message) {
+          message.error(
+            typeof data.message == 'string'
+              ? data.message
+              : Array.isArray(data.message)
+              ? data.message[0]
+              : '请求错误',
+          )
+        }
       }
     }
 

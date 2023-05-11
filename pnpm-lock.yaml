@@ -67,6 +67,9 @@ dependencies:
   react-shortcut-guide:
     specifier: 1.0.0
     version: 1.0.0
+  react-smooth-number-counter:
+    specifier: npm:@reactify-components/smooth-number-counter
+    version: /@reactify-components/smooth-number-counter@0.0.2(react@18.2.0)
   react-toastify:
     specifier: 9.1.2
     version: 9.1.2(react-dom@18.2.0)(react@18.2.0)
@@ -670,6 +673,14 @@ packages:
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
+
+  /@reactify-components/smooth-number-counter@0.0.2(react@18.2.0):
+    resolution: {integrity: sha512-3D5aTIe0/gEW84JcXQoX0PbqFYhFFQlfrG9pJYI2Q/59iIAmNplQILJ9QMgud0deSRfStLX9NyYGp+lAVge+KQ==}
+    peerDependencies:
+      react: '>=17 || >=18 || >=16'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@socket.io/component-emitter@3.1.0:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}

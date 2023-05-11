@@ -1,6 +1,10 @@
+'use client'
+
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+
+import { withNoSSR } from '~/components/app/no-ssr'
 
 import styles from './index.module.css'
 
@@ -8,7 +12,7 @@ export type LoadingProps = {
   loadingText?: string
 }
 
-export const Loading: FC<LoadingProps> = ({ loadingText }) => {
+export const Loading: FC<LoadingProps> = withNoSSR(({ loadingText }) => {
   const [pause, setPause] = useState(true)
   const { ref } = useInView({
     threshold: 0.5,
@@ -25,7 +29,7 @@ export const Loading: FC<LoadingProps> = ({ loadingText }) => {
     <div className={styles['loading']} ref={ref}>
       <div className="icon" key="icon">
         <svg
-          className="m-auto bg-transparent block"
+          className="m-auto block bg-transparent"
           width="200px"
           height="200px"
           viewBox="0 0 100 100"
@@ -49,4 +53,4 @@ export const Loading: FC<LoadingProps> = ({ loadingText }) => {
       <span>{loadingText}</span>
     </div>
   )
-}
+})

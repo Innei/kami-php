@@ -2,18 +2,24 @@ import dayjs from 'dayjs'
 import type { FC } from 'react'
 
 import { useMasterName } from '~/atoms/user'
+import { withNoSSR } from '~/components/app/no-ssr'
 import { Divider } from '~/components/ui/Divider'
+import { useInitialData } from '~/hooks/app/use-initial-data'
 import { cn } from '~/utils/helper'
 
 export interface CopyrightProps {
   title: string
-  link: string
+
   date?: string | null
 }
 
-export const Copyright: FC<CopyrightProps> = (props) => {
-  const { title, link, date } = props
+export const Copyright: FC<CopyrightProps> = withNoSSR((props) => {
+  const { title, date } = props
   const name = useMasterName()
+  const {
+    url: { webUrl },
+  } = useInitialData()
+  const link = new URL(location.pathname, webUrl).toString()
   return (
     <section
       className={cn(
@@ -53,4 +59,4 @@ export const Copyright: FC<CopyrightProps> = (props) => {
       </div>
     </section>
   )
-}
+})

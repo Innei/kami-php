@@ -10,8 +10,6 @@
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
-import { userAgent } from 'next/server'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 
@@ -19,31 +17,10 @@ import { DynamicFooterScript } from '~/components/site/footer'
 import { DynamicHeadMeta } from '~/components/site/head'
 import type { InitialDataType } from '~/providers/initial-data'
 import { queryInitialData } from '~/queries/initial'
-import { $axios } from '~/utils/api-client'
 
-import PKG from '../../package.json'
 import { AppRootProviders } from './providers'
 
-const fetchInitialData = async (headers: Headers): Promise<InitialDataType> => {
-  const userAgentObject = userAgent({
-    headers,
-  })
-
-  let ip =
-    headers.get('x-forwarded-for') ||
-    headers.get('X-Forwarded-For') ||
-    headers.get('X-Real-IP') ||
-    headers.get('x-real-ip') ||
-    undefined
-  if (ip && ip.split(',').length > 0) {
-    ip = ip.split(',')[0]
-  }
-  ip && ($axios.defaults.headers.common['x-forwarded-for'] = ip as string)
-
-  $axios.defaults.headers.common[
-    'User-Agent'
-  ] = `${userAgentObject.ua} NextJS/v${PKG.dependencies.next} Kami/${PKG.version}`
-
+const fetchInitialData = async (): Promise<InitialDataType> => {
   return await queryInitialData()
 }
 
@@ -74,7 +51,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props
-  const data = await fetchInitialData(headers())
+  const data = await fetchInitialData()
 
   return (
     <AppRootProviders data={data}>

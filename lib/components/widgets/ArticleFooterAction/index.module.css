@@ -1,0 +1,38 @@
+.icon {
+  @apply mr-[5px];
+}
+
+.root {
+  @apply my-2 flex flex-wrap items-center justify-between text-sm;
+
+  a {
+    color: inherit;
+  }
+
+  & > span {
+    cursor: pointer;
+    position: relative;
+  }
+
+  :global {
+    svg {
+      @apply inline-block;
+    }
+
+    .note-inform,
+    .note-action {
+      @apply text-theme-gray-2;
+
+      display: inline-flex;
+      align-items: center;
+
+      user-select: none;
+      font-weight: normal;
+      flex-shrink: 0;
+    }
+
+    .note-action {
+      margin: 0 0 0 auto;
+    }
+  }
+}

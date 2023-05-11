@@ -426,7 +426,7 @@ const MarkdownSupport = () => {
         useRef(() => (
           <button
             aria-label="support markdown"
-            className="btn blue pointer-events-none mr-2 flex-shrink-0 cursor-default rounded-full !p-2 text-lg"
+            className="btn pointer-events-none mr-2 flex-shrink-0 cursor-default rounded-full !bg-theme-secondary !p-2 text-lg"
           >
             <GridiconsNoticeOutline />
           </button>
@@ -454,7 +454,7 @@ const KaomojiButton: FC<{ onClickKaomoji: (kaomoji: string) => any }> = memo(
         trigger="both"
         wrapperClassNames="flex-shrink-0"
         triggerComponent={memo(() => (
-          <button className="btn green mr-[12px] cursor-pointer">
+          <button className="btn mr-[12px] cursor-pointer !bg-theme-secondary">
             {randomKaomoji.current}
           </button>
         ))}

@@ -26,7 +26,7 @@ export const springScrollToTop = () => {
 // TODO check it
 export const springScrollToElement = (element: HTMLElement, delta = 40) => {
   const y = calculateElementTop(element)
-  const to = y - delta
+  const to = y + delta
   springScrollTo(to)
 }
 

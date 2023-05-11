@@ -21,24 +21,24 @@ const IconMap = {
 
 const bgColorMap = {
   warning: 'bg-amber-50 dark:bg-amber-300',
-  info: 'bg-default-blue-50 dark:bg-default-blue-300',
-  success: 'bg-default-green-50 dark:bg-default-green-300',
-  error: 'bg-default-red-50 dark:bg-default-red-300',
+  info: 'bg-always-blue-50 dark:bg-always-blue-300',
+  success: 'bg-always-green-50 dark:bg-always-green-300',
+  error: 'bg-always-red-50 dark:bg-always-red-300',
 }
 
 const borderColorMap = {
   warning: 'border-amber-300',
-  info: 'border-default-blue-300',
+  info: 'border-always-blue-300',
 
-  success: 'border-default-green-300',
-  error: 'border-default-red-300',
+  success: 'border-always-green-300',
+  error: 'border-always-red-300',
 }
 
 const iconColorMap = {
   warning: 'text-amber-500',
-  info: 'text-default-blue-500',
-  success: 'text-default-green-500',
-  error: 'text-default-red-500',
+  info: 'text-always-blue-500',
+  success: 'text-always-green-500',
+  error: 'text-always-red-500',
 }
 
 export const Banner: FC<{
