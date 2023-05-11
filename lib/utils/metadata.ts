@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 
 import { queryInitialData } from '~/queries/initial'
 
@@ -30,7 +29,7 @@ export const createSeoMetadata = async (
       user: { avatar },
     },
     config,
-  } = await queryInitialData(headers())
+  } = await queryInitialData()
   const { site } = config || {}
   const { figure } = site || {}
   const randomImage = figure ? sample(figure) : getRandomImage(1)[0]

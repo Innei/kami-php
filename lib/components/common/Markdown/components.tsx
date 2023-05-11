@@ -168,6 +168,7 @@ export const Markdown: FC<PropsWithChildren<MdProps & MarkdownToJSX.Options>> =
         style={style}
         {...wrapperProps}
         ref={ref}
+        suppressHydrationWarning
         className={cn(
           styles['md'],
           codeBlockFully ? styles['code-fully'] : undefined,

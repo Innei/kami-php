@@ -74,6 +74,7 @@ const Image: FC<
   return (
     <>
       <div
+        suppressHydrationWarning
         className={cn(
           styles['lazyload-image'],
           !loaded && styles['image-hide'],
@@ -220,11 +221,12 @@ export const ImageLazy = memo(
       ],
     )
     return (
-      <figure style={style} className="inline-block">
+      <figure suppressHydrationWarning style={style} className="inline-block">
         {defaultImage ? (
           <img src={defaultImage} alt={alt} {...rest} ref={realImageRef} />
         ) : (
           <div
+            suppressHydrationWarning
             className={cn(
               'relative m-auto inline-block min-h-[1px] max-w-full transition-none',
               rest.className,

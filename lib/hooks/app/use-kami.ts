@@ -6,6 +6,7 @@ import { useKamiConfig } from '~/hooks/app/use-initial-data'
 import { shuffle } from '~/utils/_'
 import { getRandomImage } from '~/utils/images'
 
+import { useIsClient } from '../common/use-is-client'
 import { useCurrentColorMode, useIsDark } from '../ui/use-dark'
 
 const loadStyle = (css: string) => {
@@ -82,6 +83,9 @@ const ThemeColorDetector: FC<{
       __html: `html, html.light {--${cssVarKay}: ${light}!important;--${cssVarKay}-hover: ${lightHover}!important};`,
     },
   })
+
+  const isClient = useIsClient()
+  if (!isClient) return lightStyle
 
   return isDark
     ? createElement('style', {

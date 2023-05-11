@@ -9,7 +9,11 @@ export const MParagraph: FC<
   const { children, ...other } = props
   const { className, ...rest } = other
   return (
-    <p className={cn('paragraph', className)} {...rest}>
+    <p
+      suppressHydrationWarning
+      className={cn('paragraph', className)}
+      {...rest}
+    >
       {children}
     </p>
   )

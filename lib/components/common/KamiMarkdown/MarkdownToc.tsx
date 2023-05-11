@@ -1,22 +1,16 @@
-import dynamic from 'next/dynamic'
 import type { FC } from 'react'
-import { memo, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useActionStore } from '~/atoms/action'
 import { useAppStore } from '~/atoms/app'
+import { withNoSSR } from '~/components/app/no-ssr'
 import { FloatPopover } from '~/components/ui/FloatPopover'
 import { useModalStack } from '~/components/ui/Modal'
 import type { TocProps } from '~/components/widgets/Toc'
+import { Toc } from '~/components/widgets/Toc'
 import { useDetectIsNarrowThanLaptop } from '~/hooks/ui/use-viewport'
 
-const Toc = dynamic(
-  () => import('~/components/widgets/Toc').then((m) => m.Toc),
-  {
-    ssr: false,
-  },
-)
-
-export const MarkdownToc: FC<TocProps> = memo((props) => {
+export const MarkdownToc: FC<TocProps> = withNoSSR((props) => {
   const { present } = useModalStack()
   const isNarrowThanLaptop = useDetectIsNarrowThanLaptop()
   const isMobile = useAppStore((state) => state.viewport.mobile)
