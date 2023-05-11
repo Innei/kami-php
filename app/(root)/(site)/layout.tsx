@@ -29,13 +29,10 @@ export default async function SiteLayout(slots: PropsWithChildren) {
 
       <SiteBackground />
 
-      <div className="relative z-[1]">
-        {children}
-
-        <SiteFooter />
-        <MusicMiniPlayerStoreControlled />
-        <Extra />
-      </div>
+      <div className="app-content">{children}</div>
+      <SiteFooter />
+      <MusicMiniPlayerStoreControlled />
+      <Extra />
     </>
   )
 }

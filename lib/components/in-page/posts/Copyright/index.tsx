@@ -32,7 +32,7 @@ export const Copyright: FC<CopyrightProps> = withNoSSR((props) => {
       <p>文章作者：{name}</p>
       <p>
         文章链接：<span>{link}</span>{' '}
-        <a
+        <button
           onClick={() => {
             navigator.clipboard.writeText(link)
           }}
@@ -40,7 +40,7 @@ export const Copyright: FC<CopyrightProps> = withNoSSR((props) => {
           className="select-none"
         >
           [复制]
-        </a>
+        </button>
       </p>
       <p>
         最后修改时间:{' '}

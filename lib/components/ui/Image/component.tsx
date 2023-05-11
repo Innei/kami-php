@@ -1,11 +1,18 @@
 'use client'
 
 // import mediumZoom from 'medium-zoom'
+import {
+  AnimatePresence,
+  motion,
+  useAnimationControls,
+  useDomEvent,
+} from 'framer-motion'
 import React, {
   forwardRef,
   memo,
   useCallback,
   useEffect,
+  useId,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -18,7 +25,9 @@ import type {
   ImgHTMLAttributes,
 } from 'react'
 
+import { RootPortal } from '~/components/app/portal'
 import { LazyLoad } from '~/components/common/Lazyload'
+import { useIsDark } from '~/hooks/ui/use-dark'
 import { isDarkColorHex } from '~/utils/color'
 import { cn, escapeHTMLTag } from '~/utils/helper'
 
@@ -50,49 +59,117 @@ const Image: FC<
     'src' | 'alt'
   >
 > = memo(({ src, alt, height, width, popup = false, loaded, loaderFn }) => {
-  const imageRef = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    if (!popup) {
-      return
-    }
-    const $image = imageRef.current
-    if ($image) {
-      // const zoom = mediumZoom($image, {
-      //   background: 'var(--light-bg)',
-      // })
-      // return () => {
-      //   zoom.detach(zoom.getImages())
-      // }
-    }
-  }, [popup])
-
   useEffect(() => {
     loaderFn()
   }, [loaderFn])
 
+  const [show, setShow] = useState(false)
+  const id = useId()
+  const ref = useRef<HTMLImageElement>(null)
+  const controls = useAnimationControls()
+
   return (
-    <>
-      <div
-        suppressHydrationWarning
-        className={cn(
-          styles['lazyload-image'],
-          !loaded && styles['image-hide'],
-        )}
-        data-status={loaded ? 'loaded' : 'loading'}
-        onAnimationEnd={onImageAnimationEnd}
-      >
-        <img
+    <div
+      suppressHydrationWarning
+      className={cn(styles['lazyload-image'], !loaded && styles['image-hide'])}
+      data-status={loaded ? 'loaded' : 'loading'}
+      onAnimationEnd={onImageAnimationEnd}
+    >
+      {loaded ? (
+        <motion.img
+          ref={ref}
+          animate={controls}
+          className={cn(popup ? 'cursor-zoom-in' : '', 'relative')}
+          onClick={
+            popup
+              ? () => {
+                  setShow(true)
+                }
+              : undefined
+          }
+          layoutId={id}
           src={src}
           alt={alt}
-          ref={imageRef}
-          loading="lazy"
-          style={{ width, height }}
+          // style={{ width, height }}
+          onLayoutAnimationStart={() => {
+            if (!ref.current) return
+            ref.current.style.zIndex = '4'
+          }}
+          onLayoutAnimationComplete={() => {
+            if (!ref.current) return
+            ref.current.style.zIndex = ''
+          }}
         />
-      </div>
-    </>
+      ) : (
+        <img src={src} alt={alt} loading="lazy" style={{ width, height }} />
+      )}
+
+      {popup && (
+        <ImagePreview
+          id={id}
+          onClose={() => setShow(false)}
+          show={show}
+          src={src}
+          alt={alt}
+        />
+      )}
+    </div>
   )
 })
+
+const ImagePreview = (props: {
+  src?: string
+  show: boolean
+  onClose: () => void
+  alt?: string
+  id: string
+}) => {
+  const isDark = useIsDark()
+  const { alt, show, onClose, src, id } = props
+  useDomEvent(useRef(window), 'scroll', () => show && onClose())
+
+  return (
+    <RootPortal>
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            className="fixed inset-0 z-[98] flex cursor-zoom-out items-center justify-center"
+            animate={{
+              backgroundColor: [
+                `#${isDark ? '000000' : 'ffffff'}00`,
+                isDark ? '#111' : '#fff',
+              ],
+            }}
+            exit={{
+              backgroundColor: [
+                isDark ? '#111' : '#fff',
+                `#${isDark ? '000000' : 'ffffff'}00`,
+              ],
+              zIndex: 0,
+            }}
+          />
+        )}
+      </AnimatePresence>
+      {show && (
+        <motion.div
+          layout
+          className="fixed inset-0 z-[99] flex cursor-zoom-out items-center justify-center"
+          onClick={() => {
+            onClose()
+          }}
+        >
+          <motion.img
+            layout
+            layoutId={id}
+            src={src}
+            alt={alt}
+            className="max-h-[95%] max-w-[95%]"
+          />
+        </motion.div>
+      )}
+    </RootPortal>
+  )
+}
 
 const onImageAnimationEnd: React.AnimationEventHandler<HTMLDivElement> = (
   e,
@@ -117,7 +194,7 @@ export const ImageLazy = memo(
       backgroundColor = 'rgb(111,111,111)',
       popup = false,
       style,
-      overflowHidden = false,
+      // overflowHidden = false,
       getParentElWidth = (w) => w,
       showErrorMessage,
       ...rest
@@ -209,14 +286,14 @@ export const ImageLazy = memo(
         height: loaded ? undefined : height || calculatedSize.height,
         width: loaded ? undefined : width || calculatedSize.width,
 
-        ...(overflowHidden ? { overflow: 'hidden', borderRadius: '3px' } : {}),
+        // ...(overflowHidden ? { overflow: 'hidden', borderRadius: '3px' } : {}),
       }),
       [
         calculatedSize.height,
         calculatedSize.width,
         height,
         loaded,
-        overflowHidden,
+        // overflowHidden,
         width,
       ],
     )

@@ -33,7 +33,7 @@ export const SubscribeBell: FC<SubscribeBellProps> = (props) => {
           站点已开启邮件订阅，点亮小铃铛，订阅最新文章哦~
         </p>
 
-        <i className="text-secondary icon-[tabler--bell-ringing] mt-4 scale-150 transform text-3xl opacity-50 transition-opacity hover:opacity-100" />
+        <i className="icon-[tabler--bell-ringing] mt-4 scale-150 transform text-3xl text-theme-accent opacity-50 transition-opacity hover:opacity-100" />
       </button>
     </div>
   )

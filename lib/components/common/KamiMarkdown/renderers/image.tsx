@@ -93,7 +93,6 @@ const _Image: FC<{ src: string; alt?: string }> = ({ src, alt }) => {
       style={style}
       data-raw-height={height}
       data-raw-width={width}
-      overflowHidden
     />
   )
 }

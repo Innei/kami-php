@@ -23,6 +23,7 @@ import {
   PhUser,
   SiGlyphGlobal,
 } from '~/components/icons/comment'
+import { Button } from '~/components/ui/Button'
 import { FloatPopover } from '~/components/ui/FloatPopover'
 import { Input } from '~/components/ui/Input'
 import { kaomoji } from '~/constants/kaomoji'
@@ -354,17 +355,17 @@ export const CommentBox: FC<{
           />
 
           {onCancel && (
-            <button className="btn red" onClick={handleCancel}>
+            <Button className="btn red" onClick={handleCancel}>
               取消回复
-            </button>
+            </Button>
           )}
-          <button
+          <Button
             className="btn ml-[12px]"
             onClick={handleSubmit}
             disabled={text.trim().length === 0}
           >
             发送
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -426,7 +427,7 @@ const MarkdownSupport = () => {
         useRef(() => (
           <button
             aria-label="support markdown"
-            className="btn pointer-events-none mr-2 flex-shrink-0 cursor-default rounded-full !bg-theme-secondary !p-2 text-lg"
+            className="btn pointer-events-none mr-2 flex-shrink-0 cursor-not-allowed rounded-full border-[2px] !border-current !bg-transparent !p-2 text-lg !text-theme-accent"
           >
             <GridiconsNoticeOutline />
           </button>
@@ -454,9 +455,9 @@ const KaomojiButton: FC<{ onClickKaomoji: (kaomoji: string) => any }> = memo(
         trigger="both"
         wrapperClassNames="flex-shrink-0"
         triggerComponent={memo(() => (
-          <button className="btn mr-[12px] cursor-pointer !bg-theme-secondary">
+          <Button className="btn mr-[12px] cursor-pointer border-[2px] !border-current !bg-transparent !text-theme-accent">
             {randomKaomoji.current}
-          </button>
+          </Button>
         ))}
       >
         <ImpressionView
@@ -468,7 +469,7 @@ const KaomojiButton: FC<{ onClickKaomoji: (kaomoji: string) => any }> = memo(
             {kaomoji.map((emoji, i) => (
               <button
                 aria-label="kaomoji panel"
-                className="text-blue p-2"
+                className="p-2 text-theme-accent"
                 key={i}
                 onClick={() => {
                   event({
