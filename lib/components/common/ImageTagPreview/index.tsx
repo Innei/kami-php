@@ -12,7 +12,7 @@ export const ImageTagPreview: FC<{ src: string; alt: string }> = (props) => {
         <a
           href={src}
           target="_blank"
-          className="text-primary space-x-1 align-middle"
+          className="space-x-1 align-middle text-theme-primary"
         >
           <IonSearch className="relative top-[-2px] !inline !align-middle" />
           <span className="leading-[14px]">查看图片</span>

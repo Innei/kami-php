@@ -36,7 +36,7 @@ export const XLogSummary: FC<{
 
   return (
     <div
-      className={`border-gray-6 mt-4 space-y-2 rounded-xl border p-4 ${
+      className={`mt-4 space-y-2 rounded-xl border border-theme-gray-6 p-4 ${
         props.className || ''
       }`}
     >

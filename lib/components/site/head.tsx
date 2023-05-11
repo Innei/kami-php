@@ -42,10 +42,6 @@ export const DynamicHeadMeta: FC = memo(() => {
     <Suspense>
       <meta name="api_url" content={API_URL} />
 
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      />
       <meta name="theme-color" content={lightColor || '#39C5BB'} />
 
       {!isDev ? (
@@ -60,9 +56,7 @@ export const DynamicHeadMeta: FC = memo(() => {
       {css && css.length
         ? css.map((href, i) => <link rel="stylesheet" href={href} key={i} />)
         : null}
-      {initialData.seo.keywords && (
-        <meta name="keywords" content={initialData.seo.keywords.join(',')} />
-      )}
+
       {/* for pwa */}
       <meta name="application-name" content={title} />
       <meta name="apple-mobile-web-app-title" content={title} />

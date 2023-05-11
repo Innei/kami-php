@@ -1,3 +1,5 @@
+'use client'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import type { FC } from 'react'
 import { useId } from 'react'

@@ -34,7 +34,7 @@ export const CommentAtRender: FC<{ id: string }> = memo(({ id: value }) => {
   return (
     <a
       href="javascript:;"
-      className="text-primary mr-[12px]"
+      className="mr-[12px] text-theme-primary"
       onMouseOver={onMouseOver}
       onMouseLeave={onLeave}
       onClick={onClick}

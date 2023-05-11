@@ -46,6 +46,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
       siteName: 'Kami / Mix Space',
       locale: 'zh_CN',
     },
+    keywords: aggregateData.seo.keywords,
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'black',
+    },
   }
 }
 
@@ -56,17 +61,20 @@ export default async function RootLayout(props: PropsWithChildren) {
   return (
     <AppRootProviders data={data}>
       <head>
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="alternate" href="/feed" type="application/atom+xml" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+
         <link rel="sitemap" href="/sitemap.xml" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
         <style
           dangerouslySetInnerHTML={{
             __html: `.loader-logo{top:50%;left:50%;opacity:1;z-index:100;height:8em;color:#fff !important;position:fixed;transform:translate(-50%, -50%);transition:none !important;perspective:1500px}.loader-logo .animation{animation:zoom-in 1s ease-out backwards;position:relative;z-index:999;transform:translate3d(0, 0, 0);will-change:transform}.loader:before{top:50%;pointer-events:none;left:50%;z-index:99;content:'';width:100vmax;height:100vmax;position:fixed;border-radius:50%;background:var(--primary);transition: background .2s;transform:translate(-50%, -50%) scale(1.5);animation:fade-out 1s ease-out}body.loading .loader:before{pointer-events:all;opacity:1;transition:opacity 0.2s;animation:none}body.loading .loader-logo{transform:translate(-50%, -50%) scale(1);transition:transform 0.8s cubic-bezier(0.5, 0, 0.5, 1.5)}body.loading .loader-logo .animation{animation:none}@keyframes zoom-in{50%{transform:translate3d(0, 0, -300px);opacity:1}80%{opacity:1}to{transform:translate3d(0, 0, 1500px);opacity:0}}@keyframes fade-out{30%{opacity:1}60%{opacity:1}100%{opacity:0}}`,
           }}
         />
+
+        {/* <title>
+          {`${data.aggregateData.seo.title} · ${data.aggregateData.seo.description}`}
+        </title>
+        <meta name="description" content={data.aggregateData.seo.description} /> */}
         <DynamicHeadMeta />
       </head>
       <body className="loading" id="app">

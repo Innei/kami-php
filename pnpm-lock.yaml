@@ -4,6 +4,9 @@ dependencies:
   '@floating-ui/react-dom':
     specifier: 2.0.0
     version: 2.0.0(react-dom@18.2.0)(react@18.2.0)
+  '@formkit/auto-animate':
+    specifier: 1.0.0-beta.6
+    version: 1.0.0-beta.6
   '@iconify/json':
     specifier: 2.2.62
     version: 2.2.62
@@ -386,6 +389,10 @@ packages:
       '@floating-ui/dom': 1.2.7
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@formkit/auto-animate@1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:

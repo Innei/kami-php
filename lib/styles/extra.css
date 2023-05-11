@@ -99,7 +99,7 @@ ph {
 }
 
 .is-note .note-article {
-  background-color: var(--light-bg);
+  background-color: theme(colors.theme.bg.DEFAULT);
   margin: -30px -45px;
   padding: 30px 45px;
   border-radius: 0 6px 6px 0;
